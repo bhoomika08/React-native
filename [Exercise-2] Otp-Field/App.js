@@ -1,6 +1,7 @@
 import React from 'react';
 import {Text, View, StyleSheet, Alert} from 'react-native';
-import OtpInputs from "./Components/OtpInputs";
+import OtpInputs from './src/components/OtpInputs';
+import {Typography, Global, Colors, Spacing} from './src/styles';
 
 const inputs = Array(6).fill();
 
@@ -23,13 +24,12 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    ...Global.centerAlign,
   },
   header: {
-    fontSize: 25,
-    color: 'blue',
-    marginBottom: 10
+    ...Typography.fs25,
+    color: Colors.blue,
+    ...Spacing.mb10,
   },
 });
 
