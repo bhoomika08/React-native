@@ -64,7 +64,8 @@ class OtpInputs extends React.Component {
     return (
       <View style={styles.otpView}>
         {inputs.map((input, idx) => {
-          const numOtpVal = Number(otp[idx]?.value);
+          const {value, isActive, ref} = otp[idx];
+          const numOtpVal = Number(value);
           const otpValue = numOtpVal || numOtpVal == 0 ? numOtpVal : '';
           return (
             <TextInput
@@ -73,9 +74,7 @@ class OtpInputs extends React.Component {
               autoFocus={idx == 0 ? true : false}
               style={[
                 styles.otpField,
-                otp[idx]?.isActive
-                  ? styles.activeOtpField
-                  : styles.deactiveOtpField,
+                isActive ? styles.activeOtpField : styles.deactiveOtpField,
               ]}
               onFocus={() => this.activateInput(idx)}
               onBlur={() => this.deactivateInput(idx)}
@@ -85,7 +84,7 @@ class OtpInputs extends React.Component {
               onKeyPress={(event) =>
                 this.focusPrevious(event.nativeEvent.key, idx)
               }
-              ref={otp[idx].ref}
+              ref={ref}
             />
           );
         })}
