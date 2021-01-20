@@ -14,29 +14,28 @@ class OtpInputs extends React.Component {
     };
   }
 
-  focusPrevious(key, index) {
-    const {otp} = this.state;
-    if (key === 'Backspace' && index !== 0) {
-      otp[index - 1].ref.current.focus();
-    }
-  }
-
-  focusNext(index, value) {
+  focusInput(index, value) {
     const {otp} = this.state;
     const {getOtp} = this.props;
-    const isNumericValue = numRegex.test(value);
-    if (isNumericValue) {
-      if (index < otp.length - 1 && value) {
-        otp[index + 1].ref.current.focus();
-      }
-      otp[index]['value'] = value;
-      this.setState({otp});
 
-      if (index === otp.length - 1 && value) {
-        otp[index].ref.current.blur();
-        const otpValue = otp.map(({value}) => value);
-        getOtp(otpValue.join(''));
-      }
+    if (value == '' && index != 0) {
+      otp[index - 1].ref.current.focus();
+    }
+
+    const isNumericValue = numRegex.test(value);
+    if (!isNumericValue) {
+      return;
+    }
+    if (index < otp.length - 1) {
+      otp[index + 1].ref.current.focus();
+    }
+    otp[index]['value'] = value;
+    this.setState({otp});
+
+    if (index === otp.length - 1) {
+      otp[index].ref.current.blur();
+      const otpValue = otp.map(({value}) => value);
+      getOtp(otpValue.join(''));
     }
   }
 
@@ -80,10 +79,7 @@ class OtpInputs extends React.Component {
               onBlur={() => this.deactivateInput(idx)}
               maxLength={1}
               value={otpValue}
-              onChangeText={(val) => this.focusNext(idx, val)}
-              onKeyPress={(event) =>
-                this.focusPrevious(event.nativeEvent.key, idx)
-              }
+              onChangeText={(val) => this.focusInput(idx, val)}
               ref={ref}
             />
           );
