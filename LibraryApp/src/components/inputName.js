@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 import {Text, View, TextInput, StyleSheet} from 'react-native';
 import {setName} from 'store/actions/user.js';
