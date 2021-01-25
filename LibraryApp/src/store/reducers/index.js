@@ -1,10 +1,12 @@
-import { combineReducers } from "redux";
+import {combineReducers} from 'redux';
 
 //---------- REDUCERS ----------//
-import counter from "./counter";
+import counter from './counter';
+import user from './user';
 
 const appReducer = combineReducers({
-  counter
+  counter,
+  user
 });
 
 export default appReducer;

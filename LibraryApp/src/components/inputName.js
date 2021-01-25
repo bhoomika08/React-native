@@ -1,24 +1,18 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
+import {connect} from 'react-redux';
 import {Text, View, TextInput, StyleSheet} from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {setName} from 'store/actions/user.js';
 import {Colors, Spacing, Global} from 'stylesheets';
 
-const InputName = () => {
-  const [name, setInputName] = useState('');
-
-  useEffect(() => {
-    AsyncStorage.getItem('name').then((value) => setInputName(value));
-  });
-
-  const setName = (value) => {
-    AsyncStorage.setItem('name', value);
-    setInputName(value);
+const InputName = ({userName, setName}) => {
+  const setInputName = (value) => {
+    setName(value);
   };
 
   return (
     <View>
-      <TextInput style={styles.textInput} onChangeText={setName} />
-      <Text>{name}</Text>
+      <TextInput style={styles.textInput} onChangeText={setInputName} />
+      <Text>{userName}</Text>
     </View>
   );
 };
@@ -34,4 +28,15 @@ const styles = StyleSheet.create({
   },
 });
 
-export default InputName;
+function mapStateToProps({user: {name: userName}}) {
+  return {
+    userName,
+  };
+}
+
+const mapDispatchToProps = {
+  setName,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(InputName);
+
