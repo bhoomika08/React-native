@@ -15,10 +15,8 @@ class OtpInputs extends React.Component {
   }
 
   focusInput(index, value) {
-    const {otp} = this.state;
-    const {getOtp} = this.props;
-
-    if (value == '' && index != 0) {
+    const otp = [...this.state.otp];
+    if (value === '' && index !== 0) {
       otp[index - 1].ref.current.focus();
     }
 
@@ -30,23 +28,30 @@ class OtpInputs extends React.Component {
       otp[index + 1].ref.current.focus();
     }
     otp[index]['value'] = value;
-    this.setState({otp});
+    this.setOtp(otp);
 
     if (index === otp.length - 1) {
-      otp[index].ref.current.blur();
-      const otpValue = otp.map(({value}) => value);
-      getOtp(otpValue.join(''));
+      this.onSuccess(index);
     }
   }
 
-  activateInput(index) {
+  onSuccess(index) {
     const {otp} = this.state;
+    const {getOtp} = this.props;
+
+    otp[index].ref.current.blur();
+    const otpValue = otp.map(({value}) => value);
+    getOtp(otpValue.join(''));
+  }
+
+  activateInput(index) {
+    const otp = [...this.state.otp];
     otp[index]['isActive'] = true;
     this.setOtp(otp);
   }
 
   deactivateInput(index) {
-    const {otp} = this.state;
+    const otp = [...this.state.otp];
     otp[index]['isActive'] = false;
     this.setOtp(otp);
   }
@@ -65,12 +70,12 @@ class OtpInputs extends React.Component {
         {inputs.map((input, idx) => {
           const {value, isActive, ref} = otp[idx];
           const numOtpVal = Number(value);
-          const otpValue = numOtpVal || numOtpVal == 0 ? numOtpVal : '';
+          const otpValue = numOtpVal || numOtpVal === 0 ? numOtpVal : '';
           return (
             <TextInput
               key={`otp-${idx}`}
               keyboardType="numeric"
-              autoFocus={idx == 0 ? true : false}
+              autoFocus={idx === 0}
               style={[
                 styles.otpField,
                 isActive ? styles.activeOtpField : styles.deactiveOtpField,
