@@ -7,6 +7,9 @@ export const Spacing = StyleSheet.create({
   p20: {
     padding: 20,
   },
+  m5: {
+    margin: 5,
+  },
   m10: {
     margin: 10,
   },
@@ -27,5 +30,8 @@ export const Spacing = StyleSheet.create({
   },
   ml10: {
     marginLeft: 10,
+  },
+  mr10: {
+    marginRight: 10,
   },
 });

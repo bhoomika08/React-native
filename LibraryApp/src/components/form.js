@@ -3,20 +3,22 @@ import {
   StyleSheet,
   View,
   Text,
-  TouchableHighlight,
   KeyboardAvoidingView,
   ScrollView,
+  Pressable,
 } from 'react-native';
-import {Picker} from '@react-native-picker/picker';
+import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {user} from 'constants/api';
 import {publishers} from 'constants/data';
 import {Colors, Global, Spacing, Typography} from 'stylesheets';
 import {validationMessages} from 'constants/locale';
-import {omit} from 'helpers/application';
+import {omit, stringifyResponse, alert} from 'helpers/application';
 import {isEmail, isFieldEmpty, isUrl} from 'helpers/validation';
-import {InputField, Checkbox} from 'components/shared/form-controls';
+import {InputField, Checkbox, Dropdown} from 'components/shared/form-controls';
 
-class Form extends React.Component {
+const isIOSPlatform = Platform.OS == 'ios';
+
+class Form extends React.PureComponent {
   constructor() {
     super();
     this.state = {
@@ -29,10 +31,12 @@ class Form extends React.Component {
       url: '',
       errors: {},
     };
+    this.setSelectedPublisherId = this.setSelectedPublisherId.bind(this);
     this.toggleSelection = this.toggleSelection.bind(this);
     this.updateValue = this.updateValue.bind(this);
     this.validateForm = this.validateForm.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.resetAllFields = this.resetAllFields.bind(this);
   }
 
   setSelectedPublisherId(id) {
@@ -89,91 +93,131 @@ class Form extends React.Component {
     fetch(user, {
       method: 'POST',
       headers: {
+        Accept: 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),
     })
       .then((rawResponse) => rawResponse.json())
-      .catch((error) => console.log('Error', error))
-      .then((response) => console.log('Success', response));
+      .then((response) => {
+        this.resetAllFields();
+        alert('Success', stringifyResponse(response));
+      })
+      .catch((error) => alert('Error', error.message));
+  }
+
+  resetAllFields() {
+    this.setState({
+      selectedPublisherId: '1',
+      isDisplayChecked: true,
+      bookName: '',
+      authorName: '',
+      price: '',
+      email: '',
+      url: '',
+      errors: {},
+    });
   }
 
   render() {
-    const {selectedPublisherId, errors} = this.state;
+    const {
+      selectedPublisherId,
+      isDisplayChecked,
+      bookName,
+      authorName,
+      price,
+      email,
+      url,
+      errors,
+    } = this.state;
+    const {
+      innerContainer,
+      headingContainer,
+      formLabel,
+      inputStyle,
+      checkboxContainer,
+      button,
+      label,
+    } = styles;
+    const {rowFlex, flex1} = Global;
     return (
-      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : null}>
-        <View style={styles.innerContainer}>
-          <View style={styles.headingContainer}>
-            <Text style={styles.formLabel}>Library</Text>
+      <KeyboardAvoidingView behavior={isIOSPlatform ? 'padding' : null}>
+        <View style={innerContainer}>
+          <View style={headingContainer}>
+            <Text style={formLabel}>Library</Text>
           </View>
-          <ScrollView bounces={false}>
+          <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
             <InputField
+              label="Book Name"
               placeholder="Book Name"
-              style={styles.inputStyle}
+              style={inputStyle}
               inputKey="bookName"
+              value={bookName}
               error={errors.bookName}
               onChangeText={this.updateValue}
             />
             <InputField
+              label="Author Name"
               placeholder="Author Name"
-              style={styles.inputStyle}
+              style={inputStyle}
               inputKey="authorName"
+              value={authorName}
               error={errors.authorName}
               onChangeText={this.updateValue}
             />
-            <View style={styles.picker}>
-              <Picker
-                selectedValue={selectedPublisherId}
-                mode="dropdown"
-                style={styles.dropdown}
-                itemStyle={styles.dropdownItem}
-                onValueChange={(itemValue) =>
-                  this.setSelectedPublisherId(itemValue)
-                }>
-                {Object.values(publishers).map(({id, value}) => (
-                  <Picker.Item key={id} label={value} value={id} />
-                ))}
-              </Picker>
-            </View>
+            <Dropdown
+              label="Publishers"
+              options={publishers}
+              selectedId={selectedPublisherId}
+              onValueChange={this.setSelectedPublisherId}
+            />
             <InputField
+              label="Price"
               keyboardType="numeric"
               placeholder="Price"
-              style={styles.inputStyle}
+              style={inputStyle}
               inputKey="price"
+              value={price}
               error={errors.price}
               onChangeText={this.updateValue}
             />
-            <InputField
-              keyboardType="email-address"
-              placeholder="Email"
-              style={styles.inputStyle}
-              inputKey="email"
-              error={errors.email}
-              onChangeText={this.updateValue}
-            />
-            <InputField
-              keyboardType="url"
-              placeholder="Website"
-              style={styles.inputStyle}
-              inputKey="url"
-              error={errors.url}
-              onChangeText={this.updateValue}
-            />
-            <View style={styles.checkboxContainer}>
+            <View style={rowFlex}>
+              <View style={flex1}>
+                <InputField
+                  label="Email"
+                  keyboardType="email-address"
+                  placeholder="Email"
+                  style={inputStyle}
+                  inputKey="email"
+                  value={email}
+                  error={errors.email}
+                  onChangeText={this.updateValue}
+                />
+              </View>
+              <View style={flex1}>
+                <InputField
+                  label="Website"
+                  keyboardType="url"
+                  placeholder="Website"
+                  style={inputStyle}
+                  inputKey="url"
+                  value={url}
+                  error={errors.url}
+                  onChangeText={this.updateValue}
+                />
+              </View>
+            </View>
+            <View style={checkboxContainer}>
               <Checkbox
+                value={isDisplayChecked}
                 onValueChange={this.toggleSelection}
                 label="Do you want to display this Book in Library?"
-                labelStyle={styles.label}
+                labelStyle={label}
               />
             </View>
-
-            <TouchableHighlight
-              style={styles.button}
-              onPress={this.validateForm}>
-              <View>
-                <Text>Touch Here</Text>
-              </View>
-            </TouchableHighlight>
+            <Pressable style={button} onPress={this.validateForm}>
+              <Text style={[Typography.fs20, Typography.bold]}>SUBMIT</Text>
+            </Pressable>
           </ScrollView>
         </View>
       </KeyboardAvoidingView>
@@ -183,23 +227,21 @@ class Form extends React.Component {
 
 const styles = StyleSheet.create({
   innerContainer: {
-    marginTop: 30,
+    marginTop: isIOSPlatform ? getStatusBarHeight() : 0,
   },
   headingContainer: {
     ...Global.horizontalCenter,
     ...Spacing.m10,
   },
   formLabel: {
-    ...Typography.fs20,
-    color: Colors.blue,
+    ...Typography.fs30,
+    color: Colors.purple,
+    textTransform: 'uppercase',
+    ...Typography.bold
   },
   inputStyle: {
-    width: 350,
-    height: 50,
-    backgroundColor: Colors.grey,
-    ...Spacing.m10,
+    ...Spacing.m5,
     ...Spacing.p10,
-    ...Global.borderRadius10,
     ...Typography.fs20,
   },
   formText: {
@@ -209,20 +251,6 @@ const styles = StyleSheet.create({
   },
   text: {
     color: Colors.white,
-    ...Typography.fs20,
-  },
-  picker: {
-    ...Spacing.mt10,
-    ...Global.horizontalCenter,
-    ...Spacing.mb10,
-  },
-  dropdown: {
-    width: '80%',
-  },
-  dropdownItem: {
-    backgroundColor: Colors.grey,
-    ...Global.borderRadius10,
-    color: Colors.blue,
     ...Typography.fs20,
   },
   checkboxContainer: {
@@ -236,9 +264,9 @@ const styles = StyleSheet.create({
     ...Spacing.m10,
     ...Spacing.mb20,
     ...Global.horizontalCenter,
-    backgroundColor: Colors.lightBlue,
-    ...Global.borderRadius10,
-    width: 200,
+    backgroundColor: Colors.lightGreen,
+    ...Global.borderRadius5,
+    width: '100%',
     ...Global.selfCenter,
     ...Spacing.p20,
   },

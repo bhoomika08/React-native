@@ -22,5 +22,5 @@ export const publishers = {
   6: {
     id: '6',
     value: 'APK Publishers',
-  },
+  }
 };
