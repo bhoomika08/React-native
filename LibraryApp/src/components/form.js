@@ -7,6 +7,7 @@ import {
   ScrollView,
   Pressable,
 } from 'react-native';
+import Spinner from 'react-native-loading-spinner-overlay';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {user} from 'constants/api';
 import {publishers} from 'constants/data';
@@ -30,12 +31,15 @@ class Form extends React.PureComponent {
       email: '',
       url: '',
       errors: {},
+      isLoading: false,
     };
     this.setSelectedPublisherId = this.setSelectedPublisherId.bind(this);
     this.toggleSelection = this.toggleSelection.bind(this);
     this.updateValue = this.updateValue.bind(this);
     this.validateForm = this.validateForm.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.onSuccess = this.onSuccess.bind(this);
+    this.onError = this.onError.bind(this);
     this.resetAllFields = this.resetAllFields.bind(this);
   }
 
@@ -90,6 +94,7 @@ class Form extends React.PureComponent {
 
   handleFormSubmit() {
     const data = {...this.state};
+    this.setState({isLoading: true});
     fetch(user, {
       method: 'POST',
       headers: {
@@ -100,10 +105,19 @@ class Form extends React.PureComponent {
     })
       .then((rawResponse) => rawResponse.json())
       .then((response) => {
-        this.resetAllFields();
-        alert('Success', stringifyResponse(response));
+        this.onSuccess(response);
       })
-      .catch((error) => alert('Error', error.message));
+      .catch((error) => this.onError(error));
+  }
+
+  onSuccess(response) {
+    this.resetAllFields();
+    alert('Success', stringifyResponse(response));
+  }
+
+  onError(error) {
+    this.setState({isLoading: false});
+    alert('Error', error.message);
   }
 
   resetAllFields() {
@@ -116,6 +130,7 @@ class Form extends React.PureComponent {
       email: '',
       url: '',
       errors: {},
+      isLoading: false,
     });
   }
 
@@ -129,6 +144,7 @@ class Form extends React.PureComponent {
       email,
       url,
       errors,
+      isLoading,
     } = this.state;
     const {
       innerContainer,
@@ -146,79 +162,82 @@ class Form extends React.PureComponent {
           <View style={headingContainer}>
             <Text style={formLabel}>Library</Text>
           </View>
-          <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
-            <InputField
-              label="Book Name"
-              placeholder="Book Name"
-              style={inputStyle}
-              inputKey="bookName"
-              value={bookName}
-              error={errors.bookName}
-              onChangeText={this.updateValue}
-            />
-            <InputField
-              label="Author Name"
-              placeholder="Author Name"
-              style={inputStyle}
-              inputKey="authorName"
-              value={authorName}
-              error={errors.authorName}
-              onChangeText={this.updateValue}
-            />
-            <Dropdown
-              label="Publishers"
-              options={publishers}
-              selectedId={selectedPublisherId}
-              onValueChange={this.setSelectedPublisherId}
-            />
-            <InputField
-              label="Price"
-              keyboardType="numeric"
-              placeholder="Price"
-              style={inputStyle}
-              inputKey="price"
-              value={price}
-              error={errors.price}
-              onChangeText={this.updateValue}
-            />
-            <View style={rowFlex}>
-              <View style={flex1}>
-                <InputField
-                  label="Email"
-                  keyboardType="email-address"
-                  placeholder="Email"
-                  style={inputStyle}
-                  inputKey="email"
-                  value={email}
-                  error={errors.email}
-                  onChangeText={this.updateValue}
-                />
-              </View>
-              <View style={flex1}>
-                <InputField
-                  label="Website"
-                  keyboardType="url"
-                  placeholder="Website"
-                  style={inputStyle}
-                  inputKey="url"
-                  value={url}
-                  error={errors.url}
-                  onChangeText={this.updateValue}
-                />
-              </View>
-            </View>
-            <View style={checkboxContainer}>
-              <Checkbox
-                value={isDisplayChecked}
-                onValueChange={this.toggleSelection}
-                label="Do you want to display this Book in Library?"
-                labelStyle={label}
+          <View style={[Global.flex1, Global.verticalCenter]}>
+            <Spinner visible={isLoading} />
+            <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
+              <InputField
+                label="Book Name"
+                placeholder="Book Name"
+                style={inputStyle}
+                inputKey="bookName"
+                value={bookName}
+                error={errors.bookName}
+                onChangeText={this.updateValue}
               />
-            </View>
-            <Pressable style={button} onPress={this.validateForm}>
-              <Text style={[Typography.fs20, Typography.bold]}>SUBMIT</Text>
-            </Pressable>
-          </ScrollView>
+              <InputField
+                label="Author Name"
+                placeholder="Author Name"
+                style={inputStyle}
+                inputKey="authorName"
+                value={authorName}
+                error={errors.authorName}
+                onChangeText={this.updateValue}
+              />
+              <Dropdown
+                label="Publishers"
+                options={publishers}
+                selectedId={selectedPublisherId}
+                onValueChange={this.setSelectedPublisherId}
+              />
+              <InputField
+                label="Price"
+                keyboardType="numeric"
+                placeholder="Price"
+                style={inputStyle}
+                inputKey="price"
+                value={price}
+                error={errors.price}
+                onChangeText={this.updateValue}
+              />
+              <View style={rowFlex}>
+                <View style={flex1}>
+                  <InputField
+                    label="Email"
+                    keyboardType="email-address"
+                    placeholder="Email"
+                    style={inputStyle}
+                    inputKey="email"
+                    value={email}
+                    error={errors.email}
+                    onChangeText={this.updateValue}
+                  />
+                </View>
+                <View style={flex1}>
+                  <InputField
+                    label="Website"
+                    keyboardType="url"
+                    placeholder="Website"
+                    style={inputStyle}
+                    inputKey="url"
+                    value={url}
+                    error={errors.url}
+                    onChangeText={this.updateValue}
+                  />
+                </View>
+              </View>
+              <View style={checkboxContainer}>
+                <Checkbox
+                  value={isDisplayChecked}
+                  onValueChange={this.toggleSelection}
+                  label="Do you want to display this Book in Library?"
+                  labelStyle={label}
+                />
+              </View>
+              <Pressable style={button} onPress={this.validateForm}>
+                <Text style={[Typography.fs20, Typography.bold]}>SUBMIT</Text>
+              </Pressable>
+            </ScrollView>
+          </View>
         </View>
       </KeyboardAvoidingView>
     );
@@ -237,7 +256,7 @@ const styles = StyleSheet.create({
     ...Typography.fs30,
     color: Colors.purple,
     textTransform: 'uppercase',
-    ...Typography.bold
+    ...Typography.bold,
   },
   inputStyle: {
     ...Spacing.m5,
