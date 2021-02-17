@@ -3,7 +3,8 @@ export const Colors = {
   blue: '#0000FF',
   purple: '#800080',
   grey: '#DDDDDD',
-  lightBlue: "#ADD8E6",
+  darkgrey: "#C7C7CD",
+  lightBlue: "#5CB3FF",
   lightGreen: "#90EE90",
   red: "#FF0000",
   white: "#FFFFFF"

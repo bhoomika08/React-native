@@ -6,8 +6,8 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   Pressable,
+  ActivityIndicator,
 } from 'react-native';
-import Spinner from 'react-native-loading-spinner-overlay';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {user} from 'constants/api';
 import {publishers} from 'constants/data';
@@ -17,13 +17,17 @@ import {omit, stringifyResponse, alert} from 'helpers/application';
 import {isEmail, isFieldEmpty, isUrl} from 'helpers/validation';
 import {InputField, Checkbox, Dropdown} from 'components/shared/form-controls';
 
+const {rowFlex, flex1, spaceBetween, horizontalCenter, center} = Global;
+const {fs20, fs30, bold, uppercase} = Typography;
+const {p10, p15, py10, m10, mb10, py20, mtAuto} = Spacing;
+const {lightBlue, lightGreen, purple, white} = Colors;
 const isIOSPlatform = Platform.OS == 'ios';
 
 class Form extends React.PureComponent {
   constructor() {
     super();
     this.state = {
-      selectedPublisherId: '1',
+      selectedPublisherId: '',
       isDisplayChecked: true,
       bookName: '',
       authorName: '',
@@ -122,7 +126,7 @@ class Form extends React.PureComponent {
 
   resetAllFields() {
     this.setState({
-      selectedPublisherId: '1',
+      selectedPublisherId: '',
       isDisplayChecked: true,
       bookName: '',
       authorName: '',
@@ -156,90 +160,99 @@ class Form extends React.PureComponent {
       button,
       label,
     } = styles;
-    const {rowFlex, flex1} = Global;
+
     return (
       <View style={innerContainer}>
         <View style={headingContainer}>
           <Text style={formLabel}>Library</Text>
         </View>
-        <KeyboardAvoidingView behavior={isIOSPlatform ? 'padding' : null}>
-          <View style={formContainer}>
-            <Spinner visible={isLoading} />
-            <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
-              <InputField
-                label="Book Name"
-                placeholder="Book Name"
-                style={inputStyle}
-                inputKey="bookName"
-                value={bookName}
-                error={errors.bookName}
-                onChangeText={this.updateValue}
-              />
-              <InputField
-                label="Author Name"
-                placeholder="Author Name"
-                style={inputStyle}
-                inputKey="authorName"
-                value={authorName}
-                error={errors.authorName}
-                onChangeText={this.updateValue}
-              />
-              <Dropdown
-                label="Publishers"
-                options={publishers}
-                selectedId={selectedPublisherId}
-                onValueChange={this.setSelectedPublisherId}
-              />
-              <InputField
-                label="Price"
-                keyboardType="numeric"
-                placeholder="Price"
-                style={inputStyle}
-                inputKey="price"
-                value={price}
-                error={errors.price}
-                onChangeText={this.updateValue}
-              />
-              <View style={[rowFlex, {justifyContent: 'space-between'}]}>
-                <View style={flex1}>
-                  <InputField
-                    label="Email"
-                    keyboardType="email-address"
-                    placeholder="Email"
-                    style={inputStyle}
-                    inputKey="email"
-                    value={email}
-                    error={errors.email}
-                    onChangeText={this.updateValue}
-                  />
-                </View>
-                <View style={flex1}>
-                  <InputField
-                    label="Website"
-                    keyboardType="url"
-                    placeholder="Website"
-                    style={inputStyle}
-                    inputKey="url"
-                    value={url}
-                    error={errors.url}
-                    onChangeText={this.updateValue}
-                  />
-                </View>
-              </View>
-              <View style={checkboxContainer}>
-                <Checkbox
-                  value={isDisplayChecked}
-                  onValueChange={this.toggleSelection}
-                  label="Do you want to display this Book in Library?"
-                  labelStyle={label}
+        <View style={formContainer}>
+          {isLoading ? (
+            <ActivityIndicator size="large" />
+          ) : (
+            <KeyboardAvoidingView behavior={isIOSPlatform ? 'padding' : null}>
+              <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
+                <InputField
+                  label="Book Name"
+                  placeholder="Book Name"
+                  style={inputStyle}
+                  inputKey="bookName"
+                  value={bookName}
+                  isReq
+                  error={errors.bookName}
+                  onChangeText={this.updateValue}
                 />
-              </View>
-            </ScrollView>
-          </View>
-        </KeyboardAvoidingView>
-        <View style={{marginTop: "auto"}}>
+                <InputField
+                  label="Author Name"
+                  placeholder="Author Name"
+                  style={inputStyle}
+                  inputKey="authorName"
+                  value={authorName}
+                  isReq
+                  error={errors.authorName}
+                  onChangeText={this.updateValue}
+                />
+                <Dropdown
+                  label="Publishers"
+                  placeholder="Select a publisher"
+                  options={publishers}
+                  selectedId={selectedPublisherId}
+                  onValueChange={this.setSelectedPublisherId}
+                />
+                <InputField
+                  label="Price"
+                  keyboardType="numeric"
+                  placeholder="Price"
+                  style={inputStyle}
+                  inputKey="price"
+                  value={price}
+                  isReq
+                  error={errors.price}
+                  onChangeText={this.updateValue}
+                />
+                <View style={[rowFlex, spaceBetween]}>
+                  <View style={flex1}>
+                    <InputField
+                      label="Email"
+                      keyboardType="email-address"
+                      placeholder="Email"
+                      style={inputStyle}
+                      inputKey="email"
+                      value={email}
+                      isReq
+                      error={errors.email}
+                      onChangeText={this.updateValue}
+                    />
+                  </View>
+                  <View style={flex1}>
+                    <InputField
+                      label="Website"
+                      keyboardType="url"
+                      placeholder="Website"
+                      style={inputStyle}
+                      inputKey="url"
+                      value={url}
+                      isReq
+                      error={errors.url}
+                      onChangeText={this.updateValue}
+                    />
+                  </View>
+                </View>
+                <View style={checkboxContainer}>
+                  <Checkbox
+                    value={isDisplayChecked}
+                    onValueChange={this.toggleSelection}
+                    label="Do you want to display this Book in Library?"
+                    labelStyle={label}
+                  />
+                </View>
+              </ScrollView>
+            </KeyboardAvoidingView>
+          )}
+        </View>
+        <View style={mtAuto}>
           <Pressable style={button} onPress={this.validateForm}>
-            <Text style={[Typography.fs20, Typography.bold]}>SUBMIT</Text>
+            <Text style={[fs20, bold]}>SUBMIT</Text>
           </Pressable>
         </View>
       </View>
@@ -253,45 +266,45 @@ const styles = StyleSheet.create({
     marginTop: isIOSPlatform ? getStatusBarHeight() : 0,
   },
   headingContainer: {
-    ...Global.horizontalCenter,
-    backgroundColor: 'yellow',
-    paddingVertical: 10,
-    marginBottom: 10,
+    ...horizontalCenter,
+    backgroundColor: lightBlue,
+    ...py10,
+    ...mb10
   },
   formLabel: {
-    ...Typography.fs30,
-    color: Colors.purple,
-    textTransform: 'uppercase',
-    ...Typography.bold,
+    ...fs30,
+    color: purple,
+    ...uppercase,
+    ...bold,
   },
   formContainer: {
-    padding: 15,
+    ...p15
   },
   inputStyle: {
-    ...Spacing.p10,
-    ...Typography.fs20,
+    ...p10,
+    ...fs20,
   },
   formText: {
-    ...Global.center,
-    color: Colors.white,
-    ...Typography.fs20,
+    ...center,
+    color: white,
+    ...fs20,
   },
   text: {
-    color: Colors.white,
-    ...Typography.fs20,
+    color: white,
+    ...fs20,
   },
   checkboxContainer: {
-    ...Global.rowFlex,
-    ...Global.center,
-    paddingVertical: 10,
+    ...rowFlex,
+    ...center,
+    ...py10
   },
   label: {
-    ...Spacing.m10,
+    ...m10,
   },
   button: {
-    ...Global.horizontalCenter,
-    backgroundColor: Colors.lightGreen,
-    paddingVertical: 20,
+    ...horizontalCenter,
+    backgroundColor: lightGreen,
+    ...py20
   },
 });
 

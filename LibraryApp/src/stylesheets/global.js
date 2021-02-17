@@ -10,8 +10,8 @@ export const Global = StyleSheet.create({
   columnFlex: {
     flexDirection: 'column',
   },
-  evenlySpaced: {
-    alignContent: 'stretch',
+  spaceBetween: {
+    justifyContent: 'space-between'
   },
   verticalCenter: {
     justifyContent: 'center',
@@ -25,9 +25,6 @@ export const Global = StyleSheet.create({
   center: {
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  selfCenter: {
-    alignSelf: 'center',
   },
   borderRadius5: {
     borderRadius: 5,

@@ -20,7 +20,7 @@ const InputName = ({userName, setName}) => {
 const styles = StyleSheet.create({
   textInput: {
     ...Global.textCenter,
-    ...Spacing.m5,
+    ...Spacing.m10,
     height: 100,
     width: 300,
     borderWidth: 1,

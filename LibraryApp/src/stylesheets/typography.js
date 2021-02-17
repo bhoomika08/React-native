@@ -10,4 +10,7 @@ export const Typography = StyleSheet.create({
   bold: {
     fontWeight: 'bold',
   },
+  uppercase: {
+    textTransform: 'uppercase',
+  }
 });
