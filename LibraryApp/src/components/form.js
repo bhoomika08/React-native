@@ -150,6 +150,7 @@ class Form extends React.PureComponent {
       innerContainer,
       headingContainer,
       formLabel,
+      formContainer,
       inputStyle,
       checkboxContainer,
       button,
@@ -157,12 +158,12 @@ class Form extends React.PureComponent {
     } = styles;
     const {rowFlex, flex1} = Global;
     return (
-      <KeyboardAvoidingView behavior={isIOSPlatform ? 'padding' : null}>
-        <View style={innerContainer}>
-          <View style={headingContainer}>
-            <Text style={formLabel}>Library</Text>
-          </View>
-          <View style={[Global.flex1, Global.verticalCenter]}>
+      <View style={innerContainer}>
+        <View style={headingContainer}>
+          <Text style={formLabel}>Library</Text>
+        </View>
+        <KeyboardAvoidingView behavior={isIOSPlatform ? 'padding' : null}>
+          <View style={formContainer}>
             <Spinner visible={isLoading} />
             <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
               <InputField
@@ -199,7 +200,7 @@ class Form extends React.PureComponent {
                 error={errors.price}
                 onChangeText={this.updateValue}
               />
-              <View style={rowFlex}>
+              <View style={[rowFlex, {justifyContent: 'space-between'}]}>
                 <View style={flex1}>
                   <InputField
                     label="Email"
@@ -233,24 +234,29 @@ class Form extends React.PureComponent {
                   labelStyle={label}
                 />
               </View>
-              <Pressable style={button} onPress={this.validateForm}>
-                <Text style={[Typography.fs20, Typography.bold]}>SUBMIT</Text>
-              </Pressable>
             </ScrollView>
           </View>
+        </KeyboardAvoidingView>
+        <View style={{marginTop: "auto"}}>
+          <Pressable style={button} onPress={this.validateForm}>
+            <Text style={[Typography.fs20, Typography.bold]}>SUBMIT</Text>
+          </Pressable>
         </View>
-      </KeyboardAvoidingView>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
   innerContainer: {
+    flex: 1,
     marginTop: isIOSPlatform ? getStatusBarHeight() : 0,
   },
   headingContainer: {
     ...Global.horizontalCenter,
-    ...Spacing.m10,
+    backgroundColor: 'yellow',
+    paddingVertical: 10,
+    marginBottom: 10,
   },
   formLabel: {
     ...Typography.fs30,
@@ -258,8 +264,10 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     ...Typography.bold,
   },
+  formContainer: {
+    padding: 15,
+  },
   inputStyle: {
-    ...Spacing.m5,
     ...Spacing.p10,
     ...Typography.fs20,
   },
@@ -274,20 +282,16 @@ const styles = StyleSheet.create({
   },
   checkboxContainer: {
     ...Global.rowFlex,
-    ...Spacing.m10,
+    ...Global.center,
+    paddingVertical: 10,
   },
   label: {
     ...Spacing.m10,
   },
   button: {
-    ...Spacing.m10,
-    ...Spacing.mb20,
     ...Global.horizontalCenter,
     backgroundColor: Colors.lightGreen,
-    ...Global.borderRadius5,
-    width: '100%',
-    ...Global.selfCenter,
-    ...Spacing.p20,
+    paddingVertical: 20,
   },
 });
 

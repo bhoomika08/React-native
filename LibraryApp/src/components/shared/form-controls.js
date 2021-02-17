@@ -18,17 +18,17 @@ export const InputField = ({
 }) => {
   const {labelText, errorField, inputField, errorText} = styles;
   return (
-    <>
+    <View style={{marginBottom: 20}}>
       {label && <Text style={labelText}>{label}</Text>}
       <TextInput
         value={value}
         placeholder={placeholder}
-        style={[Global.borderRadius5, style, error ? errorField : inputField]}
+        style={[Global.borderRadius5, style, error ? errorField : inputField]} // function to return object
         keyboardType={keyboardType}
         onChangeText={(text) => onChangeText(text, inputKey)}
       />
       {error && <Text style={errorText}>{error}</Text>}
-    </>
+    </View>
   );
 };
 
@@ -52,7 +52,7 @@ export const Checkbox = ({
 export const Dropdown = ({label, selectedId, options = [], onValueChange}) => {
   const dropdownOptions = Object.values(options);
   const CANCEL_INDEX = dropdownOptions.length;
-  const iosDropdownOptions = dropdownOptions.concat({value: 'Cancel'});
+  const iosDropdownOptions = [...dropdownOptions, {value: "Cancel"}];
 
   const showActionSheet = () => {
     ActionSheetIOS.showActionSheetWithOptions(
@@ -68,14 +68,14 @@ export const Dropdown = ({label, selectedId, options = [], onValueChange}) => {
     );
   };
   return (
-    <>
+    <View style={{ marginBottom: 20}}>
       {label && <Text style={styles.labelText}>{label}</Text>}
       {isIOSPlatform ? (
         <View style={styles.iosDropdownContainer}>
-          <Text onPress={showActionSheet} style={{flex: 1}}>
+          <Text onPress={showActionSheet}>
             {options[selectedId].value}
           </Text>
-          <Text style={{fontWeight: 'bold'}}>&#9660;</Text>
+          <Text style={Typography.bold}>&#9660;</Text>
         </View>
       ) : (
         <View style={styles.picker}>
@@ -91,7 +91,7 @@ export const Dropdown = ({label, selectedId, options = [], onValueChange}) => {
           </Picker>
         </View>
       )}
-    </>
+    </View>
   );
 };
 
@@ -99,8 +99,7 @@ const styles = StyleSheet.create({
   labelText: {
     fontSize: 18,
     fontWeight: isIOSPlatform ? '500' : 'bold',
-    marginLeft: 10,
-    marginTop: 15,
+    marginBottom: 5
   },
   inputField: {
     borderColor: Colors.grey,
@@ -116,17 +115,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   iosDropdownContainer: {
-    flexDirection: 'row',
-    ...Spacing.m10,
-    ...Global.horizontalCenter,
+    ...Global.rowFlex,
+    justifyContent: "space-between",
     padding: 10,
     borderWidth: 1,
     ...Global.borderRadius5,
     borderColor: Colors.grey,
   },
   picker: {
-    ...Spacing.m10,
-    ...Global.horizontalCenter,
     borderWidth: 1,
     ...Global.borderRadius5,
     borderColor: Colors.grey,

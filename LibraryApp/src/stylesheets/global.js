@@ -2,7 +2,7 @@ import {StyleSheet} from 'react-native';
 
 export const Global = StyleSheet.create({
   flex1: {
-    flex: 1
+    flex: 0.45
   },
   rowFlex: {
     flexDirection: 'row',
