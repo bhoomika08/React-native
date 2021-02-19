@@ -162,16 +162,19 @@ class Form extends React.PureComponent {
     } = styles;
 
     return (
-      <View style={innerContainer}>
+      <KeyboardAvoidingView
+        style={innerContainer}
+        behavior={isIOSPlatform ? 'padding' : null}
+        keyboardVerticalOffset={0}>
         <View style={headingContainer}>
-          <Text style={formLabel}>Library</Text>
+          <Text style={formLabel}>Library Form</Text>
         </View>
-        <View style={formContainer}>
-          {isLoading ? (
-            <ActivityIndicator size="large" />
-          ) : (
-            <KeyboardAvoidingView behavior={isIOSPlatform ? 'padding' : null}>
-              <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
+        <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
+          <View style={formContainer}>
+            {isLoading ? (
+              <ActivityIndicator size="large" />
+            ) : (
+              <>
                 <InputField
                   label="Book Name"
                   placeholder="Book Name"
@@ -246,16 +249,17 @@ class Form extends React.PureComponent {
                     labelStyle={label}
                   />
                 </View>
-              </ScrollView>
-            </KeyboardAvoidingView>
-          )}
-        </View>
+              </>
+            )}
+          </View>
+        </ScrollView>
+
         <View style={mtAuto}>
           <Pressable style={button} onPress={this.validateForm}>
             <Text style={[fs20, bold]}>SUBMIT</Text>
           </Pressable>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }
@@ -269,7 +273,7 @@ const styles = StyleSheet.create({
     ...horizontalCenter,
     backgroundColor: lightBlue,
     ...py10,
-    ...mb10
+    ...mb10,
   },
   formLabel: {
     ...fs30,
@@ -278,7 +282,7 @@ const styles = StyleSheet.create({
     ...bold,
   },
   formContainer: {
-    ...p15
+    ...p15,
   },
   inputStyle: {
     ...p10,
@@ -296,7 +300,7 @@ const styles = StyleSheet.create({
   checkboxContainer: {
     ...rowFlex,
     ...center,
-    ...py10
+    ...py10,
   },
   label: {
     ...m10,
@@ -304,7 +308,7 @@ const styles = StyleSheet.create({
   button: {
     ...horizontalCenter,
     backgroundColor: lightGreen,
-    ...py20
+    ...py20,
   },
 });
 
