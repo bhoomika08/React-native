@@ -11,15 +11,18 @@ export const Typography = StyleSheet.create({
     fontFamily: 'icomoon',
   },
   fs10: {
-    fontSize: 10
+    fontSize: 10,
   },
   fs20: {
     fontSize: 20,
   },
+  fs24: {
+    fontSize: 24
+  },
   fs26: {
-    fontSize: 26
+    fontSize: 26,
   },
   bold: {
     fontWeight: 'bold',
-  }
+  },
 });
