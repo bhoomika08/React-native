@@ -1,8 +1,8 @@
 import {Alert} from 'react-native';
-export const omit = (keysToOmit, originalObj = {}) =>
-  Object.fromEntries(
-    Object.entries(originalObj).filter(([key]) => !keysToOmit.includes(key)),
-  );
+export const omit = (keyToOmit, originalObj) => {
+  delete originalObj[keyToOmit];
+  return originalObj;
+};
 
 export const stringifyResponse = (response = []) =>
   `${Object.keys(response)
