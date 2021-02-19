@@ -4,9 +4,15 @@ import {Colors, Spacing, Global, Typography} from 'stylesheets';
 import CheckBox from '@react-native-community/checkbox';
 import {Picker} from '@react-native-picker/picker';
 
-const {rowFlex, borderRadius5} = Global;
+const {
+  rowFlex,
+  borderRadius5,
+  borderWidth1,
+  verticalCenter,
+  spaceBetween,
+} = Global;
 const {fs20, bold} = Typography;
-const {mr10, mb20} = Spacing;
+const {mb20} = Spacing;
 const {darkgrey, grey, red, blue} = Colors;
 const isIOSPlatform = Platform.OS == 'ios';
 
@@ -21,18 +27,27 @@ export const InputField = ({
   isReq,
   onChangeText = () => {},
 }) => {
-  const {labelText, errorField, inputField, errorText} = styles;
+  const {labelText, redText, errorField, inputField, errorText} = styles;
   return (
     <View style={mb20}>
-      {label && <Text style={labelText}>{label}{isReq && "*"}</Text>}
+      {label && (
+        <Text style={labelText}>
+          {label} {isReq && <Text style={redText}>*</Text>}
+        </Text>
+      )}
       <TextInput
         value={value}
         placeholder={placeholder}
-        style={[borderRadius5, style, error ? errorField : inputField]} // function to return object
+        style={[
+          borderRadius5,
+          borderWidth1,
+          style,
+          error ? errorField : inputField,
+        ]}
         keyboardType={keyboardType}
         onChangeText={(text) => onChangeText(text, inputKey)}
       />
-      {error && <Text style={errorText}>{error}</Text>}
+      {error && <Text style={[errorText, redText]}>{error}</Text>}
     </View>
   );
 };
@@ -97,7 +112,9 @@ export const Dropdown = ({
             style={[fs20, selectedValue ? '' : placeholderText]}>
             {selectedValue ? selectedValue : placeholder}
           </Text>
-          <Text style={bold}>&#9660;</Text>
+          <View style={verticalCenter}>
+            <Text style={bold}>&#9660;</Text>
+          </View>
         </View>
       ) : (
         <View style={picker}>
@@ -129,26 +146,26 @@ const styles = StyleSheet.create({
   },
   inputField: {
     borderColor: grey,
-    borderWidth: 1,
+  },
+  redText: {
+    color: red,
   },
   errorText: {
-    color: red,
     textAlign: 'right',
   },
   errorField: {
     borderColor: red,
-    borderWidth: 1,
   },
   iosDropdownContainer: {
     ...rowFlex,
-    justifyContent: 'space-between',
+    ...spaceBetween,
     padding: 10,
-    borderWidth: 1,
+    ...borderWidth1,
     ...borderRadius5,
     borderColor: grey,
   },
   picker: {
-    borderWidth: 1,
+    ...borderWidth1,
     ...borderRadius5,
     borderColor: grey,
   },

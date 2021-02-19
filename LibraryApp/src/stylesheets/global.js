@@ -29,4 +29,7 @@ export const Global = StyleSheet.create({
   borderRadius5: {
     borderRadius: 5,
   },
+  borderWidth1: {
+    borderWidth: 1
+  }
 });
