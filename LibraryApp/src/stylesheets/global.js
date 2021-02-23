@@ -31,5 +31,8 @@ export const Global = StyleSheet.create({
   },
   borderWidth1: {
     borderWidth: 1
+  },
+  borderBottomWidth1: {
+    borderBottomWidth: 1
   }
 });

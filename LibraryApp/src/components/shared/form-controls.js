@@ -16,6 +16,15 @@ const {mb20} = Spacing;
 const {darkgrey, grey, red, blue} = Colors;
 const isIOSPlatform = Platform.OS == 'ios';
 
+export const Label = ({label, isReq, customStyle}) => {
+  const {labelText, redText} = styles;
+  return (
+    <Text style={[labelText, customStyle]}>
+      {label} {isReq && <Text style={redText}>*</Text>}
+    </Text>
+  );
+};
+
 export const InputField = ({
   label,
   placeholder = '',
@@ -27,14 +36,10 @@ export const InputField = ({
   isReq,
   onChangeText = () => {},
 }) => {
-  const {labelText, redText, errorField, inputField, errorText} = styles;
+  const {redText, errorField, inputField, errorText} = styles;
   return (
     <View style={mb20}>
-      {label && (
-        <Text style={labelText}>
-          {label} {isReq && <Text style={redText}>*</Text>}
-        </Text>
-      )}
+      {label && <Label label={label} isReq={isReq} />}
       <TextInput
         value={value}
         placeholder={placeholder}

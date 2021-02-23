@@ -1,6 +1,9 @@
 import {StyleSheet} from 'react-native';
 
 export const Typography = StyleSheet.create({
+  fs18: {
+    fontSize: 18,
+  },
   fs20: {
     fontSize: 20,
   },
@@ -12,5 +15,5 @@ export const Typography = StyleSheet.create({
   },
   uppercase: {
     textTransform: 'uppercase',
-  }
+  },
 });

@@ -7,25 +7,41 @@ import {
   ScrollView,
   Pressable,
   ActivityIndicator,
+  Keyboard,
 } from 'react-native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {connect} from 'react-redux';
 import {user} from 'constants/api';
 import {publishers} from 'constants/data';
 import {Colors, Global, Spacing, Typography} from 'stylesheets';
 import {validationMessages} from 'constants/locale';
 import {omit, stringifyResponse, alert} from 'helpers/application';
 import {isEmail, isFieldEmpty, isUrl} from 'helpers/validation';
-import {InputField, Checkbox, Dropdown} from 'components/shared/form-controls';
+import {fetchBooksList} from 'store/actions/library';
+import {
+  Label,
+  InputField,
+  Checkbox,
+  Dropdown,
+} from 'components/shared/form-controls';
+import {List} from 'components/shared/list';
 
-const {rowFlex, flex1, spaceBetween, horizontalCenter, center} = Global;
-const {fs20, fs30, bold, uppercase} = Typography;
-const {p10, p15, py10, m10, mb10, py20, mtAuto} = Spacing;
-const {lightBlue, lightGreen, purple, white} = Colors;
+const {
+  rowFlex,
+  flex1,
+  spaceBetween,
+  horizontalCenter,
+  center,
+  borderBottomWidth1,
+} = Global;
+const {fs18, fs20, fs30, bold, uppercase} = Typography;
+const {p10, p15, px15, py10, m10, mb20, py20, mtAuto} = Spacing;
+const {blue, grey, lightBlue, lightGreen, purple, white} = Colors;
 const isIOSPlatform = Platform.OS == 'ios';
 
 class Form extends React.PureComponent {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       selectedPublisherId: '',
       isDisplayChecked: true,
@@ -37,6 +53,8 @@ class Form extends React.PureComponent {
       errors: {},
       isLoading: false,
     };
+    props.fetchBooksList();
+
     this.setSelectedPublisherId = this.setSelectedPublisherId.bind(this);
     this.toggleSelection = this.toggleSelection.bind(this);
     this.updateValue = this.updateValue.bind(this);
@@ -45,6 +63,7 @@ class Form extends React.PureComponent {
     this.onSuccess = this.onSuccess.bind(this);
     this.onError = this.onError.bind(this);
     this.resetAllFields = this.resetAllFields.bind(this);
+    this.renderItem = this.renderItem.bind(this);
   }
 
   setSelectedPublisherId(id) {
@@ -69,6 +88,7 @@ class Form extends React.PureComponent {
     const {bookName, authorName, price, email, url} = this.state;
     const {required, invalid} = validationMessages;
     let errors = {};
+    Keyboard.dismiss();
     if (isFieldEmpty(bookName)) {
       errors.bookName = required;
     }
@@ -138,6 +158,25 @@ class Form extends React.PureComponent {
     });
   }
 
+  renderItem({item}) {
+    const {listItemContainer, listItem} = styles;
+    return (
+      <View style={listItemContainer}>
+        <Text
+          style={listItem}
+          onPress={() =>
+            this.setState({
+              bookName: item.name,
+            })
+          }>
+          {item.name}
+        </Text>
+      </View>
+    );
+  }
+
+  getItemKey = (item) => item.id;
+
   render() {
     const {
       selectedPublisherId,
@@ -150,10 +189,14 @@ class Form extends React.PureComponent {
       errors,
       isLoading,
     } = this.state;
+
+    const {books} = this.props;
+
     const {
       innerContainer,
       headingContainer,
       formLabel,
+      listContainer,
       formContainer,
       inputStyle,
       checkboxContainer,
@@ -168,6 +211,14 @@ class Form extends React.PureComponent {
         keyboardVerticalOffset={0}>
         <View style={headingContainer}>
           <Text style={formLabel}>Library Form</Text>
+        </View>
+        <View style={listContainer}>
+          <Label label="Books (Select book from list)" customStyle={px15} />
+          <List
+            data={books}
+            itemKey={this.getItemKey}
+            renderItem={this.renderItem}
+          />
         </View>
         <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
           <View style={formContainer}>
@@ -273,13 +324,27 @@ const styles = StyleSheet.create({
     ...horizontalCenter,
     backgroundColor: lightBlue,
     ...py10,
-    ...mb10,
+    ...mb20,
   },
   formLabel: {
     ...fs30,
     color: purple,
     ...uppercase,
     ...bold,
+  },
+  listContainer: {
+    maxHeight: 280,
+    ...mb20,
+  },
+  listItemContainer: {
+    ...px15,
+    ...py10,
+    ...borderBottomWidth1,
+    borderBottomColor: grey,
+  },
+  listItem: {
+    ...fs18,
+    color: blue,
   },
   formContainer: {
     ...p15,
@@ -312,4 +377,14 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Form;
+function mapStateToProps({library: {books}}) {
+  return {
+    books,
+  };
+}
+
+const mapDispatchToProps = {
+  fetchBooksList,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
