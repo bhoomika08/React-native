@@ -51,7 +51,7 @@ const Main = () => {
         </View>
         <View>
           <Text style={[sectionTitle, iconTitle]}>ICONS</Text>
-          {Object.values(icons).map(({name, value}, idx) => (
+          {icons.map(({name, value}, idx) => (
             <IconType key={value} idx={idx + 1} name={name} iconType={value} />
           ))}
         </View>
