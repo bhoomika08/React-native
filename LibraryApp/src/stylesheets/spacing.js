@@ -2,15 +2,30 @@ import {StyleSheet} from 'react-native';
 
 export const Spacing = StyleSheet.create({
   p10: {
-    padding: 10
+    padding: 10,
   },
-  p20: {
-    padding: 20
+  p15: {
+    padding: 15
   },
-  m5: {
-    margin: 5
+  py10: {
+    paddingVertical: 10
+  },
+  py20: {
+    paddingVertical: 20,
+  },
+  m10: {
+    margin: 10,
+  },
+  mtAuto: {
+    marginTop: "auto"
   },
   mt50: {
-    marginTop: 50
+    marginTop: 50,
+  },
+  mb10: {
+    marginBottom: 10,
+  },
+  mb20: {
+    marginBottom: 20,
   }
 });

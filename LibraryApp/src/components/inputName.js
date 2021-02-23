@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 import {Text, View, TextInput, StyleSheet} from 'react-native';
 import {setName} from 'store/actions/user.js';
@@ -20,7 +20,7 @@ const InputName = ({userName, setName}) => {
 const styles = StyleSheet.create({
   textInput: {
     ...Global.textCenter,
-    ...Spacing.m5,
+    ...Spacing.m10,
     height: 100,
     width: 300,
     borderWidth: 1,
