@@ -1,5 +1,12 @@
 import React from 'react';
-import {View, Text, StyleSheet, TextInput, ActionSheetIOS} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  ActionSheetIOS,
+  Pressable,
+} from 'react-native';
 import {Colors, Spacing, Global, Typography} from 'stylesheets';
 import CheckBox from '@react-native-community/checkbox';
 import {Picker} from '@react-native-picker/picker';
@@ -13,7 +20,7 @@ const {
 } = Global;
 const {fs20, bold} = Typography;
 const {mb20} = Spacing;
-const {darkgrey, grey, red, blue} = Colors;
+const {dimGrey, grey, red, blue} = Colors;
 const isIOSPlatform = Platform.OS == 'ios';
 
 export const Label = ({label, isReq, customStyle}) => {
@@ -77,7 +84,7 @@ export const Checkbox = ({
 export const Dropdown = ({
   label,
   placeholder,
-  selectedId,
+  selectedValue,
   options = [],
   onValueChange,
 }) => {
@@ -93,7 +100,7 @@ export const Dropdown = ({
       },
       (buttonIndex) => {
         if (buttonIndex != CANCEL_INDEX) {
-          onValueChange(iosDropdownOptions?.[buttonIndex]?.id);
+          onValueChange(iosDropdownOptions?.[buttonIndex]?.value);
         }
       },
     );
@@ -105,33 +112,33 @@ export const Dropdown = ({
     iosDropdownContainer,
     picker,
     dropdown,
+    dropdownItem,
   } = styles;
-  const selectedValue = options?.[selectedId]?.value;
+
+  const selectedVal = selectedValue;
   return (
     <View style={mb20}>
       {label && <Text style={labelText}>{label}</Text>}
       {isIOSPlatform ? (
-        <View style={iosDropdownContainer}>
-          <Text
-            onPress={showActionSheet}
-            style={[fs20, selectedValue ? '' : placeholderText]}>
-            {selectedValue ? selectedValue : placeholder}
+        <Pressable style={iosDropdownContainer} onPress={showActionSheet}>
+          <Text style={[fs20, selectedVal ? '' : placeholderText]}>
+            {selectedVal ? selectedVal : placeholder}
           </Text>
           <View style={verticalCenter}>
             <Text style={bold}>&#9660;</Text>
           </View>
-        </View>
+        </Pressable>
       ) : (
         <View style={picker}>
           <Picker
-            selectedValue={selectedId}
+            selectedValue={selectedValue}
             mode="dropdown"
             style={dropdown}
             itemStyle={dropdownItem}
             onValueChange={onValueChange}>
             <Picker.Item value="" label={placeholder} />
             {dropdownOptions.map(({id, value}) => (
-              <Picker.Item key={id} label={value} value={id} />
+              <Picker.Item key={id} label={value} value={value} />
             ))}
           </Picker>
         </View>
@@ -147,7 +154,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   placeholderText: {
-    color: darkgrey,
+    color: dimGrey,
   },
   inputField: {
     borderColor: grey,

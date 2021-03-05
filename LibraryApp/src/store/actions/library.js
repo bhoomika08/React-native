@@ -2,7 +2,11 @@ import {library} from 'constants/action-types';
 import {getBooks} from 'constants/api';
 import {alert} from 'helpers/application';
 
-const {setBooksList} = library;
+const {
+  setBooksList,
+  setActiveTab: setActiveLibTab,
+  setSelectedBook: setBookDetails,
+} = library;
 
 const LibraryActions = {
   setBooks: (payload) => (dispatch) => {
@@ -11,6 +15,18 @@ const LibraryActions = {
       payload,
     });
   },
+
+  setActiveTab: (payload) => (dispatch) =>
+    dispatch({
+      type: setActiveLibTab,
+      payload,
+    }),
+
+  setSelectedBook: (payload = {}) => (dispatch) =>
+    dispatch({
+      type: setBookDetails,
+      payload,
+    }),
 
   fetchBooksList: () => (dispatch) =>
     fetch(getBooks, {
@@ -23,4 +39,9 @@ const LibraryActions = {
       .catch((error) => alert('Error', error.message)),
 };
 
-export const {setBooks, fetchBooksList} = LibraryActions;
+export const {
+  setBooks,
+  setActiveTab,
+  setSelectedBook,
+  fetchBooksList,
+} = LibraryActions;

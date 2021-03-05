@@ -7,8 +7,17 @@ export const Spacing = StyleSheet.create({
   p15: {
     padding: 15
   },
+  p20: {
+    padding: 20
+  },
+  px10: {
+    paddingHorizontal: 10
+  },
   px15: {
     paddingHorizontal: 15
+  },
+  px25: {
+    paddingHorizontal: 25
   },
   py10: {
     paddingVertical: 10

@@ -1,8 +1,11 @@
 import {StyleSheet} from 'react-native';
 
 export const Global = StyleSheet.create({
+  flexPoint45: {
+    flex: 0.45,
+  },
   flex1: {
-    flex: 0.45
+    flex: 1,
   },
   rowFlex: {
     flexDirection: 'row',
@@ -11,7 +14,7 @@ export const Global = StyleSheet.create({
     flexDirection: 'column',
   },
   spaceBetween: {
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   verticalCenter: {
     justifyContent: 'center',
@@ -29,10 +32,13 @@ export const Global = StyleSheet.create({
   borderRadius5: {
     borderRadius: 5,
   },
+  borderRadius20: {
+    borderRadius: 20,
+  },
   borderWidth1: {
-    borderWidth: 1
+    borderWidth: 1,
   },
   borderBottomWidth1: {
-    borderBottomWidth: 1
-  }
+    borderBottomWidth: 1,
+  },
 });
