@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, FlatList, ActivityIndicator} from 'react-native';
+import {FlatList, ActivityIndicator} from 'react-native';
 
 const loadMoreTimeout = 2000;
 const scrollThreshold = 0;
