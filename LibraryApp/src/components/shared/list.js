@@ -10,6 +10,7 @@ class List extends React.PureComponent {
     this.state = {
       items: [],
     };
+    this.listRef = React.createRef();
     this.getFirstBatchOfItems = this.getFirstBatchOfItems.bind(this);
     this.loadMoreItems = this.loadMoreItems.bind(this);
     this.renderFooter = this.renderFooter.bind(this);
@@ -27,6 +28,14 @@ class List extends React.PureComponent {
       this.setState({
         items: data,
       });
+    }
+  }
+
+  componentDidUpdate({data: prevData}) {
+    const {data} = this.props;
+    if (prevData != data) {
+      this.listRef.current.scrollToOffset({animated: true, offset: 0});
+      this.getFirstBatchOfItems();
     }
   }
 
@@ -70,19 +79,18 @@ class List extends React.PureComponent {
     const {renderItem, itemKey, onRefresh, refreshing} = this.props;
     const {items} = this.state;
     return (
-      <>
-        <FlatList
-          showsVerticalScrollIndicator={true}
-          data={items}
-          renderItem={renderItem}
-          keyExtractor={itemKey}
-          onEndReached={this.loadMoreItems}
-          onEndReachedThreshold={scrollThreshold}
-          ListFooterComponent={this.renderFooter}
-          onRefresh={onRefresh}
-          refreshing={refreshing}
-        />
-      </>
+      <FlatList
+        ref={this.listRef}
+        showsVerticalScrollIndicator={true}
+        data={items}
+        renderItem={renderItem}
+        keyExtractor={itemKey}
+        onEndReached={this.loadMoreItems}
+        onEndReachedThreshold={scrollThreshold}
+        ListFooterComponent={this.renderFooter}
+        onRefresh={onRefresh}
+        refreshing={refreshing}
+      />
     );
   }
 }

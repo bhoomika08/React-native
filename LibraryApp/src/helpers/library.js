@@ -6,7 +6,7 @@ export const FilterListBySearch = (searchedText, allOptions) => {
     for (const option of allOptions) {
       if (
         isSearchMatching(option.name, searchedText) ||
-        isSearchMatching(option.authorName, searchedText)
+        isSearchMatching(option.author, searchedText)
       ) {
         filteredList.push(option);
       }

@@ -26,7 +26,6 @@ const {search} = Icons;
 const {
   flex1,
   rowFlex,
-  spaceBetween,
   borderWidth1,
   borderRadius20,
   borderBottomWidth1,
