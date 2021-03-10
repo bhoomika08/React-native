@@ -9,7 +9,6 @@ import {
   ActivityIndicator,
   Keyboard,
 } from 'react-native';
-import {user} from 'constants/api';
 import {publishers, books} from 'constants/data';
 import {Colors, Global, Spacing, Typography} from 'stylesheets';
 import {validationMessages} from 'constants/locale';
@@ -31,7 +30,7 @@ const {
 } = Global;
 const {iconFont, fs16, fs20, bold} = Typography;
 const {p10, p15, py10, m10, py20, px15, mtAuto} = Spacing;
-const {blue, lightGreen} = Colors;
+const {blue, lightGreen, white} = Colors;
 
 class Form extends React.PureComponent {
   constructor(props) {
@@ -308,6 +307,7 @@ const styles = StyleSheet.create({
   inputStyle: {
     ...p10,
     ...fs20,
+    backgroundColor: white
   },
   checkboxContainer: {
     ...rowFlex,

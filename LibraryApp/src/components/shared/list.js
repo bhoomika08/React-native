@@ -81,7 +81,7 @@ class List extends React.PureComponent {
     return (
       <FlatList
         ref={this.listRef}
-        showsVerticalScrollIndicator={true}
+        showsVerticalScrollIndicator={false}
         data={items}
         renderItem={renderItem}
         keyExtractor={itemKey}

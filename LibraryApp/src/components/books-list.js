@@ -22,14 +22,13 @@ const {search} = Icons;
 const {
   flex1,
   rowFlex,
-  borderWidth1,
   borderRadius20,
   horizontalCenter,
   verticalCenter,
 } = Global;
 const {comicFont, gochiFont, iconFont, fs18, fs20, fs25, bold} = Typography;
 const {p10, py20, px10, px15, px25, p15, mtAuto, mb15} = Spacing;
-const {blue, grey, darkGrey, purple, lightGreen, maroon} = Colors;
+const {blue, grey, darkGrey, purple, lightGreen, maroon, white} = Colors;
 
 class BooksList extends React.Component {
   constructor(props) {
@@ -81,7 +80,7 @@ class BooksList extends React.Component {
     const {listItemContainer, listItem, bookPrice} = styles;
     return (
       <Pressable
-        style={[listItemContainer]}
+        style={listItemContainer}
         onPress={() => this.selectBook(item)}>
         <View style={[flex1, px15]}>
           <Text style={listItem}>{name}</Text>
@@ -122,12 +121,12 @@ class BooksList extends React.Component {
       title,
       searchContainer,
       searchIcon,
-      searchInput,
       listContainer,
       button,
     } = styles;
     const booksArr = Object.values(books);
     const filteredList = FilterListBySearch(searchText, booksArr);
+    const containsBooks = filteredList.length > 0;
     return (
       <>
         <View style={titleContainer}>
@@ -143,7 +142,6 @@ class BooksList extends React.Component {
               autoCorrect={false}
               onChangeText={this.search}
               placeholder="Search"
-              style={searchInput}
             />
           </View>
         </View>
@@ -152,15 +150,21 @@ class BooksList extends React.Component {
             <ActivityIndicator size="large" />
           ) : (
             <View style={p15}>
-              <List
-                data={filteredList}
-                itemKey={this.getItemKey}
-                onRefresh={this.onRefresh}
-                renderItem={this.renderItem}
-                loadOnScroll
-                batchCount={10}
-                refreshing={isRefreshing}
-              />
+              {containsBooks ? (
+                <List
+                  data={filteredList}
+                  itemKey={this.getItemKey}
+                  onRefresh={this.onRefresh}
+                  renderItem={this.renderItem}
+                  loadOnScroll
+                  batchCount={10}
+                  refreshing={isRefreshing}
+                />
+              ) : (
+                <View style={horizontalCenter}>
+                  <Text>No Books Found</Text>
+                </View>
+              )}
             </View>
           )}
         </SafeAreaView>
@@ -186,9 +190,7 @@ const styles = StyleSheet.create({
   searchContainer: {
     ...rowFlex,
     ...borderRadius20,
-    ...borderWidth1,
-    borderColor: grey,
-    backgroundColor: grey,
+    backgroundColor: white,
     ...p10,
   },
   searchIcon: {
@@ -197,19 +199,14 @@ const styles = StyleSheet.create({
     ...px10,
     color: darkGrey,
   },
-  searchInput: {
-    backgroundColor: grey,
-  },
   listContainer: {
     ...flex1,
   },
   listItemContainer: {
     ...mb15,
-    backgroundColor: grey,
+    backgroundColor: white,
     ...rowFlex,
     ...p10,
-    ...borderWidth1,
-    borderColor: purple,
   },
   listItem: {
     ...comicFont,

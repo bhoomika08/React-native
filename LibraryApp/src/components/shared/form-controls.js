@@ -20,7 +20,7 @@ const {
 } = Global;
 const {fs20, bold} = Typography;
 const {mb20} = Spacing;
-const {dimGrey, grey, red, blue} = Colors;
+const {dimGrey, grey, red, blue, white} = Colors;
 const isIOSPlatform = Platform.OS == 'ios';
 
 export const Label = ({label, isReq, customStyle}) => {
@@ -174,12 +174,14 @@ const styles = StyleSheet.create({
     padding: 10,
     ...borderWidth1,
     ...borderRadius5,
-    borderColor: grey,
+    borderColor: white,
+    backgroundColor: white
   },
   picker: {
     ...borderWidth1,
     ...borderRadius5,
-    borderColor: grey,
+    borderColor: white,
+    backgroundColor: white
   },
   dropdown: {
     width: '80%',

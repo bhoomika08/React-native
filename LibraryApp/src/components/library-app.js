@@ -11,7 +11,7 @@ import BooksList from 'components/books-list';
 const {horizontalCenter} = Global;
 const {fs30, bold, uppercase} = Typography;
 const {py10, mb20} = Spacing;
-const {lightBlue, purple} = Colors;
+const {lightBlue, purple, grey} = Colors;
 const isIOSPlatform = Platform.OS == 'ios';
 
 class LibraryApp extends React.PureComponent {
@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
   innerContainer: {
     flex: 1,
     marginTop: isIOSPlatform ? getStatusBarHeight() : 0,
+    backgroundColor: grey
   },
   headingContainer: {
     ...horizontalCenter,
