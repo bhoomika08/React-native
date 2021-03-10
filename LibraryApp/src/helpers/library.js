@@ -16,3 +16,33 @@ export const FilterListBySearch = (searchedText, allOptions) => {
   }
   return filteredList;
 };
+
+export const GetBookDetails = (data) => {
+  const booksListItem = {};
+  const {
+    id,
+    selectedPublisherValue,
+    bookName,
+    authorName,
+    price,
+    email,
+    url,
+  } = data;
+  booksListItem[id] = {
+    id,
+    name: bookName,
+    author: authorName,
+    publisher: selectedPublisherValue,
+    price,
+  };
+  const bookAllDetails = {
+    id,
+    publisher: selectedPublisherValue,
+    bookName,
+    authorName,
+    price,
+    email,
+    url,
+  };
+  return {booksListItem, bookAllDetails};
+};

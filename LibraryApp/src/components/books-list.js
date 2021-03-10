@@ -9,18 +9,14 @@ import {
   Pressable,
 } from 'react-native';
 import {connect} from 'react-redux';
-import {
-  setActiveTab,
-  setSelectedBook,
-  fetchBooksList,
-} from 'store/actions/library';
+import {setActiveTab, setSelectedBook} from 'store/actions/library';
 import {Colors, Global, Spacing, Typography} from 'stylesheets';
 import {libraryForm} from 'constants/app-defaults';
 import {FilterListBySearch} from 'helpers/library';
 import List from 'components/shared/list';
 import {Icons} from 'constants/icons';
 
-const loaderTimeout = 1000;
+const loaderTimeout = 2000;
 const {search} = Icons;
 
 const {
@@ -28,13 +24,12 @@ const {
   rowFlex,
   borderWidth1,
   borderRadius20,
-  borderBottomWidth1,
   horizontalCenter,
   verticalCenter,
 } = Global;
 const {comicFont, gochiFont, iconFont, fs18, fs20, fs25, bold} = Typography;
-const {p10, py10, py20, px10, px15, px25, p15, mtAuto} = Spacing;
-const {blue, grey, darkGrey, purple, lightGreen} = Colors;
+const {p10, py20, px10, px15, px25, p15, mtAuto, mb15} = Spacing;
+const {blue, grey, darkGrey, purple, lightGreen, maroon} = Colors;
 
 class BooksList extends React.Component {
   constructor(props) {
@@ -52,14 +47,11 @@ class BooksList extends React.Component {
   }
 
   componentDidMount() {
-    const {books, fetchBooksList} = this.props;
+    const {books} = this.props;
     if (books.length == 0) {
-      this.setState(
-        {
-          isDataFetching: true,
-        },
-        () => fetchBooksList(),
-      );
+      this.setState({
+        isDataFetching: true,
+      });
     }
     setTimeout(() => {
       this.setState({isDataFetching: false});
@@ -73,8 +65,6 @@ class BooksList extends React.Component {
   }
 
   getApiData() {
-    const {fetchBooksList} = this.props;
-    fetchBooksList();
     setTimeout(() => {
       this.setState({isRefreshing: false});
     }, loaderTimeout);
@@ -91,7 +81,7 @@ class BooksList extends React.Component {
     const {listItemContainer, listItem, bookPrice} = styles;
     return (
       <Pressable
-        style={listItemContainer}
+        style={[listItemContainer]}
         onPress={() => this.selectBook(item)}>
         <View style={[flex1, px15]}>
           <Text style={listItem}>{name}</Text>
@@ -109,7 +99,7 @@ class BooksList extends React.Component {
 
   search(value) {
     this.setState({
-      searchText: value,
+      searchText: value.trim(),
     });
   }
 
@@ -136,7 +126,8 @@ class BooksList extends React.Component {
       listContainer,
       button,
     } = styles;
-    const filteredList = FilterListBySearch(searchText, books);
+    const booksArr = Object.values(books);
+    const filteredList = FilterListBySearch(searchText, booksArr);
     return (
       <>
         <View style={titleContainer}>
@@ -160,7 +151,7 @@ class BooksList extends React.Component {
           {isDataFetching ? (
             <ActivityIndicator size="large" />
           ) : (
-            <View>
+            <View style={p15}>
               <List
                 data={filteredList}
                 itemKey={this.getItemKey}
@@ -213,10 +204,12 @@ const styles = StyleSheet.create({
     ...flex1,
   },
   listItemContainer: {
+    ...mb15,
+    backgroundColor: grey,
     ...rowFlex,
-    ...py10,
-    ...borderBottomWidth1,
-    borderBottomColor: grey,
+    ...p10,
+    ...borderWidth1,
+    borderColor: purple,
   },
   listItem: {
     ...comicFont,
@@ -227,6 +220,7 @@ const styles = StyleSheet.create({
     ...gochiFont,
     ...fs20,
     ...px25,
+    color: maroon,
   },
   button: {
     ...horizontalCenter,
@@ -242,7 +236,6 @@ function mapStateToProps({library: {books}}) {
 }
 
 const mapDispatchToProps = {
-  fetchBooksList,
   setActiveTab,
   setSelectedBook,
 };

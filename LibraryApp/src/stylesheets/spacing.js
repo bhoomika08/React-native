@@ -37,6 +37,9 @@ export const Spacing = StyleSheet.create({
   mb10: {
     marginBottom: 10,
   },
+  mb15: {
+    marginBottom: 15
+  },
   mb20: {
     marginBottom: 20,
   }

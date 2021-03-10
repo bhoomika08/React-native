@@ -1,11 +1,17 @@
 import {booksList} from 'constants/app-defaults';
 import {library as LibraryActionType} from 'constants/action-types';
+import {books} from 'constants/data';
 
-const {setBooksList, setActiveTab, setSelectedBook} = LibraryActionType;
+const {
+  setBooksList,
+  setActiveTab,
+  setSelectedBook,
+  updateBooksList,
+} = LibraryActionType;
 
 const INITIAL_STATE = {
   activeTab: booksList,
-  books: [],
+  books,
   selectedBook: {},
 };
 
@@ -25,6 +31,11 @@ const library = (state = INITIAL_STATE, {type, payload}) => {
       return {
         ...state,
         selectedBook: payload,
+      };
+    case updateBooksList:
+      return {
+        ...state,
+        books: {...state.books, ...payload},
       };
     default:
       return state;

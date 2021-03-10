@@ -10,12 +10,13 @@ import {
   Keyboard,
 } from 'react-native';
 import {user} from 'constants/api';
-import {publishers} from 'constants/data';
+import {publishers, books} from 'constants/data';
 import {Colors, Global, Spacing, Typography} from 'stylesheets';
 import {validationMessages} from 'constants/locale';
 import {booksList} from 'constants/app-defaults';
-import {setActiveTab} from 'store/actions/library';
+import {setActiveTab, updateBooks} from 'store/actions/library';
 import {omit, stringifyResponse, alert} from 'helpers/application';
+import {GetBookDetails} from 'helpers/library';
 import {isEmail, isFieldEmpty, isUrl} from 'helpers/validation';
 import {InputField, Checkbox, Dropdown} from 'components/shared/form-controls';
 import {previous} from 'constants/icons';
@@ -36,13 +37,17 @@ class Form extends React.PureComponent {
   constructor(props) {
     super(props);
     const {
+      id = '',
       name = '',
       author = '',
       publisher = '',
       price = '',
     } = props.selectedBook;
 
+    const booksLen = Object.keys(books).length;
+
     this.state = {
+      id: id ? id : booksLen + 1,
       selectedPublisherValue: publisher,
       isDisplayChecked: true,
       bookName: name,
@@ -61,7 +66,6 @@ class Form extends React.PureComponent {
     this.validateForm = this.validateForm.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.onSuccess = this.onSuccess.bind(this);
-    this.onError = this.onError.bind(this);
     this.resetAllFields = this.resetAllFields.bind(this);
   }
 
@@ -123,33 +127,19 @@ class Form extends React.PureComponent {
   }
 
   handleFormSubmit() {
+    const {updateBooks} = this.props;
     const data = {...this.state};
     this.setState({isLoading: true});
-    fetch(user, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    })
-      .then((rawResponse) => rawResponse.json())
-      .then((response) => {
-        this.onSuccess(response);
-      })
-      .catch((error) => this.onError(error));
+    const {booksListItem, bookAllDetails} = GetBookDetails(data);
+    updateBooks(booksListItem);
+    this.onSuccess(bookAllDetails);
   }
 
-  onSuccess(response) {
+  onSuccess(bookData) {
     const {setActiveTab} = this.props;
     this.resetAllFields();
-    alert('Success', stringifyResponse(response));
+    alert('Book Details added / updated', stringifyResponse(bookData));
     setActiveTab(booksList);
-  }
-
-  onError(error) {
-    this.setState({isLoading: false});
-    alert('Error', error.message);
   }
 
   resetAllFields() {
@@ -189,7 +179,7 @@ class Form extends React.PureComponent {
       label,
     } = styles;
     const {selectedBook} = this.props;
-
+    const containsSelectedBook = Object.keys(selectedBook).length > 0;
     return (
       <>
         <View style={backNavigationContainer}>
@@ -288,7 +278,7 @@ class Form extends React.PureComponent {
         <View style={mtAuto}>
           <Pressable style={button} onPress={this.validateForm}>
             <Text style={[fs20, bold]}>
-              {selectedBook ? 'UPDATE' : 'SUBMIT'}
+              {containsSelectedBook ? 'UPDATE' : 'SUBMIT'}
             </Text>
           </Pressable>
         </View>
@@ -342,6 +332,7 @@ function mapStateToProps({library: {selectedBook}}) {
 
 const mapDispatchToProps = {
   setActiveTab,
+  updateBooks,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
