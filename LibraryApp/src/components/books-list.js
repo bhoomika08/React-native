@@ -77,13 +77,13 @@ class BooksList extends React.Component {
 
   renderItem = ({item}) => {
     const {name, author, publisher, price} = item;
-    const {listItemContainer, listItem, bookPrice} = styles;
+    const {listItemContainer, listItemName, bookPrice} = styles;
     return (
       <Pressable
         style={listItemContainer}
         onPress={() => this.selectBook(item)}>
         <View style={[flex1, px15]}>
-          <Text style={listItem}>{name}</Text>
+          <Text style={listItemName}>{name}</Text>
           <Text style={[gochiFont, fs20]}>{author}</Text>
           <Text style={[gochiFont, fs18]}>{publisher}</Text>
         </View>
@@ -141,7 +141,7 @@ class BooksList extends React.Component {
               autoCapitalize="none"
               autoCorrect={false}
               onChangeText={this.search}
-              placeholder="Search"
+              placeholder="Search by Book Name / Author Name"
             />
           </View>
         </View>
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
     ...rowFlex,
     ...p10,
   },
-  listItem: {
+  listItemName: {
     ...comicFont,
     ...fs18,
     color: purple,
