@@ -17,9 +17,10 @@ const {
   borderWidth1,
   verticalCenter,
   spaceBetween,
+  textRight,
 } = Global;
-const {fs20, bold} = Typography;
-const {mb20} = Spacing;
+const {fs18, fs20, bold} = Typography;
+const {p10, mb5, mb20} = Spacing;
 const {dimGrey, grey, red, blue, white} = Colors;
 const isIOSPlatform = Platform.OS == 'ios';
 
@@ -43,19 +44,14 @@ export const InputField = ({
   isReq,
   onChangeText = () => {},
 }) => {
-  const {redText, errorField, inputField, errorText} = styles;
+  const {redText, errorField, errorText} = styles;
   return (
     <View style={mb20}>
       {label && <Label label={label} isReq={isReq} />}
       <TextInput
         value={value}
         placeholder={placeholder}
-        style={[
-          borderRadius5,
-          borderWidth1,
-          style,
-          error ? errorField : inputField,
-        ]}
+        style={[borderRadius5, style, error ? errorField : '']}
         keyboardType={keyboardType}
         onChangeText={(text) => onChangeText(text, inputKey)}
       />
@@ -149,39 +145,33 @@ export const Dropdown = ({
 
 const styles = StyleSheet.create({
   labelText: {
-    fontSize: 18,
+    ...fs18,
     fontWeight: isIOSPlatform ? '500' : 'bold',
-    marginBottom: 5,
+    ...mb5,
   },
   placeholderText: {
     color: dimGrey,
-  },
-  inputField: {
-    borderColor: grey,
   },
   redText: {
     color: red,
   },
   errorText: {
-    textAlign: 'right',
+    ...textRight,
   },
   errorField: {
+    ...borderWidth1,
     borderColor: red,
   },
   iosDropdownContainer: {
     ...rowFlex,
     ...spaceBetween,
-    padding: 10,
-    ...borderWidth1,
+    ...p10,
     ...borderRadius5,
-    borderColor: white,
-    backgroundColor: white
+    backgroundColor: white,
   },
   picker: {
-    ...borderWidth1,
     ...borderRadius5,
-    borderColor: white,
-    backgroundColor: white
+    backgroundColor: white,
   },
   dropdown: {
     width: '80%',

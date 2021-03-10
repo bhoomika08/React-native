@@ -25,6 +25,9 @@ export const Global = StyleSheet.create({
   textCenter: {
     textAlign: 'center',
   },
+  textRight: {
+    textAlign: 'right',
+  },
   center: {
     justifyContent: 'center',
     alignItems: 'center',
