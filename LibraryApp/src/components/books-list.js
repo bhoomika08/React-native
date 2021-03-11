@@ -94,7 +94,7 @@ class BooksList extends React.Component {
     );
   };
 
-  getItemKey = (item) => item.id;
+  getItemKey = (item) => `book-${item.id}`;
 
   search(value) {
     this.setState({
