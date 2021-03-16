@@ -14,10 +14,9 @@ import {Colors, Global, Spacing, Typography} from 'stylesheets';
 import {libraryForm} from 'constants/app-defaults';
 import {FilterListBySearch} from 'helpers/library';
 import List from 'components/shared/list';
-import {Icons} from 'constants/icons';
+import {search} from 'constants/icons';
 
 const loaderTimeout = 2000;
-const {search} = Icons;
 
 const {
   flex1,
@@ -28,7 +27,9 @@ const {
 } = Global;
 const {comicFont, gochiFont, iconFont, fs18, fs20, fs25, bold} = Typography;
 const {p10, py20, px10, px15, px25, p15, mtAuto, mb15} = Spacing;
-const {blue, grey, darkGrey, purple, lightGreen, maroon, white} = Colors;
+const {blue, darkGrey, purple, lightGreen, maroon, white} = Colors;
+
+const getItemKey = (item) => `book-${item.id}`;
 
 class BooksList extends React.Component {
   constructor(props) {
@@ -39,40 +40,40 @@ class BooksList extends React.Component {
       searchText: '',
     };
     this.onRefresh = this.onRefresh.bind(this);
-    this.getApiData = this.getApiData.bind(this);
     this.selectBook = this.selectBook.bind(this);
     this.search = this.search.bind(this);
     this.addNewBook = this.addNewBook.bind(this);
   }
 
-  componentDidMount() {
-    const {books} = this.props;
-    if (books.length == 0) {
-      this.setState({
-        isDataFetching: true,
-      });
-    }
-    setTimeout(() => {
-      this.setState({isDataFetching: false});
-    }, loaderTimeout);
-  }
-
   onRefresh() {
     this.setState({isRefreshing: true}, () => {
-      this.getApiData();
+      setTimeout(() => {
+        this.setState({isRefreshing: false});
+      }, loaderTimeout);
     });
-  }
-
-  getApiData() {
-    setTimeout(() => {
-      this.setState({isRefreshing: false});
-    }, loaderTimeout);
   }
 
   selectBook(book) {
     const {setSelectedBook} = this.props;
     setSelectedBook(book);
     this.navigateToForm();
+  }
+
+  search(value) {
+    this.setState({
+      searchText: value,
+    });
+  }
+
+  addNewBook() {
+    const {setSelectedBook} = this.props;
+    setSelectedBook();
+    this.navigateToForm();
+  }
+
+  navigateToForm() {
+    const {setActiveTab} = this.props;
+    setActiveTab(libraryForm);
   }
 
   renderItem = ({item}) => {
@@ -93,25 +94,6 @@ class BooksList extends React.Component {
       </Pressable>
     );
   };
-
-  getItemKey = (item) => `book-${item.id}`;
-
-  search(value) {
-    this.setState({
-      searchText: value.trim(),
-    });
-  }
-
-  addNewBook() {
-    const {setSelectedBook} = this.props;
-    setSelectedBook();
-    this.navigateToForm();
-  }
-
-  navigateToForm() {
-    const {setActiveTab} = this.props;
-    setActiveTab(libraryForm);
-  }
 
   render() {
     const {books} = this.props;
@@ -134,14 +116,16 @@ class BooksList extends React.Component {
         </View>
         <View style={p15}>
           <View style={searchContainer}>
-            <View style={[verticalCenter]}>
+            <View style={verticalCenter}>
               <Text style={searchIcon}>{search}</Text>
             </View>
             <TextInput
+              value={searchText}
               autoCapitalize="none"
               autoCorrect={false}
               onChangeText={this.search}
               placeholder="Search by Book Name / Author Name"
+              returnKeyType="search"
             />
           </View>
         </View>
@@ -153,7 +137,7 @@ class BooksList extends React.Component {
               {containsBooks ? (
                 <List
                   data={filteredList}
-                  itemKey={this.getItemKey}
+                  itemKey={getItemKey}
                   onRefresh={this.onRefresh}
                   renderItem={this.renderItem}
                   loadOnScroll

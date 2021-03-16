@@ -1,8 +1,6 @@
-export const Icons = {
-  caretUp: "\ue910",
-  caretDown: '\ue911',
-  search: "\ue905",
-  previous: "\ue903",
-  next: "\ue904",
-  htmlCaretDown: String.fromCharCode("9660"),
-};
+export const caretUp = '\ue910';
+export const caretDown = '\ue911';
+export const search = '\ue905';
+export const previous = '\ue903';
+export const next = '\ue904';
+export const htmlCaretDown = String.fromCharCode('9660');

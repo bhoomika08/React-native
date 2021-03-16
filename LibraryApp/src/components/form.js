@@ -14,7 +14,7 @@ import {Colors, Global, Spacing, Typography} from 'stylesheets';
 import {validationMessages} from 'constants/locale';
 import {booksList} from 'constants/app-defaults';
 import {setActiveTab, updateBooks} from 'store/actions/library';
-import {omit, stringifyResponse, alert} from 'helpers/application';
+import {omit, alert} from 'helpers/application';
 import {GetBookDetails} from 'helpers/library';
 import {isEmail, isFieldEmpty, isUrl} from 'helpers/validation';
 import {InputField, Checkbox, Dropdown} from 'components/shared/form-controls';
@@ -129,15 +129,15 @@ class Form extends React.PureComponent {
     const {updateBooks} = this.props;
     const data = {...this.state};
     this.setState({isLoading: true});
-    const {booksListItem, bookAllDetails} = GetBookDetails(data);
+    const booksListItem = GetBookDetails(data);
     updateBooks(booksListItem);
-    this.onSuccess(bookAllDetails);
+    this.onSuccess();
   }
 
-  onSuccess(bookData) {
+  onSuccess() {
     const {setActiveTab} = this.props;
     this.resetAllFields();
-    alert('Book Details added / updated', stringifyResponse(bookData));
+    alert('Book Details added / updated');
     setActiveTab(booksList);
   }
 
@@ -183,7 +183,7 @@ class Form extends React.PureComponent {
       <>
         <View style={backNavigationContainer}>
           <Pressable style={rowFlex} onPress={this.displayBooksList}>
-            <View style={[verticalCenter]}>
+            <View style={verticalCenter}>
               <Text style={backIcon}>{previous}</Text>
             </View>
             <Text style={backNavigationText}>Back to Books List</Text>
@@ -307,7 +307,7 @@ const styles = StyleSheet.create({
   inputStyle: {
     ...p10,
     ...fs20,
-    backgroundColor: white
+    backgroundColor: white,
   },
   checkboxContainer: {
     ...rowFlex,

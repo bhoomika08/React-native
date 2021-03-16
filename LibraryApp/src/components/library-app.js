@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {StyleSheet, View, Text, KeyboardAvoidingView} from 'react-native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {Colors, Global, Spacing, Typography} from 'stylesheets';
-import {booksList, libraryForm} from 'constants/app-defaults';
+import {booksList} from 'constants/app-defaults';
 import {setActiveTab} from 'store/actions/library';
 import Form from 'components/form';
 import BooksList from 'components/books-list';
@@ -14,50 +14,27 @@ const {py10, mb20} = Spacing;
 const {lightBlue, purple, grey} = Colors;
 const isIOSPlatform = Platform.OS == 'ios';
 
-class LibraryApp extends React.PureComponent {
-  constructor() {
-    super();
-    this.activateList = this.activateList.bind(this);
-    this.activateForm = this.activateForm.bind(this);
-  }
-
-  activateList() {
-    const {setActiveTab} = this.props;
-    setActiveTab(booksList);
-  }
-
-  activateForm() {
-    const {setActiveTab} = this.props;
-    setActiveTab(libraryForm);
-  }
-
-  render() {
-    const {activeTab} = this.props;
-    const isListActive = activeTab == booksList;
-    const {innerContainer, headingContainer, formLabel} = styles;
-    return (
-      <KeyboardAvoidingView
-        style={innerContainer}
-        behavior={isIOSPlatform ? 'padding' : null}
-        keyboardVerticalOffset={0}>
-        <View style={headingContainer}>
-          <Text style={formLabel}>Library</Text>
-        </View>
-        {isListActive ? (
-          <BooksList onPress={this.activateForm} />
-        ) : (
-          <Form onPress={this.activateList} />
-        )}
-      </KeyboardAvoidingView>
-    );
-  }
-}
+const LibraryApp = ({activeTab}) => {
+  const isListActive = activeTab == booksList;
+  const {innerContainer, headingContainer, formLabel} = styles;
+  return (
+    <KeyboardAvoidingView
+      style={innerContainer}
+      behavior={isIOSPlatform ? 'padding' : null}
+      keyboardVerticalOffset={0}>
+      <View style={headingContainer}>
+        <Text style={formLabel}>Library</Text>
+      </View>
+      {isListActive ? <BooksList /> : <Form />}
+    </KeyboardAvoidingView>
+  );
+};
 
 const styles = StyleSheet.create({
   innerContainer: {
     flex: 1,
     marginTop: isIOSPlatform ? getStatusBarHeight() : 0,
-    backgroundColor: grey
+    backgroundColor: grey,
   },
   headingContainer: {
     ...horizontalCenter,

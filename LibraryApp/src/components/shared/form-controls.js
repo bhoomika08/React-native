@@ -111,14 +111,13 @@ export const Dropdown = ({
     dropdownItem,
   } = styles;
 
-  const selectedVal = selectedValue;
   return (
     <View style={mb20}>
       {label && <Text style={labelText}>{label}</Text>}
       {isIOSPlatform ? (
         <Pressable style={iosDropdownContainer} onPress={showActionSheet}>
-          <Text style={[fs20, selectedVal ? '' : placeholderText]}>
-            {selectedVal ? selectedVal : placeholder}
+          <Text style={[fs20, selectedValue ? '' : placeholderText]}>
+            {selectedValue ? selectedValue : placeholder}
           </Text>
           <View style={verticalCenter}>
             <Text style={bold}>&#9660;</Text>

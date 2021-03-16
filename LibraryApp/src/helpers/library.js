@@ -2,7 +2,7 @@ import {isSearchMatching} from 'helpers/application';
 
 export const FilterListBySearch = (searchedText, allOptions) => {
   let filteredList = [];
-  if (searchedText.length > 2) {
+  if (searchedText.trim().length > 2) {
     for (const option of allOptions) {
       if (
         isSearchMatching(option.name, searchedText) ||
@@ -19,15 +19,7 @@ export const FilterListBySearch = (searchedText, allOptions) => {
 
 export const GetBookDetails = (data) => {
   const booksListItem = {};
-  const {
-    id,
-    selectedPublisherValue,
-    bookName,
-    authorName,
-    price,
-    email,
-    url,
-  } = data;
+  const {id, selectedPublisherValue, bookName, authorName, price} = data;
   booksListItem[id] = {
     id,
     name: bookName,
@@ -35,14 +27,5 @@ export const GetBookDetails = (data) => {
     publisher: selectedPublisherValue,
     price,
   };
-  const bookAllDetails = {
-    id,
-    publisher: selectedPublisherValue,
-    bookName,
-    authorName,
-    price,
-    email,
-    url,
-  };
-  return {booksListItem, bookAllDetails};
+  return booksListItem;
 };
