@@ -1,63 +1,91 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import {
   StyleSheet,
   View,
   Text,
-  KeyboardAvoidingView,
   ScrollView,
   Pressable,
   ActivityIndicator,
+  Keyboard,
 } from 'react-native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
-import {user} from 'constants/api';
-import {publishers} from 'constants/data';
+import {publishers, books} from 'constants/data';
 import {Colors, Global, Spacing, Typography} from 'stylesheets';
 import {validationMessages} from 'constants/locale';
-import {omit, stringifyResponse, alert} from 'helpers/application';
+import {booksList} from 'constants/app-defaults';
+import {setActiveTab, updateBooks} from 'store/actions/library';
+import {omit, alert} from 'helpers/application';
+import {GetBookDetails} from 'helpers/library';
 import {isEmail, isFieldEmpty, isUrl} from 'helpers/validation';
 import {InputField, Checkbox, Dropdown} from 'components/shared/form-controls';
+import {previous} from 'constants/icons';
 
-const {rowFlex, flex1, spaceBetween, horizontalCenter, center} = Global;
-const {fs20, fs30, bold, uppercase} = Typography;
-const {p10, p15, py10, m10, mb10, py20, mtAuto} = Spacing;
-const {lightBlue, lightGreen, purple, white} = Colors;
-const isIOSPlatform = Platform.OS == 'ios';
+const {
+  rowFlex,
+  flexPoint45,
+  spaceBetween,
+  horizontalCenter,
+  verticalCenter,
+  center,
+} = Global;
+const {iconFont, fs16, fs20, bold} = Typography;
+const {p10, p15, py10, m10, py20, px15, mtAuto} = Spacing;
+const {blue, lightGreen, white} = Colors;
 
 class Form extends React.PureComponent {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    const {
+      id = '',
+      name = '',
+      author = '',
+      publisher = '',
+      price = '',
+    } = props.selectedBook;
+
+    const booksLen = Object.keys(books).length;
+
     this.state = {
-      selectedPublisherId: '',
+      id: id ? id : booksLen + 1,
+      selectedPublisherValue: publisher,
       isDisplayChecked: true,
-      bookName: '',
-      authorName: '',
-      price: '',
+      bookName: name,
+      authorName: author,
+      price,
       email: '',
       url: '',
       errors: {},
       isLoading: false,
     };
-    this.setSelectedPublisherId = this.setSelectedPublisherId.bind(this);
+
+    this.displayBooksList = this.displayBooksList.bind(this);
+    this.setSelectedPublisher = this.setSelectedPublisher.bind(this);
     this.toggleSelection = this.toggleSelection.bind(this);
     this.updateValue = this.updateValue.bind(this);
     this.validateForm = this.validateForm.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.onSuccess = this.onSuccess.bind(this);
-    this.onError = this.onError.bind(this);
     this.resetAllFields = this.resetAllFields.bind(this);
   }
 
-  setSelectedPublisherId(id) {
+  displayBooksList() {
+    const {setActiveTab} = this.props;
+    setActiveTab(booksList);
+  }
+
+  setSelectedPublisher(value) {
     this.setState({
-      selectedPublisherId: id,
+      selectedPublisherValue: value,
     });
   }
+
   toggleSelection() {
     const {isDisplayChecked} = this.state;
     this.setState({
       isDisplayChecked: !isDisplayChecked,
     });
   }
+
   updateValue(text, field) {
     this.setState({
       [field]: text,
@@ -69,6 +97,7 @@ class Form extends React.PureComponent {
     const {bookName, authorName, price, email, url} = this.state;
     const {required, invalid} = validationMessages;
     let errors = {};
+    Keyboard.dismiss();
     if (isFieldEmpty(bookName)) {
       errors.bookName = required;
     }
@@ -97,36 +126,24 @@ class Form extends React.PureComponent {
   }
 
   handleFormSubmit() {
+    const {updateBooks} = this.props;
     const data = {...this.state};
     this.setState({isLoading: true});
-    fetch(user, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    })
-      .then((rawResponse) => rawResponse.json())
-      .then((response) => {
-        this.onSuccess(response);
-      })
-      .catch((error) => this.onError(error));
+    const booksListItem = GetBookDetails(data);
+    updateBooks(booksListItem);
+    this.onSuccess();
   }
 
-  onSuccess(response) {
+  onSuccess() {
+    const {setActiveTab} = this.props;
     this.resetAllFields();
-    alert('Success', stringifyResponse(response));
-  }
-
-  onError(error) {
-    this.setState({isLoading: false});
-    alert('Error', error.message);
+    alert('Book Details added / updated');
+    setActiveTab(booksList);
   }
 
   resetAllFields() {
     this.setState({
-      selectedPublisherId: '',
+      selectedPublisherValue: '',
       isDisplayChecked: true,
       bookName: '',
       authorName: '',
@@ -140,7 +157,7 @@ class Form extends React.PureComponent {
 
   render() {
     const {
-      selectedPublisherId,
+      selectedPublisherValue,
       isDisplayChecked,
       bookName,
       authorName,
@@ -151,23 +168,26 @@ class Form extends React.PureComponent {
       isLoading,
     } = this.state;
     const {
-      innerContainer,
-      headingContainer,
-      formLabel,
+      backNavigationContainer,
+      backIcon,
+      backNavigationText,
       formContainer,
       inputStyle,
       checkboxContainer,
       button,
       label,
     } = styles;
-
+    const {selectedBook} = this.props;
+    const containsSelectedBook = Object.keys(selectedBook).length > 0;
     return (
-      <KeyboardAvoidingView
-        style={innerContainer}
-        behavior={isIOSPlatform ? 'padding' : null}
-        keyboardVerticalOffset={0}>
-        <View style={headingContainer}>
-          <Text style={formLabel}>Library Form</Text>
+      <>
+        <View style={backNavigationContainer}>
+          <Pressable style={rowFlex} onPress={this.displayBooksList}>
+            <View style={verticalCenter}>
+              <Text style={backIcon}>{previous}</Text>
+            </View>
+            <Text style={backNavigationText}>Back to Books List</Text>
+          </Pressable>
         </View>
         <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
           <View style={formContainer}>
@@ -199,8 +219,8 @@ class Form extends React.PureComponent {
                   label="Publishers"
                   placeholder="Select a publisher"
                   options={publishers}
-                  selectedId={selectedPublisherId}
-                  onValueChange={this.setSelectedPublisherId}
+                  selectedValue={selectedPublisherValue}
+                  onValueChange={this.setSelectedPublisher}
                 />
                 <InputField
                   label="Price"
@@ -214,7 +234,7 @@ class Form extends React.PureComponent {
                   onChangeText={this.updateValue}
                 />
                 <View style={[rowFlex, spaceBetween]}>
-                  <View style={flex1}>
+                  <View style={flexPoint45}>
                     <InputField
                       label="Email"
                       keyboardType="email-address"
@@ -227,7 +247,7 @@ class Form extends React.PureComponent {
                       onChangeText={this.updateValue}
                     />
                   </View>
-                  <View style={flex1}>
+                  <View style={flexPoint45}>
                     <InputField
                       label="Website"
                       keyboardType="url"
@@ -256,30 +276,30 @@ class Form extends React.PureComponent {
 
         <View style={mtAuto}>
           <Pressable style={button} onPress={this.validateForm}>
-            <Text style={[fs20, bold]}>SUBMIT</Text>
+            <Text style={[fs20, bold]}>
+              {containsSelectedBook ? 'UPDATE' : 'SUBMIT'}
+            </Text>
           </Pressable>
         </View>
-      </KeyboardAvoidingView>
+      </>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  innerContainer: {
-    flex: 1,
-    marginTop: isIOSPlatform ? getStatusBarHeight() : 0,
-  },
-  headingContainer: {
-    ...horizontalCenter,
-    backgroundColor: lightBlue,
+  backNavigationContainer: {
+    ...rowFlex,
     ...py10,
-    ...mb10,
   },
-  formLabel: {
-    ...fs30,
-    color: purple,
-    ...uppercase,
-    ...bold,
+  backIcon: {
+    ...iconFont,
+    color: blue,
+    ...fs16,
+    ...px15,
+  },
+  backNavigationText: {
+    color: blue,
+    ...fs16,
   },
   formContainer: {
     ...p15,
@@ -287,15 +307,7 @@ const styles = StyleSheet.create({
   inputStyle: {
     ...p10,
     ...fs20,
-  },
-  formText: {
-    ...center,
-    color: white,
-    ...fs20,
-  },
-  text: {
-    color: white,
-    ...fs20,
+    backgroundColor: white,
   },
   checkboxContainer: {
     ...rowFlex,
@@ -312,4 +324,15 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Form;
+function mapStateToProps({library: {selectedBook}}) {
+  return {
+    selectedBook,
+  };
+}
+
+const mapDispatchToProps = {
+  setActiveTab,
+  updateBooks,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);

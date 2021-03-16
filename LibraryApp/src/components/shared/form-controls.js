@@ -1,5 +1,12 @@
 import React from 'react';
-import {View, Text, StyleSheet, TextInput, ActionSheetIOS} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  ActionSheetIOS,
+  Pressable,
+} from 'react-native';
 import {Colors, Spacing, Global, Typography} from 'stylesheets';
 import CheckBox from '@react-native-community/checkbox';
 import {Picker} from '@react-native-picker/picker';
@@ -10,11 +17,21 @@ const {
   borderWidth1,
   verticalCenter,
   spaceBetween,
+  textRight,
 } = Global;
-const {fs20, bold} = Typography;
-const {mb20} = Spacing;
-const {darkgrey, grey, red, blue} = Colors;
+const {fs18, fs20, bold} = Typography;
+const {p10, mb5, mb20} = Spacing;
+const {dimGrey, grey, red, blue, white} = Colors;
 const isIOSPlatform = Platform.OS == 'ios';
+
+export const Label = ({label, isReq, customStyle}) => {
+  const {labelText, redText} = styles;
+  return (
+    <Text style={[labelText, customStyle]}>
+      {label} {isReq && <Text style={redText}>*</Text>}
+    </Text>
+  );
+};
 
 export const InputField = ({
   label,
@@ -27,23 +44,14 @@ export const InputField = ({
   isReq,
   onChangeText = () => {},
 }) => {
-  const {labelText, redText, errorField, inputField, errorText} = styles;
+  const {redText, errorField, errorText} = styles;
   return (
     <View style={mb20}>
-      {label && (
-        <Text style={labelText}>
-          {label} {isReq && <Text style={redText}>*</Text>}
-        </Text>
-      )}
+      {label && <Label label={label} isReq={isReq} />}
       <TextInput
         value={value}
         placeholder={placeholder}
-        style={[
-          borderRadius5,
-          borderWidth1,
-          style,
-          error ? errorField : inputField,
-        ]}
+        style={[borderRadius5, style, error ? errorField : '']}
         keyboardType={keyboardType}
         onChangeText={(text) => onChangeText(text, inputKey)}
       />
@@ -72,7 +80,7 @@ export const Checkbox = ({
 export const Dropdown = ({
   label,
   placeholder,
-  selectedId,
+  selectedValue,
   options = [],
   onValueChange,
 }) => {
@@ -88,7 +96,7 @@ export const Dropdown = ({
       },
       (buttonIndex) => {
         if (buttonIndex != CANCEL_INDEX) {
-          onValueChange(iosDropdownOptions?.[buttonIndex]?.id);
+          onValueChange(iosDropdownOptions?.[buttonIndex]?.value);
         }
       },
     );
@@ -100,33 +108,32 @@ export const Dropdown = ({
     iosDropdownContainer,
     picker,
     dropdown,
+    dropdownItem,
   } = styles;
-  const selectedValue = options?.[selectedId]?.value;
+
   return (
     <View style={mb20}>
       {label && <Text style={labelText}>{label}</Text>}
       {isIOSPlatform ? (
-        <View style={iosDropdownContainer}>
-          <Text
-            onPress={showActionSheet}
-            style={[fs20, selectedValue ? '' : placeholderText]}>
+        <Pressable style={iosDropdownContainer} onPress={showActionSheet}>
+          <Text style={[fs20, selectedValue ? '' : placeholderText]}>
             {selectedValue ? selectedValue : placeholder}
           </Text>
           <View style={verticalCenter}>
             <Text style={bold}>&#9660;</Text>
           </View>
-        </View>
+        </Pressable>
       ) : (
         <View style={picker}>
           <Picker
-            selectedValue={selectedId}
+            selectedValue={selectedValue}
             mode="dropdown"
             style={dropdown}
             itemStyle={dropdownItem}
             onValueChange={onValueChange}>
             <Picker.Item value="" label={placeholder} />
             {dropdownOptions.map(({id, value}) => (
-              <Picker.Item key={id} label={value} value={id} />
+              <Picker.Item key={id} label={value} value={value} />
             ))}
           </Picker>
         </View>
@@ -137,37 +144,33 @@ export const Dropdown = ({
 
 const styles = StyleSheet.create({
   labelText: {
-    fontSize: 18,
+    ...fs18,
     fontWeight: isIOSPlatform ? '500' : 'bold',
-    marginBottom: 5,
+    ...mb5,
   },
   placeholderText: {
-    color: darkgrey,
-  },
-  inputField: {
-    borderColor: grey,
+    color: dimGrey,
   },
   redText: {
     color: red,
   },
   errorText: {
-    textAlign: 'right',
+    ...textRight,
   },
   errorField: {
+    ...borderWidth1,
     borderColor: red,
   },
   iosDropdownContainer: {
     ...rowFlex,
     ...spaceBetween,
-    padding: 10,
-    ...borderWidth1,
+    ...p10,
     ...borderRadius5,
-    borderColor: grey,
+    backgroundColor: white,
   },
   picker: {
-    ...borderWidth1,
     ...borderRadius5,
-    borderColor: grey,
+    backgroundColor: white,
   },
   dropdown: {
     width: '80%',

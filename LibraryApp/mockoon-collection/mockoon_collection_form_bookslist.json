@@ -1,0 +1,123 @@
+{
+    "source": "mockoon:1.11.0",
+    "data": [
+        {
+            "type": "environment",
+            "item": {
+                "uuid": "",
+                "lastMigration": 13,
+                "name": "LibraryApp",
+                "endpointPrefix": "api/v1",
+                "latency": 0,
+                "port": 3001,
+                "routes": [
+                    {
+                        "uuid": "",
+                        "documentation": "",
+                        "method": "post",
+                        "endpoint": "user",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\n  \"statusText\": 200,\n  \"message\": \"user details submit successfully.\",\n  \"id\": \"{{faker 'random.uuid'}}\",\n  \"book_name\": \"{{body 'bookName'}}\",\n  \"author_name\": \"{{body 'authorName'}}\",\n  \"publisher\": \"{{body 'selectedPublisher'}}\",\n  \"is_display_checked\": \"{{body 'isDisplayChecked'}}\",\n  \"price\": \"{{body 'price'}}\",\n  \"email\": \"{{body 'email'}}\",\n  \"url\": \"{{body 'url'}}\",\n  \"created_at\": \"{{now}}\"\n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "Success",
+                                "headers": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [
+                                    {
+                                        "target": null,
+                                        "modifier": null,
+                                        "value": null,
+                                        "isRegex": false
+                                    }
+                                ],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            },
+                            {
+                                "uuid": "",
+                                "body": "{\n  \"status\": 0,\n  \"message\": \"Invalid password\",\n}",
+                                "latency": 0,
+                                "statusCode": 401,
+                                "label": "Unauthorized",
+                                "headers": [
+                                    {
+                                        "key": "",
+                                        "value": ""
+                                    }
+                                ],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [
+                                    {
+                                        "target": "body",
+                                        "modifier": "user.bookName",
+                                        "value": "Demo",
+                                        "isRegex": false
+                                    }
+                                ],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "",
+                        "method": "get",
+                        "endpoint": "books",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\n\"books\": [\n  {\n  \"id\": \"1\",\n  \"name\": \"ULYSSES\"\n  },\n  {\n  \"id\": \"2\",\n  \"name\": \"THE GREAT GATSBY\"\n  },\n  {\n  \"id\": \"3\",\n  \"name\": \"A PORTRAIT OF THE ARTIST AS A YOUNG MAN\"\n  },\n  {\n  \"id\": \"4\",\n  \"name\": \"BRAVE NEW WORLD\"\n  },\n  {\n  \"id\": \"5\",\n  \"name\": \"THE SOUND AND THE FURY\"\n  },\n  {\n  \"id\": \"6\",\n  \"name\": \"CATCH-22\"\n  },\n  {\n  \"id\": \"7\",\n  \"name\": \"DARKNESS AT NOON\"\n  },\n  {\n  \"id\": \"8\",\n  \"name\": \"THE GRAPES OF WRATH\"\n  },\n  {\n  \"id\": \"9\",\n  \"name\": \"UNDER THE VOLCANO\"\n  },\n  {\n  \"id\": \"10\",\n  \"name\": \"THE WAY OF ALL FLESH\"\n  },\n  {\n  \"id\": \"11\",\n  \"name\": \"1984\"\n  },\n  {\n  \"id\": \"12\",\n  \"name\": \"TO THE LIGHTHOUSE\"\n  },\n  {\n  \"id\": \"13\",\n  \"name\": \"AN AMERICAN TRAGEDY\"\n  },\n  {\n  \"id\": \"14\",\n  \"name\": \"THE HEART IS A LONELY HUNTER\"\n  },\n  {\n  \"id\": \"15\",\n  \"name\": \"INVISIBLE MAN\"\n  },\n  {\n  \"id\": \"16\",\n  \"name\": \"HENDERSON THE RAIN KING\"\n  },\n  {\n  \"id\": \"17\",\n  \"name\": \"A PASSAGE TO INDIA\"\n  },\n  {\n  \"id\": \"18\",\n  \"name\": \"THE WINGS OF THE DOVE\"\n  },\n  {\n  \"id\": \"19\",\n  \"name\": \"THE AMBASSADORS\"\n  },\n  {\n  \"id\": \"20\",\n  \"name\": \"THE GOOD SOLDIER\"\n  },\n  {\n  \"id\": \"21\",\n  \"name\": \"ANIMAL FARM\"\n  },\n  {\n  \"id\": \"22\",\n  \"name\": \"THE GOLDEN BOWL\"\n  },\n  {\n  \"id\": \"23\",\n  \"name\": \"SISTER CARRIE\"\n  },\n  {\n  \"id\": \"24\",\n  \"name\": \"A HANDFUL OF DUST\"\n  },\n  {\n  \"id\": \"25\",\n  \"name\": \"ALL THE KING’S MEN\"\n  },\n  {\n  \"id\": \"26\",\n  \"name\": \"THE BRIDGE OF SAN LUIS REY\"\n  },\n  {\n  \"id\": \"27\",\n  \"name\": \"HOWARDS END\"\n  },\n  {\n  \"id\": \"28\",\n  \"name\": \"THE HEART OF THE MATTER\"\n  },\n  {\n  \"id\": \"29\",\n  \"name\": \"LORD OF THE FLIES\"\n  },\n  {\n  \"id\": \"30\",\n  \"name\": \"DELIVERANCE\"\n  },\n  {\n  \"id\": \"31\",\n  \"name\": \"POINT COUNTER POINT\"\n  },\n  {\n  \"id\": \"32\",\n  \"name\": \"THE SUN ALSO RISES\"\n  },\n  {\n  \"id\": \"33\",\n  \"name\": \"THE SECRET AGENT\"\n  },\n  {\n  \"id\": \"34\",\n  \"name\": \"THE RAINBOW\"\n  },\n  {\n  \"id\": \"35\",\n  \"name\": \"TROPIC OF CANCER\"\n  },\n  {\n  \"id\": \"36\",\n  \"name\": \"PALE FIRE\"\n  },\n  {\n  \"id\": \"37\",\n  \"name\": \"LIGHT IN AUGUST\"\n  },\n  {\n  \"id\": \"38\",\n  \"name\": \"ON THE ROAD\"\n  },\n  {\n  \"id\": \"39\",\n  \"name\": \"THE AGE OF INNOCENCE\"\n  },\n  {\n  \"id\": \"40\",\n  \"name\": \"THE MOVIEGOER\"\n  },\n  {\n  \"id\": \"41\",\n  \"name\": \"FROM HERE TO ETERNITY\"\n  },\n  {\n  \"id\": \"42\",\n  \"name\": \"THE WAPSHOT CHRONICLES\"\n  },\n  {\n  \"id\": \"43\",\n  \"name\": \"A CLOCKWORK ORANGE\"\n  },\n  {\n  \"id\": \"44\",\n  \"name\": \"HEART OF DARKNESS\"\n  },\n  {\n  \"id\": \"45\",\n  \"name\": \"MAIN STREET\"\n  },\n  {\n  \"id\": \"46\",\n  \"name\": \"THE HOUSE OF MIRTH\"\n  },\n  {\n  \"id\": \"47\",\n  \"name\": \"A FAREWELL TO ARMS\"\n  },\n  {\n  \"id\": \"48\",\n  \"name\": \"THE DAY OF THE LOCUST\"\n  },\n  {\n  \"id\": \"49\",\n  \"name\": \"KIM\"\n  },\n  {\n  \"id\": \"50\",\n  \"name\": \"A ROOM WITH A VIEW\"\n  },\n  {\n  \"id\": \"51\",\n  \"name\": \"BRIDESHEAD REVISITED\"\n  },\n  {\n  \"id\": \"52\",\n  \"name\": \"ANGLE OF REPOSE\"\n  },\n  {\n  \"id\": \"53\",\n  \"name\": \"RAGTIME\"\n  },\n  {\n  \"id\": \"54\",\n  \"name\": \"THE CALL OF THE WILD\"\n  },\n  {\n  \"id\": \"55\",\n  \"name\": \"MIDNIGHT’S CHILDREN\"\n  },\n  {\n  \"id\": \"56\",\n  \"name\": \"THE SHELTERING SKY\"}\n]\n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "",
+                                "headers": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false
+                    }
+                ],
+                "proxyMode": false,
+                "proxyHost": "",
+                "https": false,
+                "cors": false,
+                "headers": [],
+                "proxyReqHeaders": [
+                    {
+                        "key": "",
+                        "value": ""
+                    }
+                ],
+                "proxyResHeaders": [
+                    {
+                        "key": "",
+                        "value": ""
+                    }
+                ]
+            }
+        }
+    ]
+}

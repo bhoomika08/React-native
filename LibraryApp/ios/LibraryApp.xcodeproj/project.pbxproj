@@ -20,6 +20,9 @@
 		BB83818B461522AB05D59CBE /* libPods-LibraryApp-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE6E5A146F0BA27BE7DCC458 /* libPods-LibraryApp-tvOS.a */; };
 		BC117ADEDF4992748B5C4018 /* libPods-LibraryApp-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0CC50AAFE05B27BCA2C9BDB /* libPods-LibraryApp-tvOSTests.a */; };
 		DF5D46C7C1E3237B767F0303 /* libPods-LibraryApp-LibraryAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B6F003F212B034BF3EB9325 /* libPods-LibraryApp-LibraryAppTests.a */; };
+		88B64C02A2AA4A099976A648 /* Comic Sans MS.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DC8FBB8383054B63A95462EA /* Comic Sans MS.ttf */; };
+		C23BF5822414491EA67F3631 /* GochiHand-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB9F8E1E2B19448BAB7DFFBA /* GochiHand-Regular.ttf */; };
+		2289E24607DB417885B7826B /* icomoon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 427ED177076E42F69816121B /* icomoon.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +70,9 @@
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		EE6E5A146F0BA27BE7DCC458 /* libPods-LibraryApp-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LibraryApp-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC8FBB8383054B63A95462EA /* Comic Sans MS.ttf */ = {isa = PBXFileReference; name = "Comic Sans MS.ttf"; path = "../src/assets/fonts/Comic Sans MS.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		CB9F8E1E2B19448BAB7DFFBA /* GochiHand-Regular.ttf */ = {isa = PBXFileReference; name = "GochiHand-Regular.ttf"; path = "../src/assets/fonts/GochiHand-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		427ED177076E42F69816121B /* icomoon.ttf */ = {isa = PBXFileReference; name = "icomoon.ttf"; path = "../src/assets/fonts/icomoon.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +171,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				A141720325D3CF1994E09B71 /* Pods */,
+				2FB77047248147C69FC8B99A /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -197,6 +204,17 @@
 			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
+		};
+		2FB77047248147C69FC8B99A /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				DC8FBB8383054B63A95462EA /* Comic Sans MS.ttf */,
+				CB9F8E1E2B19448BAB7DFFBA /* GochiHand-Regular.ttf */,
+				427ED177076E42F69816121B /* icomoon.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -342,6 +360,9 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				88B64C02A2AA4A099976A648 /* Comic Sans MS.ttf in Resources */,
+				C23BF5822414491EA67F3631 /* GochiHand-Regular.ttf in Resources */,
+				2289E24607DB417885B7826B /* icomoon.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

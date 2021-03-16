@@ -3,13 +3,13 @@ import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/lib/integration/react';
 import store from 'store';
 import {persistor} from './store';
-import Form from 'components/form';
+import LibraryApp from 'components/library-app';
 
 const App = () => {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <Form />
+        <LibraryApp />
       </PersistGate>
     </Provider>
   );
