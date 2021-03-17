@@ -32,7 +32,7 @@ const isIOSPlatform = Platform.OS == 'ios';
 const TranslationAnim = () => {
   const fadeAnim = new Animated.ValueXY({x: initX, y: initY});
   const animatedPath = pathPositions.map((position) => {
-    return Animated.spring(fadeAnim, {
+    return Animated.timing(fadeAnim, {
       toValue: position,
       delay,
       duration: animDuration,
