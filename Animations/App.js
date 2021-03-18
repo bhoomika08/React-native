@@ -4,6 +4,7 @@ import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {flex1} from 'stylesheets/global';
 import TranslationAnimation from "components/translation-animation";
 import PulsatingAnimation from "components/pulsating-animation";
+import BubblingCapturing from 'components/bubbling-capturing';
 
 const isIOSPlatform = Platform.OS == 'ios';
 
@@ -12,7 +13,8 @@ const App = () => {
   return (
     <View style={mainContainer}>
       <TranslationAnimation />
-      <PulsatingAnimation />
+      {/* <PulsatingAnimation /> */}
+      {/* <BubblingCapturing /> */}
     </View>
   );
 };
