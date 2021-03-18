@@ -6,11 +6,11 @@ import {
   flex1,
   horizontalCenter,
   center,
-  borderRadius50,
 } from 'stylesheets/global';
 import {py20} from 'stylesheets/spacing';
 import {fs30, bold, uppercase} from 'stylesheets/typography';
 
+const circleSize = 100;
 const animDuration = 5000;
 const minValue = 0.1;
 const maxValue = 0.9;
@@ -83,9 +83,9 @@ const styles = {
     ...uppercase,
   },
   circleShapeView: {
-    width: 100,
-    height: 100,
-    ...borderRadius50,
+    width: circleSize,
+    height: circleSize,
+    borderRadius: circleSize / 2,
   },
 };
 
