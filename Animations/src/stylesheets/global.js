@@ -17,6 +17,3 @@ export const center = {
   justifyContent: 'center',
   alignItems: 'center',
 };
-export const borderRadius50 = {
-  borderRadius: 50,
-};
