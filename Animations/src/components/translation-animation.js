@@ -11,6 +11,7 @@ import {
 import {py20} from 'stylesheets/spacing';
 import {fs30, bold, uppercase} from 'stylesheets/typography';
 
+const circleSize = 20;
 const animDuration = 3000;
 const delay = 2000;
 const initX = 0;
@@ -84,9 +85,9 @@ const styles = {
     ...uppercase,
   },
   circleShapeView: {
-    width: 20,
-    height: 20,
-    ...borderRadius50,
+    width: circleSize,
+    height: circleSize,
+    borderRadius: circleSize / 2,
     backgroundColor: pink,
   },
 };
