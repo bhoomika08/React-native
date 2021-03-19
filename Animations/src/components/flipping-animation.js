@@ -1,14 +1,17 @@
 import React from 'react';
 import {Animated, View, Text, PanResponder} from 'react-native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {blue, lightBlue, lightGreen, pink} from 'stylesheets/colors';
-import {flex1, horizontalCenter, center, absolutePosition} from 'stylesheets/global';
+import {
+  flex1,
+  horizontalCenter,
+  center,
+  absolutePosition,
+} from 'stylesheets/global';
 import {py20} from 'stylesheets/spacing';
 import {fs30, bold, uppercase, textCenter} from 'stylesheets/typography';
 
 const squareSize = 200;
 const minValue = 0;
-const isIOSPlatform = Platform.OS == 'ios';
 
 class FlippingAnim extends React.Component {
   constructor() {
@@ -48,7 +51,6 @@ class FlippingAnim extends React.Component {
 
   render() {
     const {
-      mainContainer,
       container,
       headerContainer,
       heading,
@@ -68,7 +70,7 @@ class FlippingAnim extends React.Component {
     };
 
     return (
-      <View style={mainContainer}>
+      <>
         <View style={headerContainer}>
           <Text style={heading}>FLIPPING ANIMATION</Text>
         </View>
@@ -80,16 +82,12 @@ class FlippingAnim extends React.Component {
             <Text style={flipCardText}>Swipe Right to Flip</Text>
           </Animated.View>
         </View>
-      </View>
+      </>
     );
   }
 }
 
 const styles = {
-  mainContainer: {
-    marginTop: isIOSPlatform ? getStatusBarHeight() : 0,
-    ...flex1,
-  },
   container: {
     ...flex1,
     ...center,
