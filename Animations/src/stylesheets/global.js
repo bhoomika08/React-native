@@ -20,3 +20,6 @@ export const center = {
 export const borderRadius50 = {
   borderRadius: 50,
 };
+export const absolutePosition = {
+  position: 'absolute',
+};
