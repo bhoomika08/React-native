@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import {Animated, Easing, View, Text} from 'react-native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {blue, lightBlue, pink} from 'stylesheets/colors';
 import {flex1, horizontalCenter, center} from 'stylesheets/global';
 import {py20} from 'stylesheets/spacing';
@@ -10,7 +9,6 @@ const circleSize = 100;
 const animDuration = 5000;
 const minValue = 0.1;
 const maxValue = 0.9;
-const isIOSPlatform = Platform.OS == 'ios';
 
 const PulsatingAnim = () => {
   const fadeAnim = new Animated.Value(minValue);
