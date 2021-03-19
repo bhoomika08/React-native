@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import {Animated, Easing, View, Text} from 'react-native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {blue, lightBlue, pink} from 'stylesheets/colors';
 import {flex1, horizontalCenter, center} from 'stylesheets/global';
 import {py20} from 'stylesheets/spacing';
@@ -23,7 +22,6 @@ const pathPositions = [
   {x: 50, y: 0},
   {x: 0, y: 0},
 ];
-const isIOSPlatform = Platform.OS == 'ios';
 
 const TranslationAnim = () => {
   const fadeAnim = new Animated.ValueXY({x: initX, y: initY});
