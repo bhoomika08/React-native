@@ -20,17 +20,17 @@ class FlippingAnim extends React.Component {
     this.panResponder = PanResponder.create({
       onStartShouldSetPanResponderCapture: () => true,
       onPanResponderRelease: (e, {vx, dx}) => {
-        if (dx >= 0) {
+        if (dx > 0) {
           Animated.spring(this.flip, {
             toValue: 0,
-            friction: 8,
+            friction: 10,
             tension: 10,
             useNativeDriver: false,
           }).start();
-        } else {
+        } else if (dx < 0) {
           Animated.spring(this.flip, {
             toValue: 180,
-            friction: 8,
+            friction: 10,
             tension: 10,
             useNativeDriver: false,
           }).start();
