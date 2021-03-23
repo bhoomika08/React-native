@@ -11,6 +11,7 @@ const minValue = 0.1;
 const maxValue = 0.9;
 
 const PulsatingAnim = () => {
+  const {container, headerContainer, heading, circleShapeView} = styles;
   const fadeAnim = new Animated.Value(minValue);
 
   useEffect(() => {
@@ -38,12 +39,11 @@ const PulsatingAnim = () => {
   });
 
   const animatedStyle = {
-    ...styles.circleShapeView,
+    ...circleShapeView,
     opacity: fadeAnim,
     backgroundColor: BackgroundColorConfig,
   };
 
-  const {container, headerContainer, heading} = styles;
   return (
     <>
       <View style={headerContainer}>
