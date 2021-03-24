@@ -11,18 +11,18 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		2289E24607DB417885B7826B /* icomoon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 427ED177076E42F69816121B /* icomoon.ttf */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* LibraryAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* LibraryAppTests.m */; };
 		4F84D64491E9FE433E31DD11 /* libPods-LibraryApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 89856D2DD9EBD42321826433 /* libPods-LibraryApp.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		88B64C02A2AA4A099976A648 /* Comic Sans MS.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DC8FBB8383054B63A95462EA /* Comic Sans MS.ttf */; };
 		BB83818B461522AB05D59CBE /* libPods-LibraryApp-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE6E5A146F0BA27BE7DCC458 /* libPods-LibraryApp-tvOS.a */; };
 		BC117ADEDF4992748B5C4018 /* libPods-LibraryApp-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0CC50AAFE05B27BCA2C9BDB /* libPods-LibraryApp-tvOSTests.a */; };
-		DF5D46C7C1E3237B767F0303 /* libPods-LibraryApp-LibraryAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B6F003F212B034BF3EB9325 /* libPods-LibraryApp-LibraryAppTests.a */; };
-		88B64C02A2AA4A099976A648 /* Comic Sans MS.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DC8FBB8383054B63A95462EA /* Comic Sans MS.ttf */; };
 		C23BF5822414491EA67F3631 /* GochiHand-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB9F8E1E2B19448BAB7DFFBA /* GochiHand-Regular.ttf */; };
-		2289E24607DB417885B7826B /* icomoon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 427ED177076E42F69816121B /* icomoon.ttf */; };
+		DF5D46C7C1E3237B767F0303 /* libPods-LibraryApp-LibraryAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B6F003F212B034BF3EB9325 /* libPods-LibraryApp-LibraryAppTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +56,7 @@
 		17C404E2387B04C8269FD47E /* Pods-LibraryApp-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LibraryApp-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-LibraryApp-tvOSTests/Pods-LibraryApp-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* LibraryApp-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LibraryApp-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* LibraryApp-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "LibraryApp-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		427ED177076E42F69816121B /* icomoon.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = icomoon.ttf; path = ../src/assets/fonts/icomoon.ttf; sourceTree = "<group>"; };
 		535AFF31264E8192FAA76C80 /* Pods-LibraryApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LibraryApp.release.xcconfig"; path = "Target Support Files/Pods-LibraryApp/Pods-LibraryApp.release.xcconfig"; sourceTree = "<group>"; };
 		59C783F5A22C02E99EAF3086 /* Pods-LibraryApp-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LibraryApp-tvOS.release.xcconfig"; path = "Target Support Files/Pods-LibraryApp-tvOS/Pods-LibraryApp-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		6D3B75D03C599E317661E458 /* Pods-LibraryApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LibraryApp.debug.xcconfig"; path = "Target Support Files/Pods-LibraryApp/Pods-LibraryApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -66,13 +67,12 @@
 		8C269C20C439AF8B3F64D087 /* Pods-LibraryApp-LibraryAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LibraryApp-LibraryAppTests.debug.xcconfig"; path = "Target Support Files/Pods-LibraryApp-LibraryAppTests/Pods-LibraryApp-LibraryAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9B6F003F212B034BF3EB9325 /* libPods-LibraryApp-LibraryAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LibraryApp-LibraryAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0CC50AAFE05B27BCA2C9BDB /* libPods-LibraryApp-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LibraryApp-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB9F8E1E2B19448BAB7DFFBA /* GochiHand-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "GochiHand-Regular.ttf"; path = "../src/assets/fonts/GochiHand-Regular.ttf"; sourceTree = "<group>"; };
 		CC5C37F321620C580E93643D /* Pods-LibraryApp-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LibraryApp-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-LibraryApp-tvOSTests/Pods-LibraryApp-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		DC8FBB8383054B63A95462EA /* Comic Sans MS.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Comic Sans MS.ttf"; path = "../src/assets/fonts/Comic Sans MS.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		EE6E5A146F0BA27BE7DCC458 /* libPods-LibraryApp-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LibraryApp-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DC8FBB8383054B63A95462EA /* Comic Sans MS.ttf */ = {isa = PBXFileReference; name = "Comic Sans MS.ttf"; path = "../src/assets/fonts/Comic Sans MS.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		CB9F8E1E2B19448BAB7DFFBA /* GochiHand-Regular.ttf */ = {isa = PBXFileReference; name = "GochiHand-Regular.ttf"; path = "../src/assets/fonts/GochiHand-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		427ED177076E42F69816121B /* icomoon.ttf */ = {isa = PBXFileReference; name = "icomoon.ttf"; path = "../src/assets/fonts/icomoon.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +155,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		2FB77047248147C69FC8B99A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				DC8FBB8383054B63A95462EA /* Comic Sans MS.ttf */,
+				CB9F8E1E2B19448BAB7DFFBA /* GochiHand-Regular.ttf */,
+				427ED177076E42F69816121B /* icomoon.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -201,20 +211,8 @@
 				17C404E2387B04C8269FD47E /* Pods-LibraryApp-tvOSTests.debug.xcconfig */,
 				CC5C37F321620C580E93643D /* Pods-LibraryApp-tvOSTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
-		};
-		2FB77047248147C69FC8B99A /* Resources */ = {
-			isa = "PBXGroup";
-			children = (
-				DC8FBB8383054B63A95462EA /* Comic Sans MS.ttf */,
-				CB9F8E1E2B19448BAB7DFFBA /* GochiHand-Regular.ttf */,
-				427ED177076E42F69816121B /* icomoon.ttf */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-			path = "";
 		};
 /* End PBXGroup section */
 
@@ -679,6 +677,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = LibraryApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -701,6 +700,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = LibraryApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
