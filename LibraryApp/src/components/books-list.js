@@ -178,10 +178,9 @@ const styles = StyleSheet.create({
     ...p10,
   },
   searchIcon: {
-    ...bold,
     ...iconFont,
-    ...px10,
     color: darkGrey,
+    ...px10,
   },
   listContainer: {
     ...flex1,

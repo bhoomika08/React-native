@@ -6,11 +6,13 @@ import {persistor} from './store';
 import LibraryApp from 'components/library-app';
 import SplashScreen from 'react-native-splash-screen';
 
+const splashScreenTimeout = 5000;
+
 const App = () => {
   useEffect(() => {
     setTimeout(() => {
       SplashScreen.hide();
-    }, 5000);
+    }, splashScreenTimeout);
   }, []);
 
   return (
