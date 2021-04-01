@@ -1,6 +1,7 @@
 const APP_DEFAULTS = {
-  booksList: 'booksList',
-  libraryForm: 'form',
+  booksList: 'BooksList',
+  libraryForm: 'Form',
+  showBookDetails: "BookDetails"
 };
 
-export const {booksList, libraryForm} = APP_DEFAULTS;
+export const {booksList, libraryForm, showBookDetails} = APP_DEFAULTS;

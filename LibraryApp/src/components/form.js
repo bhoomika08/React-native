@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {HeaderBackButton} from '@react-navigation/stack';
 import {
   StyleSheet,
   View,
@@ -13,35 +14,24 @@ import {publishers, books} from 'constants/data';
 import {Colors, Global, Spacing, Typography} from 'stylesheets';
 import {validationMessages} from 'constants/locale';
 import {booksList} from 'constants/app-defaults';
-import {setActiveTab, updateBooks} from 'store/actions/library';
+import {updateBooks} from 'store/actions/library';
 import {omit, alert} from 'helpers/application';
 import {GetBookDetails} from 'helpers/library';
 import {isEmail, isFieldEmpty, isUrl} from 'helpers/validation';
 import {InputField, Checkbox, Dropdown} from 'components/shared/form-controls';
-import {previous} from 'constants/icons';
 
-const {
-  rowFlex,
-  flexPoint45,
-  spaceBetween,
-  horizontalCenter,
-  verticalCenter,
-  center,
-} = Global;
-const {iconFont, fs16, fs20, bold} = Typography;
-const {p10, p15, py10, m10, py20, px15, mtAuto} = Spacing;
-const {blue, lightGreen, white} = Colors;
+const {rowFlex, flexPoint45, spaceBetween, horizontalCenter, center} = Global;
+const {fs20, bold} = Typography;
+const {p10, p20, py10, m10, py20, mtAuto} = Spacing;
+const {lightGreen, white} = Colors;
+
+const defaultObj = {};
 
 class Form extends React.PureComponent {
   constructor(props) {
     super(props);
-    const {
-      id = '',
-      name = '',
-      author = '',
-      publisher = '',
-      price = '',
-    } = props.selectedBook;
+    const {id = '', name = '', author = '', publisher = '', price = ''} =
+      props.selectedBook || defaultObj;
 
     const booksLen = Object.keys(books).length;
 
@@ -57,8 +47,7 @@ class Form extends React.PureComponent {
       errors: {},
       isLoading: false,
     };
-
-    this.displayBooksList = this.displayBooksList.bind(this);
+    this.navigateToListing = this.navigateToListing.bind(this);
     this.setSelectedPublisher = this.setSelectedPublisher.bind(this);
     this.toggleSelection = this.toggleSelection.bind(this);
     this.updateValue = this.updateValue.bind(this);
@@ -68,9 +57,19 @@ class Form extends React.PureComponent {
     this.resetAllFields = this.resetAllFields.bind(this);
   }
 
-  displayBooksList() {
-    const {setActiveTab} = this.props;
-    setActiveTab(booksList);
+  componentDidMount() {
+    const {navigation, selectedBook} = this.props;
+    navigation.setOptions({
+      title: selectedBook ? 'UPDATE BOOK DETAILS' : 'CREATE NEW BOOK',
+      headerLeft: () => (
+        <HeaderBackButton label="Listing" onPress={this.navigateToListing} />
+      ),
+    });
+  }
+
+  navigateToListing() {
+    const {navigation} = this.props;
+    navigation.navigate(booksList);
   }
 
   setSelectedPublisher(value) {
@@ -135,10 +134,9 @@ class Form extends React.PureComponent {
   }
 
   onSuccess() {
-    const {setActiveTab} = this.props;
     this.resetAllFields();
     alert('Book Details added / updated');
-    setActiveTab(booksList);
+    this.navigateToListing;
   }
 
   resetAllFields() {
@@ -168,9 +166,6 @@ class Form extends React.PureComponent {
       isLoading,
     } = this.state;
     const {
-      backNavigationContainer,
-      backIcon,
-      backNavigationText,
       formContainer,
       inputStyle,
       checkboxContainer,
@@ -178,17 +173,8 @@ class Form extends React.PureComponent {
       label,
     } = styles;
     const {selectedBook} = this.props;
-    const containsSelectedBook = Object.keys(selectedBook).length > 0;
     return (
       <>
-        <View style={backNavigationContainer}>
-          <Pressable style={rowFlex} onPress={this.displayBooksList}>
-            <View style={verticalCenter}>
-              <Text style={backIcon}>{previous}</Text>
-            </View>
-            <Text style={backNavigationText}>Back to Books List</Text>
-          </Pressable>
-        </View>
         <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
           <View style={formContainer}>
             {isLoading ? (
@@ -277,7 +263,7 @@ class Form extends React.PureComponent {
         <View style={mtAuto}>
           <Pressable style={button} onPress={this.validateForm}>
             <Text style={[fs20, bold]}>
-              {containsSelectedBook ? 'UPDATE' : 'SUBMIT'}
+              {selectedBook ? 'UPDATE' : 'SUBMIT'}
             </Text>
           </Pressable>
         </View>
@@ -287,22 +273,8 @@ class Form extends React.PureComponent {
 }
 
 const styles = StyleSheet.create({
-  backNavigationContainer: {
-    ...rowFlex,
-    ...py10,
-  },
-  backIcon: {
-    ...iconFont,
-    color: blue,
-    ...fs16,
-    ...px15,
-  },
-  backNavigationText: {
-    color: blue,
-    ...fs16,
-  },
   formContainer: {
-    ...p15,
+    ...p20,
   },
   inputStyle: {
     ...p10,
@@ -331,7 +303,6 @@ function mapStateToProps({library: {selectedBook}}) {
 }
 
 const mapDispatchToProps = {
-  setActiveTab,
   updateBooks,
 };
 

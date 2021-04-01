@@ -9,13 +9,14 @@ import {
   Pressable,
 } from 'react-native';
 import {connect} from 'react-redux';
-import {setActiveTab, setSelectedBook} from 'store/actions/library';
+import {setSelectedBook} from 'store/actions/library';
 import {Colors, Global, Spacing, Typography} from 'stylesheets';
-import {libraryForm} from 'constants/app-defaults';
+import {libraryForm, showBookDetails} from 'constants/app-defaults';
 import {FilterListBySearch} from 'helpers/library';
 import List from 'components/shared/list';
 import {search} from 'constants/icons';
 
+const isIOSPlatform = Platform.OS == 'ios';
 const loaderTimeout = 2000;
 
 const {
@@ -54,9 +55,13 @@ class BooksList extends React.Component {
   }
 
   selectBook(book) {
-    const {setSelectedBook} = this.props;
+    const {setSelectedBook, navigation} = this.props;
     setSelectedBook(book);
-    this.navigateToForm();
+    navigation.navigate(showBookDetails, {
+      params: {
+        book,
+      },
+    });
   }
 
   search(value) {
@@ -72,8 +77,8 @@ class BooksList extends React.Component {
   }
 
   navigateToForm() {
-    const {setActiveTab} = this.props;
-    setActiveTab(libraryForm);
+    const {navigation} = this.props;
+    navigation.navigate(libraryForm);
   }
 
   renderItem = ({item}) => {
@@ -98,22 +103,12 @@ class BooksList extends React.Component {
   render() {
     const {books} = this.props;
     const {isDataFetching, isRefreshing, searchText} = this.state;
-    const {
-      titleContainer,
-      title,
-      searchContainer,
-      searchIcon,
-      listContainer,
-      button,
-    } = styles;
+    const {searchContainer, searchIcon, listContainer, button} = styles;
     const booksArr = Object.values(books);
     const filteredList = FilterListBySearch(searchText, booksArr);
     const containsBooks = filteredList.length > 0;
     return (
       <>
-        <View style={titleContainer}>
-          <Text style={title}>List of the Books</Text>
-        </View>
         <View style={p15}>
           <View style={searchContainer}>
             <View style={verticalCenter}>
@@ -175,7 +170,8 @@ const styles = StyleSheet.create({
     ...rowFlex,
     ...borderRadius20,
     backgroundColor: white,
-    ...p10,
+    paddingVertical: isIOSPlatform ? 10 : 0,
+    paddingHorizontal: 10,
   },
   searchIcon: {
     ...iconFont,
@@ -216,7 +212,6 @@ function mapStateToProps({library: {books}}) {
 }
 
 const mapDispatchToProps = {
-  setActiveTab,
   setSelectedBook,
 };
 

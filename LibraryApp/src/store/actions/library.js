@@ -13,7 +13,7 @@ const LibraryActions = {
       payload,
     }),
 
-  setSelectedBook: (payload = {}) => (dispatch) =>
+  setSelectedBook: (payload = null) => (dispatch) =>
     dispatch({
       type: setBookDetails,
       payload,

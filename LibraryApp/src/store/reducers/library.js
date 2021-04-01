@@ -12,7 +12,7 @@ const {
 const INITIAL_STATE = {
   activeTab: booksList,
   books,
-  selectedBook: {},
+  selectedBook: null,
 };
 
 const library = (state = INITIAL_STATE, {type, payload}) => {
