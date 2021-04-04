@@ -9,6 +9,7 @@ import {
   Pressable,
   ActivityIndicator,
   Keyboard,
+  BackHandler,
 } from 'react-native';
 import {publishers, books} from 'constants/data';
 import {Colors, Global, Spacing, Typography} from 'stylesheets';
@@ -25,6 +26,7 @@ const {fs20, bold} = Typography;
 const {p10, p20, py10, m10, py20, mtAuto} = Spacing;
 const {lightGreen, white} = Colors;
 
+const isIOSPlatform = Platform.OS == 'ios';
 const defaultObj = {};
 
 class Form extends React.PureComponent {
@@ -47,6 +49,7 @@ class Form extends React.PureComponent {
       errors: {},
       isLoading: false,
     };
+    this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
     this.navigateToListing = this.navigateToListing.bind(this);
     this.setSelectedPublisher = this.setSelectedPublisher.bind(this);
     this.toggleSelection = this.toggleSelection.bind(this);
@@ -65,6 +68,24 @@ class Form extends React.PureComponent {
         <HeaderBackButton label="Listing" onPress={this.navigateToListing} />
       ),
     });
+    !isIOSPlatform &&
+      BackHandler.addEventListener(
+        'hardwareBackPress',
+        this.handleBackButtonClick,
+      );
+  }
+
+  componentWillUnmount() {
+    !isIOSPlatform &&
+      BackHandler.removeEventListener(
+        'hardwareBackPress',
+        this.handleBackButtonClick,
+      );
+  }
+
+  handleBackButtonClick() {
+    this.navigateToListing();
+    return true;
   }
 
   navigateToListing() {

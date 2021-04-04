@@ -7,6 +7,8 @@ import {
   SafeAreaView,
   ActivityIndicator,
   Pressable,
+  BackHandler,
+  ToastAndroid,
 } from 'react-native';
 import {connect} from 'react-redux';
 import {setSelectedBook} from 'store/actions/library';
@@ -31,6 +33,7 @@ const {p10, py20, px10, px15, px25, p15, mtAuto, mb15} = Spacing;
 const {blue, darkGrey, purple, lightGreen, maroon, white} = Colors;
 
 const getItemKey = (item) => `book-${item.id}`;
+const message = 'tap back again to exit the App';
 
 class BooksList extends React.Component {
   constructor(props) {
@@ -39,11 +42,51 @@ class BooksList extends React.Component {
       isDataFetching: false,
       isRefreshing: false,
       searchText: '',
+      exitApp: 0,
     };
+    this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
+    this.setExitApp = this.setExitApp.bind(this);
     this.onRefresh = this.onRefresh.bind(this);
     this.selectBook = this.selectBook.bind(this);
     this.search = this.search.bind(this);
     this.addNewBook = this.addNewBook.bind(this);
+  }
+
+  componentDidMount() {
+    !isIOSPlatform &&
+      BackHandler.addEventListener(
+        'hardwareBackPress',
+        this.handleBackButtonClick,
+      );
+  }
+
+  componentWillUnmount() {
+    !isIOSPlatform &&
+      BackHandler.removeEventListener(
+        'hardwareBackPress',
+        this.handleBackButtonClick,
+      );
+  }
+
+  handleBackButtonClick() {
+    const {exitApp} = this.state;
+    setTimeout(() => {
+      this.setExitApp(0);
+    }, 2000); // 2 seconds to tap second-time
+
+    if (exitApp === 0) {
+      this.setExitApp(exitApp + 1);
+      ToastAndroid.show(message, ToastAndroid.SHORT);
+    } else if (exitApp === 1) {
+      BackHandler.exitApp();
+    }
+    return true;
+  }
+
+  setExitApp(val) {
+    this.setState({
+      exitApp: val,
+    });
   }
 
   onRefresh() {
