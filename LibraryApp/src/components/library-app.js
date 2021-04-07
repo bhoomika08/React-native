@@ -2,7 +2,7 @@ import React from 'react';
 import 'react-native-gesture-handler';
 import {StyleSheet, KeyboardAvoidingView} from 'react-native';
 import {Colors} from 'stylesheets';
-import AuthNavigators from 'components/navigators/auth-navigators';
+import Navigators from 'components/navigators';
 
 const {grey} = Colors;
 const isIOSPlatform = Platform.OS == 'ios';
@@ -14,7 +14,7 @@ const LibraryApp = () => {
       style={innerContainer}
       behavior={isIOSPlatform ? 'padding' : null}
       keyboardVerticalOffset={0}>
-      <AuthNavigators />
+      <Navigators />
     </KeyboardAvoidingView>
   );
 };

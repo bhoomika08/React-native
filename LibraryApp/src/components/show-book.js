@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, Pressable} from 'react-native';
 import {Colors, Global, Spacing, Typography} from 'stylesheets';
-import {libraryForm} from 'constants/app-defaults';
+import {libraryForm} from 'constants/navigators';
 
 const {horizontalCenter} = Global;
 const {gochiFont, comicFont, fs18, fs20, fs25, bold} = Typography;

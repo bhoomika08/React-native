@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {booksList, libraryForm, showBookDetails} from 'constants/app-defaults';
+import {booksList, libraryForm, showBookDetails} from 'constants/navigators';
 import {Global, Colors, Typography} from 'stylesheets';
 import Form from 'components/form';
 import BooksList from 'components/books-list';
@@ -14,7 +14,7 @@ const {lightBlue, purple} = Colors;
 
 const Stack = createStackNavigator();
 
-const AuthNavigators = () => {
+const Navigators = () => {
   const {headingContainer, formLabel} = styles;
 
   return (
@@ -50,4 +50,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AuthNavigators;
+export default Navigators;

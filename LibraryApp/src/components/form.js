@@ -9,24 +9,26 @@ import {
   Pressable,
   ActivityIndicator,
   Keyboard,
-  BackHandler,
 } from 'react-native';
 import {publishers, books} from 'constants/data';
 import {Colors, Global, Spacing, Typography} from 'stylesheets';
 import {validationMessages} from 'constants/locale';
-import {booksList} from 'constants/app-defaults';
+import {booksList} from 'constants/navigators';
 import {updateBooks} from 'store/actions/library';
 import {omit, alert} from 'helpers/application';
 import {GetBookDetails} from 'helpers/library';
 import {isEmail, isFieldEmpty, isUrl} from 'helpers/validation';
 import {InputField, Checkbox, Dropdown} from 'components/shared/form-controls';
+import {
+  addHardwareBackAction,
+  removeHardwareBackAction,
+} from 'helpers/handle-event-listeners';
 
 const {rowFlex, flexPoint45, spaceBetween, horizontalCenter, center} = Global;
 const {fs20, bold} = Typography;
 const {p10, p20, py10, m10, py20, mtAuto} = Spacing;
 const {lightGreen, white} = Colors;
 
-const isIOSPlatform = Platform.OS == 'ios';
 const defaultObj = {};
 
 class Form extends React.PureComponent {
@@ -68,19 +70,11 @@ class Form extends React.PureComponent {
         <HeaderBackButton label="Listing" onPress={this.navigateToListing} />
       ),
     });
-    !isIOSPlatform &&
-      BackHandler.addEventListener(
-        'hardwareBackPress',
-        this.handleBackButtonClick,
-      );
+    addHardwareBackAction(this.handleBackButtonClick);
   }
 
   componentWillUnmount() {
-    !isIOSPlatform &&
-      BackHandler.removeEventListener(
-        'hardwareBackPress',
-        this.handleBackButtonClick,
-      );
+    removeHardwareBackAction(this.handleBackButtonClick);
   }
 
   handleBackButtonClick() {

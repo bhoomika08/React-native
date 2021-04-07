@@ -1,4 +1,4 @@
-import {booksList} from 'constants/app-defaults';
+import {booksList} from 'constants/navigators';
 import {library as LibraryActionType} from 'constants/action-types';
 import {books} from 'constants/data';
 

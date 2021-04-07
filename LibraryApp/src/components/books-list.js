@@ -13,10 +13,14 @@ import {
 import {connect} from 'react-redux';
 import {setSelectedBook} from 'store/actions/library';
 import {Colors, Global, Spacing, Typography} from 'stylesheets';
-import {libraryForm, showBookDetails} from 'constants/app-defaults';
+import {libraryForm, showBookDetails} from 'constants/navigators';
 import {FilterListBySearch} from 'helpers/library';
 import List from 'components/shared/list';
 import {search} from 'constants/icons';
+import {
+  addHardwareBackAction,
+  removeHardwareBackAction,
+} from 'helpers/handle-event-listeners';
 
 const isIOSPlatform = Platform.OS == 'ios';
 const loaderTimeout = 2000;
@@ -53,19 +57,11 @@ class BooksList extends React.Component {
   }
 
   componentDidMount() {
-    !isIOSPlatform &&
-      BackHandler.addEventListener(
-        'hardwareBackPress',
-        this.handleBackButtonClick,
-      );
+    addHardwareBackAction(this.handleBackButtonClick);
   }
 
   componentWillUnmount() {
-    !isIOSPlatform &&
-      BackHandler.removeEventListener(
-        'hardwareBackPress',
-        this.handleBackButtonClick,
-      );
+    removeHardwareBackAction(this.handleBackButtonClick);
   }
 
   handleBackButtonClick() {
