@@ -25,7 +25,7 @@ const AppInfo = () => {
       <Header />
       <View style={body}>
         {Object.keys(deviceInfo).map((info) => (
-          <View style={sectionContainer}>
+          <View style={sectionContainer} key={info}>
             <Text style={sectionTitle}>
               {AppDetails[info].label}: {deviceInfo[info]}
             </Text>
