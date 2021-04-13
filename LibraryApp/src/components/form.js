@@ -19,10 +19,7 @@ import {omit, alert} from 'helpers/application';
 import {GetBookDetails} from 'helpers/library';
 import {isEmail, isFieldEmpty, isUrl} from 'helpers/validation';
 import {InputField, Checkbox, Dropdown} from 'components/shared/form-controls';
-import {
-  addHardwareBackAction,
-  removeHardwareBackAction,
-} from 'helpers/handle-event-listeners';
+import HandleHardwareBack from 'components/shared/handle-hardware-back';
 
 const {rowFlex, flexPoint45, spaceBetween, horizontalCenter, center} = Global;
 const {fs20, bold} = Typography;
@@ -34,7 +31,7 @@ const defaultObj = {};
 class Form extends React.PureComponent {
   constructor(props) {
     super(props);
-    const {id = '', name = '', author = '', publisher = '', price = ''} =
+    const {id, name, author, publisher, price} =
       props.selectedBook || defaultObj;
 
     const booksLen = Object.keys(books).length;
@@ -51,7 +48,6 @@ class Form extends React.PureComponent {
       errors: {},
       isLoading: false,
     };
-    this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
     this.navigateToListing = this.navigateToListing.bind(this);
     this.setSelectedPublisher = this.setSelectedPublisher.bind(this);
     this.toggleSelection = this.toggleSelection.bind(this);
@@ -70,16 +66,6 @@ class Form extends React.PureComponent {
         <HeaderBackButton label="Listing" onPress={this.navigateToListing} />
       ),
     });
-    addHardwareBackAction(this.handleBackButtonClick);
-  }
-
-  componentWillUnmount() {
-    removeHardwareBackAction(this.handleBackButtonClick);
-  }
-
-  handleBackButtonClick() {
-    this.navigateToListing();
-    return true;
   }
 
   navigateToListing() {
@@ -150,8 +136,8 @@ class Form extends React.PureComponent {
 
   onSuccess() {
     this.resetAllFields();
+    this.navigateToListing();
     alert('Book Details added / updated');
-    this.navigateToListing;
   }
 
   resetAllFields() {
@@ -190,6 +176,7 @@ class Form extends React.PureComponent {
     const {selectedBook} = this.props;
     return (
       <>
+        <HandleHardwareBack />
         <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
           <View style={formContainer}>
             {isLoading ? (

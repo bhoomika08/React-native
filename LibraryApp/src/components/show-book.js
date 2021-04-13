@@ -9,7 +9,7 @@ const {py20, p20, mb5, mb20, mtAuto} = Spacing;
 const {grey, darkBlue, lightGreen, white, maroon} = Colors;
 
 const ShowBook = ({route, navigation}) => {
-  const {book} = route.params.params || {};
+  const {book} = route.params || {};
   const {name, author, publisher, price} = book;
   React.useLayoutEffect(() => {
     navigation.setOptions({
