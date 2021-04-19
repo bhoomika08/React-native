@@ -14,6 +14,7 @@ import {libraryForm, showBookDetails} from 'constants/navigators';
 import {FilterListBySearch} from 'helpers/library';
 import List from 'components/shared/list';
 import {search} from 'constants/icons';
+import {useHardwareBack} from 'components/shared/hardware-back';
 
 const isIOSPlatform = Platform.OS == 'ios';
 const loaderTimeout = 2000;
@@ -87,6 +88,7 @@ const BooksList = (props) => {
   const booksArr = Object.values(books);
   const filteredList = FilterListBySearch(searchedText, booksArr);
   const containsBooks = filteredList.length > 0;
+  useHardwareBack();
   return (
     <>
       <View style={p15}>

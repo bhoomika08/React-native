@@ -5,7 +5,7 @@ import {booksList, libraryForm} from 'constants/navigators';
 
 const exitTime = 2000; // 2 seconds to tap second-time
 
-const HandleHardwareBack = (props) => {
+export const useHardwareBack = (props = {}) => {
   const {message = 'Tap again to exit app'} = props;
   const [exitApp, setExitApp] = useState(0);
   const currentRouteName = getCurrentRoute();
@@ -49,5 +49,3 @@ const HandleHardwareBack = (props) => {
   });
   return null;
 };
-
-export default HandleHardwareBack;

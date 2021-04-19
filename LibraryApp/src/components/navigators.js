@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -8,7 +8,6 @@ import {navigationRef} from 'helpers/navigation';
 import Form from 'components/form';
 import BooksList from 'components/books-list';
 import ShowBook from 'components/show-book';
-import HandleHardwareBack from 'components/shared/handle-hardware-back';
 
 const {textCenter} = Global;
 const {fs18, bold, uppercase} = Typography;
@@ -18,39 +17,23 @@ const Stack = createStackNavigator();
 
 const Navigators = () => {
   const {headingContainer, formLabel} = styles;
-  const [isInitialScreen, setIsInitialScreen] = useState(true);
-  const isCurrentScreenInitialOne = (state) => {
-    const route = state.routes[state.index];
-    if (route.state) {
-      return isCurrentScreenInitialOne(route.state);
-    }
-    return state.index === 0;
-  };
-
   return (
-    <>
-      {isInitialScreen && <HandleHardwareBack />}
-      <NavigationContainer
-        ref={navigationRef}
-        onStateChange={(state) => {
-          setIsInitialScreen(isCurrentScreenInitialOne(state));
+    <NavigationContainer ref={navigationRef}>
+      <Stack.Navigator
+        initialRouteName={booksList}
+        screenOptions={{
+          headerStyle: headingContainer,
+          headerTitleStyle: formLabel,
         }}>
-        <Stack.Navigator
-          initialRouteName={booksList}
-          screenOptions={{
-            headerStyle: headingContainer,
-            headerTitleStyle: formLabel,
-          }}>
-          <Stack.Screen
-            name={booksList}
-            component={BooksList}
-            options={{title: 'ALL BOOKS'}}
-          />
-          <Stack.Screen name={libraryForm} component={Form} />
-          <Stack.Screen name={showBookDetails} component={ShowBook} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </>
+        <Stack.Screen
+          name={booksList}
+          component={BooksList}
+          options={{title: 'ALL BOOKS'}}
+        />
+        <Stack.Screen name={libraryForm} component={Form} />
+        <Stack.Screen name={showBookDetails} component={ShowBook} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 

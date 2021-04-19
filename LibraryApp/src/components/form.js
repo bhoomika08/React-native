@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 import {HeaderBackButton} from '@react-navigation/stack';
 import {
@@ -19,7 +19,7 @@ import {omit, alert} from 'helpers/application';
 import {GetBookDetails} from 'helpers/library';
 import {isEmail, isFieldEmpty, isUrl} from 'helpers/validation';
 import {InputField, Checkbox, Dropdown} from 'components/shared/form-controls';
-import HandleHardwareBack from 'components/shared/handle-hardware-back';
+import {useHardwareBack} from 'components/shared/hardware-back';
 
 const {rowFlex, flexPoint45, spaceBetween, horizontalCenter, center} = Global;
 const {fs20, bold} = Typography;
@@ -28,73 +28,59 @@ const {lightGreen, white} = Colors;
 
 const defaultObj = {};
 
-class Form extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    const {id, name, author, publisher, price} =
-      props.selectedBook || defaultObj;
+const Form = (props) => {
+  const {id: bookId, name, author, publisher, price: bookPrice} =
+    props.selectedBook || defaultObj;
 
-    const booksLen = Object.keys(books).length;
+  const booksLen = Object.keys(books).length;
+  const [fields, setFields] = useState({
+    id: bookId ? bookId : booksLen + 1,
+    bookName: name,
+    authorName: author,
+    price: bookPrice,
+    email: '',
+    url: '',
+    errors: {},
+  });
+  const [selectedPublisherValue, setSelectedPublisherValue] = useState(
+    publisher,
+  );
+  const [isDisplayChecked, setIsDisplayChecked] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
-    this.state = {
-      id: id ? id : booksLen + 1,
-      selectedPublisherValue: publisher,
-      isDisplayChecked: true,
-      bookName: name,
-      authorName: author,
-      price,
-      email: '',
-      url: '',
-      errors: {},
-      isLoading: false,
-    };
-    this.navigateToListing = this.navigateToListing.bind(this);
-    this.setSelectedPublisher = this.setSelectedPublisher.bind(this);
-    this.toggleSelection = this.toggleSelection.bind(this);
-    this.updateValue = this.updateValue.bind(this);
-    this.validateForm = this.validateForm.bind(this);
-    this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.onSuccess = this.onSuccess.bind(this);
-    this.resetAllFields = this.resetAllFields.bind(this);
-  }
-
-  componentDidMount() {
-    const {navigation, selectedBook} = this.props;
+  useEffect(() => {
+    const {navigation, selectedBook} = props;
     navigation.setOptions({
       title: selectedBook ? 'UPDATE BOOK DETAILS' : 'CREATE NEW BOOK',
       headerLeft: () => (
-        <HeaderBackButton label="Listing" onPress={this.navigateToListing} />
+        <HeaderBackButton label="Listing" onPress={navigateToListing} />
       ),
     });
-  }
+  });
 
-  navigateToListing() {
-    const {navigation} = this.props;
+  const navigateToListing = () => {
+    const {navigation} = props;
     navigation.navigate(booksList);
-  }
+  };
 
-  setSelectedPublisher(value) {
-    this.setState({
-      selectedPublisherValue: value,
-    });
-  }
+  const setSelectedPublisher = (value) => {
+    setSelectedPublisherValue(value);
+  };
 
-  toggleSelection() {
-    const {isDisplayChecked} = this.state;
-    this.setState({
-      isDisplayChecked: !isDisplayChecked,
-    });
-  }
+  const toggleSelection = () => {
+    setIsDisplayChecked(!isDisplayChecked);
+  };
 
-  updateValue(text, field) {
-    this.setState({
+  const updateValue = (text, field) => {
+    setFields({
+      ...fields,
       [field]: text,
-      errors: omit(field, this.state.errors),
+      errors: omit(field, fields.errors),
     });
-  }
+  };
 
-  validateForm() {
-    const {bookName, authorName, price, email, url} = this.state;
+  const validateForm = () => {
+    const {bookName, authorName, price, email, url} = fields;
     const {required, invalid} = validationMessages;
     let errors = {};
     Keyboard.dismiss();
@@ -120,159 +106,139 @@ class Form extends React.PureComponent {
       errors.url = invalid;
     }
     if (Object.keys(errors).length > 0) {
-      return this.setState({errors});
+      return setFields({errors});
     }
-    this.handleFormSubmit();
-  }
+    handleFormSubmit();
+  };
 
-  handleFormSubmit() {
-    const {updateBooks} = this.props;
-    const data = {...this.state};
-    this.setState({isLoading: true});
+  const handleFormSubmit = () => {
+    const {updateBooks} = props;
+    const data = {...fields, selectedPublisherValue};
+    setIsLoading(true);
     const booksListItem = GetBookDetails(data);
     updateBooks(booksListItem);
-    this.onSuccess();
-  }
+    onSuccess();
+  };
 
-  onSuccess() {
-    this.resetAllFields();
-    this.navigateToListing();
+  const onSuccess = () => {
+    resetAllFields();
+    navigateToListing();
     alert('Book Details added / updated');
-  }
+  };
 
-  resetAllFields() {
-    this.setState({
-      selectedPublisherValue: '',
-      isDisplayChecked: true,
+  const resetAllFields = () => {
+    setFields({
       bookName: '',
       authorName: '',
       price: '',
       email: '',
       url: '',
       errors: {},
-      isLoading: false,
     });
-  }
+    setSelectedPublisherValue('');
+    setIsLoading(false);
+    setIsDisplayChecked(true);
+  };
 
-  render() {
-    const {
-      selectedPublisherValue,
-      isDisplayChecked,
-      bookName,
-      authorName,
-      price,
-      email,
-      url,
-      errors,
-      isLoading,
-    } = this.state;
-    const {
-      formContainer,
-      inputStyle,
-      checkboxContainer,
-      button,
-      label,
-    } = styles;
-    const {selectedBook} = this.props;
-    return (
-      <>
-        <HandleHardwareBack />
-        <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
-          <View style={formContainer}>
-            {isLoading ? (
-              <ActivityIndicator size="large" />
-            ) : (
-              <>
-                <InputField
-                  label="Book Name"
-                  placeholder="Book Name"
-                  style={inputStyle}
-                  inputKey="bookName"
-                  value={bookName}
-                  isReq
-                  error={errors.bookName}
-                  onChangeText={this.updateValue}
-                />
-                <InputField
-                  label="Author Name"
-                  placeholder="Author Name"
-                  style={inputStyle}
-                  inputKey="authorName"
-                  value={authorName}
-                  isReq
-                  error={errors.authorName}
-                  onChangeText={this.updateValue}
-                />
-                <Dropdown
-                  label="Publishers"
-                  placeholder="Select a publisher"
-                  options={publishers}
-                  selectedValue={selectedPublisherValue}
-                  onValueChange={this.setSelectedPublisher}
-                />
-                <InputField
-                  label="Price"
-                  keyboardType="numeric"
-                  placeholder="Price"
-                  style={inputStyle}
-                  inputKey="price"
-                  value={price}
-                  isReq
-                  error={errors.price}
-                  onChangeText={this.updateValue}
-                />
-                <View style={[rowFlex, spaceBetween]}>
-                  <View style={flexPoint45}>
-                    <InputField
-                      label="Email"
-                      keyboardType="email-address"
-                      placeholder="Email"
-                      style={inputStyle}
-                      inputKey="email"
-                      value={email}
-                      isReq
-                      error={errors.email}
-                      onChangeText={this.updateValue}
-                    />
-                  </View>
-                  <View style={flexPoint45}>
-                    <InputField
-                      label="Website"
-                      keyboardType="url"
-                      placeholder="Website"
-                      style={inputStyle}
-                      inputKey="url"
-                      value={url}
-                      isReq
-                      error={errors.url}
-                      onChangeText={this.updateValue}
-                    />
-                  </View>
-                </View>
-                <View style={checkboxContainer}>
-                  <Checkbox
-                    value={isDisplayChecked}
-                    onValueChange={this.toggleSelection}
-                    label="Do you want to display this Book in Library?"
-                    labelStyle={label}
+  const {bookName, authorName, price, email, url, errors} = fields;
+  const {formContainer, inputStyle, checkboxContainer, button, label} = styles;
+  const {selectedBook} = props;
+  useHardwareBack();
+  return (
+    <>
+      <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
+        <View style={formContainer}>
+          {isLoading ? (
+            <ActivityIndicator size="large" />
+          ) : (
+            <>
+              <InputField
+                label="Book Name"
+                placeholder="Book Name"
+                style={inputStyle}
+                inputKey="bookName"
+                value={bookName}
+                isReq
+                error={errors.bookName}
+                onChangeText={updateValue}
+              />
+              <InputField
+                label="Author Name"
+                placeholder="Author Name"
+                style={inputStyle}
+                inputKey="authorName"
+                value={authorName}
+                isReq
+                error={errors.authorName}
+                onChangeText={updateValue}
+              />
+              <Dropdown
+                label="Publishers"
+                placeholder="Select a publisher"
+                options={publishers}
+                selectedValue={selectedPublisherValue}
+                onValueChange={setSelectedPublisher}
+              />
+              <InputField
+                label="Price"
+                keyboardType="numeric"
+                placeholder="Price"
+                style={inputStyle}
+                inputKey="price"
+                value={price}
+                isReq
+                error={errors.price}
+                onChangeText={updateValue}
+              />
+              <View style={[rowFlex, spaceBetween]}>
+                <View style={flexPoint45}>
+                  <InputField
+                    label="Email"
+                    keyboardType="email-address"
+                    placeholder="Email"
+                    style={inputStyle}
+                    inputKey="email"
+                    value={email}
+                    isReq
+                    error={errors.email}
+                    onChangeText={updateValue}
                   />
                 </View>
-              </>
-            )}
-          </View>
-        </ScrollView>
-
-        <View style={mtAuto}>
-          <Pressable style={button} onPress={this.validateForm}>
-            <Text style={[fs20, bold]}>
-              {selectedBook ? 'UPDATE' : 'SUBMIT'}
-            </Text>
-          </Pressable>
+                <View style={flexPoint45}>
+                  <InputField
+                    label="Website"
+                    keyboardType="url"
+                    placeholder="Website"
+                    style={inputStyle}
+                    inputKey="url"
+                    value={url}
+                    isReq
+                    error={errors.url}
+                    onChangeText={updateValue}
+                  />
+                </View>
+              </View>
+              <View style={checkboxContainer}>
+                <Checkbox
+                  value={isDisplayChecked}
+                  onValueChange={toggleSelection}
+                  label="Do you want to display this Book in Library?"
+                  labelStyle={label}
+                />
+              </View>
+            </>
+          )}
         </View>
-      </>
-    );
-  }
-}
+      </ScrollView>
+
+      <View style={mtAuto}>
+        <Pressable style={button} onPress={validateForm}>
+          <Text style={[fs20, bold]}>{selectedBook ? 'UPDATE' : 'SUBMIT'}</Text>
+        </Pressable>
+      </View>
+    </>
+  );
+};
 
 const styles = StyleSheet.create({
   formContainer: {
