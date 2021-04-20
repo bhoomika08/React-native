@@ -19,7 +19,7 @@ import {omit, alert} from 'helpers/application';
 import {GetBookDetails} from 'helpers/library';
 import {isEmail, isFieldEmpty, isUrl} from 'helpers/validation';
 import {InputField, Checkbox, Dropdown} from 'components/shared/form-controls';
-import {useHardwareBack} from 'components/shared/hardware-back';
+import {useHardwareBack} from 'components/custom/hardware-back';
 
 const {rowFlex, flexPoint45, spaceBetween, horizontalCenter, center} = Global;
 const {fs20, bold} = Typography;
