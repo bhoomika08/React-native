@@ -13,12 +13,3 @@ target 'LibraryApp' do
     # Pods for testing
   end
 end
-
-target 'LibraryApp-tvOS' do
-  # Pods for LibraryApp-tvOS
-
-  target 'LibraryApp-tvOSTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-end
