@@ -2,12 +2,13 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {booksList, libraryForm, showBookDetails} from 'constants/navigators';
+import {booksList, libraryForm, showBookDetails, scanQRCode} from 'constants/navigators';
 import {Global, Colors, Typography} from 'stylesheets';
 import {navigationRef} from 'helpers/navigation';
 import Form from 'components/form';
 import BooksList from 'components/books-list';
 import ShowBook from 'components/show-book';
+import ScanCode from "components/shared/scan-code";
 
 const {textCenter} = Global;
 const {fs18, bold, uppercase} = Typography;
@@ -32,6 +33,7 @@ const Navigators = () => {
         />
         <Stack.Screen name={libraryForm} component={Form} />
         <Stack.Screen name={showBookDetails} component={ShowBook} />
+        <Stack.Screen name={scanQRCode} component={ScanCode} />
       </Stack.Navigator>
     </NavigationContainer>
   );

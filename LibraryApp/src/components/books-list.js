@@ -6,14 +6,15 @@ import {
   TextInput,
   SafeAreaView,
   Pressable,
+  Image,
 } from 'react-native';
 import {connect} from 'react-redux';
 import {setSelectedBook} from 'store/actions/library';
 import {Colors, Global, Spacing, Typography} from 'stylesheets';
-import {libraryForm, showBookDetails} from 'constants/navigators';
+import {libraryForm, showBookDetails, scanQRCode} from 'constants/navigators';
 import {FilterListBySearch} from 'helpers/library';
+import {search, qrCode} from 'constants/icons';
 import List from 'components/shared/list';
-import {search} from 'constants/icons';
 import {useHardwareBack} from 'components/custom/hardware-back';
 
 const isIOSPlatform = Platform.OS == 'ios';
@@ -22,9 +23,11 @@ const loaderTimeout = 2000;
 const {
   flex1,
   rowFlex,
+  borderWidth1,
   borderRadius20,
   horizontalCenter,
   verticalCenter,
+  textCenter,
 } = Global;
 const {comicFont, gochiFont, iconFont, fs18, fs20, fs25, bold} = Typography;
 const {p10, py20, px10, px15, px25, p15, mtAuto, mb15} = Spacing;
@@ -66,11 +69,25 @@ const BooksList = (props) => {
     navigation.navigate(libraryForm);
   };
 
+  navigateToScanner = () => {
+    const {navigation} = props;
+    navigation.navigate(scanQRCode);
+  };
+
   renderItem = ({item}) => {
-    const {name, author, publisher, price} = item;
-    const {listItemContainer, listItemName, bookPrice} = styles;
+    const {name, author, publisher, price, image} = item;
+    const {listItemContainer, imageStyle, listItemName, bookPrice} = styles;
     return (
       <Pressable style={listItemContainer} onPress={() => selectBook(item)}>
+        <View>
+          {image ? (
+            <Image source={{uri: image}} style={imageStyle} />
+          ) : (
+            <View style={[imageStyle, verticalCenter]}>
+              <Text style={textCenter}>No Image Available</Text>
+            </View>
+          )}
+        </View>
         <View style={[flex1, px15]}>
           <Text style={listItemName}>{name}</Text>
           <Text style={[gochiFont, fs20]}>{author}</Text>
@@ -84,7 +101,7 @@ const BooksList = (props) => {
   };
 
   const {books} = props;
-  const {searchContainer, searchIcon, listContainer, button} = styles;
+  const {searchContainer, searchIcon, scanIcon, listContainer, button} = styles;
   const booksArr = Object.values(books);
   const filteredList = FilterListBySearch(searchedText, booksArr);
   const containsBooks = filteredList.length > 0;
@@ -106,6 +123,12 @@ const BooksList = (props) => {
           />
         </View>
       </View>
+      <Pressable style={[rowFlex, px15]} onPress={navigateToScanner}>
+        <View style={verticalCenter}>
+          <Text style={scanIcon}>{qrCode}</Text>
+        </View>
+        <Text style={[fs18, bold]}>Scan QR or Bar Code</Text>
+      </Pressable>
       <SafeAreaView style={listContainer}>
         <View style={p15}>
           {containsBooks ? (
@@ -155,6 +178,11 @@ const styles = StyleSheet.create({
     color: darkGrey,
     ...px10,
   },
+  scanIcon: {
+    ...iconFont,
+    ...px10,
+    ...fs20,
+  },
   listContainer: {
     ...flex1,
   },
@@ -163,6 +191,12 @@ const styles = StyleSheet.create({
     backgroundColor: white,
     ...rowFlex,
     ...p10,
+  },
+  imageStyle: {
+    width: 100,
+    height: 100,
+    ...borderWidth1,
+    borderColor: darkGrey,
   },
   listItemName: {
     ...comicFont,

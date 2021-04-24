@@ -19,13 +19,14 @@ export const FilterListBySearch = (searchedText, allOptions) => {
 
 export const GetBookDetails = (data) => {
   const booksListItem = {};
-  const {id, selectedPublisherValue, bookName, authorName, price} = data;
+  const {id, selectedPublisherValue, bookName, authorName, price, image} = data;
   booksListItem[id] = {
     id,
     name: bookName,
     author: authorName,
     publisher: selectedPublisherValue,
     price,
+    image,
   };
   return booksListItem;
 };
