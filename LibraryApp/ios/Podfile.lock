@@ -187,7 +187,6 @@ PODS:
     - React-cxxreact (= 0.63.4)
     - React-jsi (= 0.63.4)
   - React-jsinspector (0.63.4)
-  - react-native-safe-area-context (3.2.0):
   - react-native-camera (3.43.5):
     - React-Core
     - react-native-camera/RCT (= 3.43.5)
@@ -197,6 +196,8 @@ PODS:
   - react-native-camera/RN (3.43.5):
     - React-Core
   - react-native-image-picker (3.3.2):
+    - React-Core
+  - react-native-safe-area-context (3.2.0):
     - React-Core
   - react-native-splash-screen (3.2.0):
     - React
@@ -270,8 +271,9 @@ PODS:
     - React-Core
   - RNGestureHandler (1.10.3):
     - React-Core
-  - RNScreens (3.0.0):
   - RNPermissions (3.0.1):
+    - React-Core
+  - RNScreens (3.0.0):
     - React-Core
   - Yoga (1.14.0)
 
@@ -294,9 +296,9 @@ DEPENDENCIES:
   - React-jsi (from `../node_modules/react-native/ReactCommon/jsi`)
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
-  - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-camera (from `../node_modules/react-native-camera`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
+  - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
@@ -313,8 +315,8 @@ DEPENDENCIES:
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
   - "RNCPicker (from `../node_modules/@react-native-picker/picker`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
-  - RNScreens (from `../node_modules/react-native-screens`)
   - RNPermissions (from `../node_modules/react-native-permissions`)
+  - RNScreens (from `../node_modules/react-native-screens`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -354,12 +356,12 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsiexecutor"
   React-jsinspector:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
-  react-native-safe-area-context:
-    :path: "../node_modules/react-native-safe-area-context"
   react-native-camera:
     :path: "../node_modules/react-native-camera"
   react-native-image-picker:
     :path: "../node_modules/react-native-image-picker"
+  react-native-safe-area-context:
+    :path: "../node_modules/react-native-safe-area-context"
   react-native-splash-screen:
     :path: "../node_modules/react-native-splash-screen"
   React-RCTActionSheet:
@@ -392,10 +394,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-picker/picker"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
-  RNScreens:
-    :path: "../node_modules/react-native-screens"
   RNPermissions:
     :path: "../node_modules/react-native-permissions"
+  RNScreens:
+    :path: "../node_modules/react-native-screens"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -417,9 +419,9 @@ SPEC CHECKSUMS:
   React-jsi: a0418934cf48f25b485631deb27c64dc40fb4c31
   React-jsiexecutor: 93bd528844ad21dc07aab1c67cb10abae6df6949
   React-jsinspector: 58aef7155bc9a9683f5b60b35eccea8722a4f53a
-  react-native-safe-area-context: f0906bf8bc9835ac9a9d3f97e8bde2a997d8da79
   react-native-camera: 04a9a85b63d169094db5fd13a0c786101238e925
   react-native-image-picker: b42940647478bf106ad3c491d6f5d9d40916d865
+  react-native-safe-area-context: f0906bf8bc9835ac9a9d3f97e8bde2a997d8da79
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
   React-RCTActionSheet: 89a0ca9f4a06c1f93c26067af074ccdce0f40336
   React-RCTAnimation: 1bde3ecc0c104c55df246eda516e0deb03c4e49b
@@ -436,8 +438,8 @@ SPEC CHECKSUMS:
   RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
   RNCPicker: 77183d9b1cd80ae55505322f8ad09ba0036e29ba
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
-  RNScreens: e8e8dd0588b5da0ab57dcca76ab9b2d8987757e0
   RNPermissions: 4c8a37b4dde50f1f152bf8cd08c4a43d2355829e
+  RNScreens: e8e8dd0588b5da0ab57dcca76ab9b2d8987757e0
   Yoga: 4bd86afe9883422a7c4028c00e34790f560923d6
 
 PODFILE CHECKSUM: 0800e39caae72be08f1167e982c2e2d5268b8510

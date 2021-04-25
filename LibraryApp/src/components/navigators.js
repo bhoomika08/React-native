@@ -33,7 +33,7 @@ const Navigators = () => {
         />
         <Stack.Screen name={libraryForm} component={Form} />
         <Stack.Screen name={showBookDetails} component={ShowBook} />
-        <Stack.Screen name={scanQRCode} component={ScanCode} />
+        <Stack.Screen name={scanQRCode} component={ScanCode} options={{title: 'SCAN QR CODE'}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

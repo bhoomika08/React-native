@@ -1,48 +1,51 @@
-import React, {Component} from 'react';
+import React, {useEffect} from 'react';
 import {booksList} from 'constants/navigators';
 import {StyleSheet, Text, TouchableOpacity, Linking} from 'react-native';
+import {HeaderBackButton} from '@react-navigation/stack';
 import {alert} from 'helpers/application';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import {RNCamera} from 'react-native-camera';
 
-class ScanCode extends Component {
-  constructor() {
-    super();
-    this.navigateToListing = this.navigateToListing.bind(this);
-  }
+const ScanCode = (props) => {
+  useEffect(() => {
+    const {navigation} = props;
+    navigation.setOptions({
+      headerLeft: () => (
+        <HeaderBackButton label="Listing" onPress={navigateToListing} />
+      ),
+    });
+  });
+
   onSuccess = (e) => {
     Linking.openURL(e.data).catch((err) => alert('Error', err.message));
   };
 
-  navigateToListing() {
-    const {navigation} = this.props;
+  navigateToListing = () => {
+    const {navigation} = props;
     navigation.navigate(booksList);
-  }
+  };
 
-  render() {
-    return (
-      <QRCodeScanner
-        onRead={this.onSuccess}
-        showMarker={true}
-        flashMode={RNCamera.Constants.FlashMode.auto}
-        topContent={
-          <Text style={styles.centerText}>
-            Go to{' '}
-            <Text style={styles.textBold}>wikipedia.org/wiki/QR_code</Text> on
-            your computer and scan the QR code.
-          </Text>
-        }
-        bottomContent={
-          <TouchableOpacity
-            onPress={this.navigateToListing}
-            style={styles.buttonTouchable}>
-            <Text style={styles.buttonText}>Close</Text>
-          </TouchableOpacity>
-        }
-      />
-    );
-  }
-}
+  return (
+    <QRCodeScanner
+      onRead={onSuccess}
+      showMarker={true}
+      flashMode={RNCamera.Constants.FlashMode.auto}
+      topContent={
+        <Text style={styles.centerText}>
+          Go to <Text style={styles.textBold}>wikipedia.org/wiki/QR_code</Text>{' '}
+          on your computer and scan the QR code.
+        </Text>
+      }
+      bottomContent={
+        <TouchableOpacity
+          onPress={navigateToListing}
+          style={styles.buttonTouchable}>
+          <Text style={styles.buttonText}>Close</Text>
+        </TouchableOpacity>
+      }
+    />
+  );
+};
 
 const styles = StyleSheet.create({
   centerText: {
