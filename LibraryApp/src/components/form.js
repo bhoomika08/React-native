@@ -114,7 +114,7 @@ const Form = (props) => {
       errors.url = invalid;
     }
     if (Object.keys(errors).length > 0) {
-      return setFields({errors});
+      return setFields({...fields, errors});
     }
     handleFormSubmit();
   };
