@@ -1,5 +1,7 @@
 import {StyleSheet} from 'react-native';
 
+const isIOSPlatform = Platform.OS == 'ios';
+
 export const Typography = StyleSheet.create({
   comicFont: {
     fontFamily: "Comic Sans MS"
@@ -26,7 +28,7 @@ export const Typography = StyleSheet.create({
     fontSize: 30,
   },
   bold: {
-    fontWeight: 'bold',
+    fontWeight: isIOSPlatform ? '500' : 'bold',
   },
   uppercase: {
     textTransform: 'uppercase',

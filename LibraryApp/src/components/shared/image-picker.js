@@ -12,7 +12,14 @@ import {Colors, Global, Spacing, Typography} from 'stylesheets';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {cameraBlack, imageBlack} from 'constants/icons';
 
-const {rowFlex, flexEnd, columnFlex, spaceBetween, verticalCenter} = Global;
+const {
+  rowFlex,
+  flexEnd,
+  columnFlex,
+  spaceBetween,
+  verticalCenter,
+  borderWidth1,
+} = Global;
 const {iconFont, fs20} = Typography;
 const {px10, mb20} = Spacing;
 const {darkGrey, white} = Colors;
@@ -21,7 +28,7 @@ class ImagePicker extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      resourcePath: {},
+      imagePath: {},
     };
   }
 
@@ -70,7 +77,6 @@ class ImagePicker extends React.Component {
   cameraLaunch = async () => {
     const {onImageSelect} = this.props;
     let options = {
-      title: 'Select Avatar',
       cameraType: 'back',
       allowsEditing: true,
       maxWidth: 300,
@@ -93,7 +99,7 @@ class ImagePicker extends React.Component {
         } else {
           console.log('response', JSON.stringify(res));
           this.setState({
-            resourcePath: res,
+            imagePath: res,
           });
           onImageSelect(res.uri);
         }
@@ -121,7 +127,7 @@ class ImagePicker extends React.Component {
       } else {
         console.log('response', JSON.stringify(res));
         this.setState({
-          resourcePath: res,
+          imagePath: res,
         });
         onImageSelect(res.uri);
       }
@@ -129,11 +135,11 @@ class ImagePicker extends React.Component {
   };
 
   render() {
-    const {resourcePath} = this.state;
+    const {imagePath} = this.state;
     const {image} = this.props;
-    const {uri} = resourcePath;
+    const {uri} = imagePath;
     const {icon, imageStyle} = styles;
-    const imagePath = image || uri;
+    const imageUri = image || uri;
     return (
       <View style={[columnFlex, spaceBetween, mb20]}>
         <View style={[rowFlex, spaceBetween]}>
@@ -147,7 +153,7 @@ class ImagePicker extends React.Component {
             </Pressable>
           </View>
         </View>
-        <Image source={{uri: imagePath}} style={imageStyle} />
+        <Image source={{uri: imageUri}} style={imageStyle} />
       </View>
     );
   }
@@ -162,7 +168,7 @@ const styles = StyleSheet.create({
   imageStyle: {
     width: 200,
     height: 200,
-    borderWidth: 1,
+    ...borderWidth1,
     borderColor: darkGrey,
     backgroundColor: white,
   },
