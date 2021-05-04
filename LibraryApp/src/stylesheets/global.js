@@ -35,8 +35,11 @@ export const Global = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  selfCenter: {
+    alignSelf: 'center',
+  },
   absolutePosition: {
-    position: "absolute"
+    position: 'absolute',
   },
   borderRadius5: {
     borderRadius: 5,

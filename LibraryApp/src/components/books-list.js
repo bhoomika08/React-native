@@ -23,7 +23,6 @@ const loaderTimeout = 2000;
 const {
   flex1,
   rowFlex,
-  borderWidth1,
   borderRadius20,
   horizontalCenter,
   verticalCenter,

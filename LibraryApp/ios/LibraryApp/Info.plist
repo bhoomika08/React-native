@@ -5,11 +5,11 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>${PRODUCT_NAME} Microphone Usage</string>
 	<key>NSCameraUsageDescription</key>
-	<string>${PRODUCT_NAME} Camera Usage</string>
+	<string>Need Camera to capture images</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>${PRODUCT_NAME} PhotoLibrary Usage</string>
+	<string>Access Library to pick images</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>${PRODUCT_NAME} library Usage</string>
+	<string>Access Library to add captured images</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -46,7 +46,7 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<string></string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Comic Sans MS.ttf</string>

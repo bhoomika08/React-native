@@ -1,14 +1,20 @@
 import React, {useState, useEffect} from 'react';
-import {booksList} from 'constants/navigators';
 import {alert} from 'helpers/application';
-import {Text, Linking, Pressable} from 'react-native';
-import {HeaderBackButton} from '@react-navigation/stack';
+import {View, Text, Linking, Pressable} from 'react-native';
 import {Global, Typography, Spacing, Colors} from 'stylesheets';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import {RNCamera} from 'react-native-camera';
+import PermissionService from 'services/permissions';
 import {cameraFlipAndroid, cameraFlipIos} from 'constants/icons';
 
-const {flex1, absolutePosition} = Global;
+const {
+  rowFlex,
+  flex1,
+  spaceBetween,
+  absolutePosition,
+  selfCenter,
+  center,
+} = Global;
 const {iconFont, fs18, fs30, bold} = Typography;
 const {p20} = Spacing;
 const {white} = Colors;
@@ -16,61 +22,81 @@ const {white} = Colors;
 const isIOSPlatform = Platform.OS == 'ios';
 
 const QRTop = () => {
-  const {topViewText} = styles;
+  const {textStyle} = styles;
   return (
-    <Text style={topViewText}>
+    <Text style={textStyle}>
       Go to <Text style={bold}>wikipedia.org/wiki/QR_code</Text> on your
       computer and scan the QR code.
     </Text>
   );
 };
 
-const QRCodeBottom = ({onPress}) => {
-  const {cameraIcon} = styles;
+const QRCodeBottom = ({onCameraPress, onCancel}) => {
+  const {cameraIcon, textStyle} = styles;
   return (
-    <Pressable onPress={onPress}>
-      <Text style={cameraIcon}>
-        {isIOSPlatform ? cameraFlipIos : cameraFlipAndroid}
-      </Text>
-    </Pressable>
+    <>
+      <Pressable style={flex1} onPress={onCancel}>
+        <Text style={textStyle}>CANCEL</Text>
+      </Pressable>
+      <Pressable onPress={onCameraPress}>
+        <Text style={cameraIcon}>
+          {isIOSPlatform ? cameraFlipIos : cameraFlipAndroid}
+        </Text>
+      </Pressable>
+    </>
+  );
+};
+
+const NoCameraPermissionView = () => {
+  const {noPermissionViewStyle} = styles;
+  return (
+    <View style={noPermissionViewStyle}>
+      <Text>Please Enable Camera Permission from settings.</Text>
+    </View>
   );
 };
 
 const ScanCode = (props) => {
+  const [cameraPermission, setCameraPermission] = useState(false);
   const [cameraType, setCameraType] = useState('back');
+
   useEffect(() => {
-    const {navigation} = props;
-    navigation.setOptions({
-      headerLeft: () => (
-        <HeaderBackButton label="Listing" onPress={navigateToListing} />
-      ),
+    PermissionService.requestCameraPermission().then((result) => {
+      if (result == 'granted') {
+        setCameraPermission(true);
+      }
     });
   });
 
-  cameraSwitch = () => {
+  const cameraSwitch = () => {
     setCameraType(cameraType == 'back' ? 'front' : 'back');
   };
 
-  onSuccess = (e) => {
+  const onSuccess = (e) => {
     Linking.openURL(e.data).catch((err) => alert('Error', err.message));
   };
 
-  navigateToListing = () => {
+  const cancelScanner = () => {
     const {navigation} = props;
-    navigation.navigate(booksList);
+    navigation.goBack();
   };
 
   const {scannerContainer, qrTopViewStyle, qrBottomViewStyle} = styles;
-  return (
+  return !isIOSPlatform && !cameraPermission ? (
+    <NoCameraPermissionView />
+  ) : (
     <QRCodeScanner
       onRead={onSuccess}
       showMarker={true}
       cameraType={cameraType}
       cameraStyle={scannerContainer}
       flashMode={RNCamera.Constants.FlashMode.auto}
+      notAuthorizedView={<NoCameraPermissionView />}
       topContent={<QRTop />}
       topViewStyle={qrTopViewStyle}
-      bottomContent={<QRCodeBottom onPress={cameraSwitch} />}
+      bottomContent={
+        <QRCodeBottom onCameraPress={cameraSwitch} onCancel={cancelScanner} />
+      }
       bottomViewStyle={qrBottomViewStyle}
     />
   );
@@ -80,7 +106,7 @@ const styles = {
   scannerContainer: {
     height: '100%',
   },
-  topViewText: {
+  textStyle: {
     ...fs18,
     ...flex1,
     color: white,
@@ -100,6 +126,20 @@ const styles = {
     ...absolutePosition,
     zIndex: 50,
     bottom: 40,
+    ...rowFlex,
+    ...selfCenter,
+    ...spaceBetween,
+    width: '60%',
+  },
+  noPermissionViewStyle: {
+    ...absolutePosition,
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    ...center,
+    zIndex: 99999,
+    backgroundColor: white,
   },
 };
 

@@ -19,7 +19,7 @@ PODS:
     - DoubleConversion
     - glog
   - glog (0.3.5)
-  - Permission-Camera (3.0.1):
+  - Permission-Camera (3.0.3):
     - RNPermissions
   - RCTRequired (0.63.4)
   - RCTTypeSafety (0.63.4):
@@ -271,7 +271,7 @@ PODS:
     - React-Core
   - RNGestureHandler (1.10.3):
     - React-Core
-  - RNPermissions (3.0.1):
+  - RNPermissions (3.0.3):
     - React-Core
   - RNScreens (3.0.0):
     - React-Core
@@ -408,7 +408,7 @@ SPEC CHECKSUMS:
   FBReactNativeSpec: f2c97f2529dd79c083355182cc158c9f98f4bd6e
   Folly: b73c3869541e86821df3c387eb0af5f65addfab4
   glog: 40a13f7840415b9a77023fbcae0f1e6f43192af3
-  Permission-Camera: b2e50546c095139bb1264be9c34c796332340d32
+  Permission-Camera: 6abdb054620b2f6b3bf9e0b3842db246424d4d48
   RCTRequired: 082f10cd3f905d6c124597fd1c14f6f2655ff65e
   RCTTypeSafety: 8c9c544ecbf20337d069e4ae7fd9a377aadf504b
   React: b0a957a2c44da4113b0c4c9853d8387f8e64e615
@@ -438,7 +438,7 @@ SPEC CHECKSUMS:
   RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
   RNCPicker: 77183d9b1cd80ae55505322f8ad09ba0036e29ba
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
-  RNPermissions: 4c8a37b4dde50f1f152bf8cd08c4a43d2355829e
+  RNPermissions: 034db8a73d562766f990c89abbdeaa5d6e204c67
   RNScreens: e8e8dd0588b5da0ab57dcca76ab9b2d8987757e0
   Yoga: 4bd86afe9883422a7c4028c00e34790f560923d6
 

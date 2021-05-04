@@ -1,12 +1,6 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Pressable,
-  Image,
-  PermissionsAndroid,
-} from 'react-native';
+import {StyleSheet, Text, View, Pressable, Image} from 'react-native';
+import PermissionService from 'services/permissions';
 import {Label} from 'components/shared/form-controls';
 import {Colors, Global, Spacing, Typography} from 'stylesheets';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
@@ -24,6 +18,22 @@ const {iconFont, fs20} = Typography;
 const {px10, mb20} = Spacing;
 const {darkGrey, white} = Colors;
 
+const isIOSPlatform = Platform.OS == 'ios';
+
+const options = {
+  cameraLaunch: {
+    cameraType: 'back',
+    allowsEditing: true,
+    maxWidth: 300,
+    maxHeight: 400,
+    saveToPhotos: true,
+  },
+  imageGalleryLaunch: {
+    maxWidth: 300,
+    maxHeight: 400,
+  },
+};
+
 class ImagePicker extends React.Component {
   constructor(props) {
     super(props);
@@ -32,90 +42,74 @@ class ImagePicker extends React.Component {
     };
   }
 
-  // ------- request Camera Permission ----------- //
-  requestCameraPermission = async () => {
-    if (Platform.OS === 'android') {
-      try {
-        const granted = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.CAMERA,
-          {
-            title: 'Camera Permission',
-            message: 'App needs camera permission',
-          },
-        );
-        // ----- If CAMERA Permission is granted ------- //
-        return granted === PermissionsAndroid.RESULTS.GRANTED;
-      } catch (err) {
-        console.warn(err);
-        return false;
-      }
-    } else return true;
-  };
-
-  // ------------ request Write Permission to Store Captured Image to Device --------- //
-  requestExternalWritePermission = async () => {
-    if (Platform.OS === 'android') {
-      try {
-        const granted = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-          {
-            title: 'External Storage Write Permission',
-            message: 'App needs write permission',
-          },
-        );
-        // -------- If WRITE_EXTERNAL_STORAGE Permission is granted --------- //
-        return granted === PermissionsAndroid.RESULTS.GRANTED;
-      } catch (err) {
-        console.warn(err);
-        alert('Write permission err', err);
+  // ------- request Camera Permission for both android & ios ----------- //
+  requestCameraPermission = () =>
+    PermissionService.requestCameraPermission().then((result) => {
+      if (result == 'granted') {
+        return true;
       }
       return false;
-    } else return true;
-  };
+    });
+
+  // ------------ request Write Permission to store captured image to device in android --------- //
+  requestAndroidStoragePermission = () =>
+    PermissionService.requestAndroidStoragePermission().then((result) => {
+      if (result == 'granted') {
+        return true;
+      }
+      return false;
+    });
+
+  // ----------- request Photo Library permission in ios --------- //
+  requestPhotoLibPermission = () =>
+    PermissionService.requestIosPhotoLibPermission().then((result) => {
+      if (result == 'granted') {
+        return true;
+      }
+      return false;
+    });
 
   // -------- Launch Camera ---------- //
-  cameraLaunch = async () => {
-    const {onImageSelect} = this.props;
-    let options = {
-      cameraType: 'back',
-      allowsEditing: true,
-      maxWidth: 300,
-      maxHeight: 400,
-      saveToPhotos: true,
-    };
-    let isCameraPermitted = await this.requestCameraPermission();
-    let isStoragePermitted = await this.requestExternalWritePermission();
+  openCamera = async () => {
+    const isCameraPermitted = await this.requestCameraPermission();
+    const isStoragePermitted = await this.requestAndroidStoragePermission();
     if (isCameraPermitted && isStoragePermitted) {
-      launchCamera(options, (res) => {
-        console.log('launchCamera Response = ', res);
-
-        if (res.didCancel) {
-          console.log('User cancelled image picker');
-        } else if (res.error) {
-          console.log('ImagePicker Error: ', res.error);
-        } else if (res.customButton) {
-          console.log('User tapped custom button: ', res.customButton);
-          alert(res.customButton);
-        } else {
-          console.log('response', JSON.stringify(res));
-          this.setState({
-            imagePath: res,
-          });
-          onImageSelect(res.uri);
-        }
-      });
+      this.cameraLaunch();
     }
   };
 
+  cameraLaunch() {
+    const {onImageSelect} = this.props;
+    launchCamera(options.cameraLaunch, (res) => {
+      if (res.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (res.error) {
+        console.log('ImagePicker Error: ', res.error);
+      } else if (res.customButton) {
+        console.log('User tapped custom button: ', res.customButton);
+      } else {
+        console.log('response', JSON.stringify(res));
+        this.setState({
+          imagePath: res,
+        });
+        onImageSelect(res.uri);
+      }
+    });
+  }
+
   // -------- Launch Device Gallery -------------- //
+  openImageGallery = async () => {
+    const isPhotoLibPermitted = isIOSPlatform
+      ? await this.requestPhotoLibPermission()
+      : await this.requestAndroidStoragePermission();
+    if (isPhotoLibPermitted) {
+      this.imageGalleryLaunch();
+    }
+  };
+
   imageGalleryLaunch = () => {
     const {onImageSelect} = this.props;
-    let options = {
-      maxWidth: 300,
-      maxHeight: 400,
-    };
-
-    launchImageLibrary(options, (res) => {
+    launchImageLibrary(options.imageGalleryLaunch, (res) => {
       console.log('launchImageLibrary Response = ', res);
       if (res.didCancel) {
         console.log('User cancelled image picker');
@@ -125,7 +119,6 @@ class ImagePicker extends React.Component {
         console.log('User tapped custom button: ', res.customButton);
         alert(res.customButton);
       } else {
-        console.log('response', JSON.stringify(res));
         this.setState({
           imagePath: res,
         });
@@ -145,10 +138,10 @@ class ImagePicker extends React.Component {
         <View style={[rowFlex, spaceBetween]}>
           <Label label="Select Book Image" />
           <View style={[rowFlex, flexEnd]}>
-            <Pressable style={verticalCenter} onPress={this.cameraLaunch}>
+            <Pressable style={verticalCenter} onPress={this.openCamera}>
               <Text style={icon}>{cameraBlack}</Text>
             </Pressable>
-            <Pressable style={verticalCenter} onPress={this.imageGalleryLaunch}>
+            <Pressable style={verticalCenter} onPress={this.openImageGallery}>
               <Text style={icon}>{imageBlack}</Text>
             </Pressable>
           </View>
