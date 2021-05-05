@@ -15,7 +15,7 @@ const defaultObj = {};
 
 const ShowBook = ({route, navigation, currentLocation}) => {
   const {book} = route.params || defaultObj;
-  const {name, author, publisher, price, location} = book;
+  const {image, name, author, publisher, price, location} = book;
   const {lat, long} = location || defaultObj;
   React.useLayoutEffect(() => {
     navigation.setOptions({
