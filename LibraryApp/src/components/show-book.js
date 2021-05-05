@@ -1,21 +1,22 @@
 import React from 'react';
-import {View, Text, Pressable} from 'react-native';
+import {connect} from 'react-redux';
+import {ScrollView, View, Text, Pressable} from 'react-native';
 import {Colors, Global, Spacing, Typography} from 'stylesheets';
+import {calculateDistance} from 'helpers/application';
 import {libraryForm} from 'constants/navigators';
 import {CustomImage} from 'components/shared/common';
 
-const {
-  flex1,
-  horizontalCenter,
-  borderWidth1,
-} = Global;
+const {flex1, horizontalCenter, borderWidth1} = Global;
 const {gochiFont, comicFont, fs18, fs20, fs25, bold} = Typography;
 const {py20, p20, mb5, mb20, mtAuto} = Spacing;
 const {grey, darkBlue, lightGreen, white, maroon, darkGrey} = Colors;
 
-const ShowBook = ({route, navigation}) => {
-  const {book} = route.params || {};
-  const {name, author, publisher, price, image} = book;
+const defaultObj = {};
+
+const ShowBook = ({route, navigation, currentLocation}) => {
+  const {book} = route.params || defaultObj;
+  const {name, author, publisher, price, location} = book;
+  const {lat, long} = location || defaultObj;
   React.useLayoutEffect(() => {
     navigation.setOptions({
       title: `${name} Details`,
@@ -23,6 +24,7 @@ const ShowBook = ({route, navigation}) => {
     });
   });
   const navigateToForm = () => navigation.navigate(libraryForm);
+
   const {
     innerContainer,
     bookDetails,
@@ -31,36 +33,52 @@ const ShowBook = ({route, navigation}) => {
     details,
     button,
   } = styles;
+
+  const {lat: currentLatitude, long: currentLongitude} =
+    currentLocation || defaultObj;
+  const locations = {
+    startLocation: {lat: currentLatitude, long: currentLongitude},
+    endLocation: {lat, long},
+  };
+  const isValidDistance =
+    Math.abs(currentLatitude) > 0 && Math.abs(currentLongitude) > 0;
+  const distance = isValidDistance && calculateDistance(locations);
   return (
     <View style={innerContainer}>
-      <View style={p20}>
-        <View style={bookDetails}>
-          <View style={mb20}>
-            <CustomImage image={image} />
-          </View>
-          <View style={mb20}>
-            <Text style={label}>Name: </Text>
-            <Text style={listItemName}>{name}</Text>
-          </View>
-          <View style={mb20}>
-            <Text style={label}>Author: </Text>
-            <Text style={details}>{author}</Text>
-          </View>
-          <View style={mb20}>
-            <Text style={label}>Publisher: </Text>
-            <Text style={details}>{publisher}</Text>
-          </View>
-          <View>
-            <Text style={label}>
-              Price: <Text style={details}>{price}</Text>
-            </Text>
+      <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
+        <View style={p20}>
+          <View style={bookDetails}>
+            <View style={mb20}>
+              <CustomImage image={image} />
+            </View>
+            <View style={mb20}>
+              <Text style={label}>Name: </Text>
+              <Text style={listItemName}>{name}</Text>
+            </View>
+            <View style={mb20}>
+              <Text style={label}>Author: </Text>
+              <Text style={details}>{author}</Text>
+            </View>
+            <View style={mb20}>
+              <Text style={label}>Publisher: </Text>
+              <Text style={details}>{publisher}</Text>
+            </View>
+            <View style={mb20}>
+              <Text style={label}>
+                Price: <Text style={details}>{price}</Text>
+              </Text>
+            </View>
+            {isValidDistance && (
+              <View>
+                <Text style={label}>Distance: </Text>
+                <Text style={details}>{distance}</Text>
+              </View>
+            )}
           </View>
         </View>
-      </View>
+      </ScrollView>
       <View style={mtAuto}>
-        <Pressable
-          style={[button, {backgroundColor: lightGreen}]}
-          onPress={navigateToForm}>
+        <Pressable style={button} onPress={navigateToForm}>
           <Text style={[fs20, bold]}>EDIT</Text>
         </Pressable>
       </View>
@@ -100,4 +118,10 @@ const styles = {
   },
 };
 
-export default ShowBook;
+function mapStateToProps({library: {currentLocation}}) {
+  return {
+    currentLocation,
+  };
+}
+
+export default connect(mapStateToProps)(ShowBook);

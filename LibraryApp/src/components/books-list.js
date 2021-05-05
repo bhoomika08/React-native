@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   View,
@@ -6,36 +6,133 @@ import {
   TextInput,
   SafeAreaView,
   Pressable,
+  Platform,
+  PermissionsAndroid,
+  ActivityIndicator,
 } from 'react-native';
 import {connect} from 'react-redux';
-import {setSelectedBook} from 'store/actions/library';
+import Geolocation from '@react-native-community/geolocation';
+import {setSelectedBook, setCurrentLocation} from 'store/actions/library';
 import {Colors, Global, Spacing, Typography} from 'stylesheets';
 import {libraryForm, showBookDetails, scanQRCode} from 'constants/navigators';
 import {FilterListBySearch} from 'helpers/library';
-import {search, qrCode} from 'constants/icons';
+import {search, qrCode, refresh} from 'constants/icons';
 import List from 'components/shared/list';
+import {LocationStatus} from 'constants/location-status';
 import {useHardwareBack} from 'components/custom/hardware-back';
 import {CustomImage} from 'components/shared/common';
 
 const isIOSPlatform = Platform.OS == 'ios';
 const loaderTimeout = 2000;
+const defaultObj = {};
 
 const {
   flex1,
   rowFlex,
+  spaceBetween,
   borderRadius20,
   horizontalCenter,
   verticalCenter,
 } = Global;
-const {comicFont, gochiFont, iconFont, fs18, fs20, fs25, bold} = Typography;
+const {
+  comicFont,
+  gochiFont,
+  iconFont,
+  fs16,
+  fs18,
+  fs20,
+  fs25,
+  bold,
+} = Typography;
 const {p10, py20, px10, px15, px25, p15, mtAuto, mb15} = Spacing;
-const {blue, darkGrey, purple, lightGreen, maroon, white} = Colors;
+const {blue, darkGrey, purple, lightGreen, maroon, skyBlue, white} = Colors;
+const {loading, loaded, denied} = LocationStatus;
 
 const getItemKey = (item) => `book-${item.id}`;
 
 const BooksList = (props) => {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [searchedText, setSearchedText] = useState('');
+  const [locationStatus, setLocationStatus] = useState('');
+
+  useEffect(() => {
+    const requestLocationPermission = async () => {
+      if (isIOSPlatform) {
+        getOneTimeLocation();
+        subscribeLocation();
+      } else {
+        try {
+          const granted = await PermissionsAndroid.request(
+            PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+            {
+              title: 'Location Access Required',
+              message: 'This App needs to Access your location',
+            },
+          );
+          if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+            // ------ To Check, If Permission is granted ------ //
+            getOneTimeLocation();
+            subscribeLocation();
+          } else {
+            setLocationStatus(denied);
+          }
+        } catch (err) {
+          console.warn(err);
+        }
+      }
+    };
+    requestLocationPermission();
+    return () => {
+      Geolocation.clearWatch(watchID);
+    };
+  }, []);
+
+  const getOneTimeLocation = () => {
+    const {setCurrentLocation} = props;
+    setLocationStatus(loading);
+    Geolocation.getCurrentPosition(
+      // ------ Will give you the current location ------ //
+      (position) => {
+        setLocationStatus(loaded);
+
+        const currentLongitude = JSON.stringify(position.coords.longitude);
+        const currentLatitude = JSON.stringify(position.coords.latitude);
+
+        setCurrentLocation(currentLatitude, currentLongitude);
+      },
+      (error) => {
+        setLocationStatus(error.message);
+      },
+      {
+        enableHighAccuracy: false,
+        timeout: 30000,
+        maximumAge: 1000,
+      },
+    );
+  };
+
+  // ---------- Will give you the location on location change --------- //
+  const subscribeLocation = () => {
+    const {setCurrentLocation} = props;
+    watchID = Geolocation.watchPosition(
+      (position) => {
+        setLocationStatus(loaded);
+
+        const currentLongitude = JSON.stringify(position.coords.longitude);
+        const currentLatitude = JSON.stringify(position.coords.latitude);
+
+        setCurrentLocation(currentLatitude, currentLongitude);
+      },
+      (error) => {
+        setLocationStatus(error.message);
+      },
+      {
+        enableHighAccuracy: false,
+        maximumAge: 1000,
+        distanceFilter: 1,
+      },
+    );
+  };
 
   onRefresh = () => {
     setIsRefreshing(true);
@@ -92,15 +189,44 @@ const BooksList = (props) => {
     );
   };
 
-  const {books} = props;
-  const {searchContainer, searchIcon, scanIcon, listContainer, button} = styles;
+  const {books, currentLocation} = props;
+  const {lat: currentLatitude, long: currentLongitude} =
+    currentLocation || defaultObj;
+  const {
+    searchContainer,
+    searchIcon,
+    scanIcon,
+    locationContainer,
+    locationStatusText,
+    listContainer,
+    button,
+  } = styles;
   const booksArr = Object.values(books);
   const filteredList = FilterListBySearch(searchedText, booksArr);
   const containsBooks = filteredList.length > 0;
   useHardwareBack();
+  const isLoading = locationStatus == loading;
   return (
     <>
       <View style={p15}>
+        <View style={locationContainer}>
+          <View>
+            <Text style={locationStatusText}>{locationStatus}</Text>
+            <Text>
+              <Text style={bold}>Latitude:</Text> {currentLatitude}
+            </Text>
+            <Text>
+              <Text style={bold}>Longitude:</Text> {currentLongitude}
+            </Text>
+          </View>
+          {isLoading ? (
+            <ActivityIndicator animating={true} color={darkGrey} size="small" />
+          ) : (
+            <Pressable style={verticalCenter} onPress={getOneTimeLocation}>
+              <Text style={searchIcon}>{refresh}</Text>
+            </Pressable>
+          )}
+        </View>
         <View style={searchContainer}>
           <View style={verticalCenter}>
             <Text style={searchIcon}>{search}</Text>
@@ -122,7 +248,7 @@ const BooksList = (props) => {
         <Text style={[fs18, bold]}>Scan QR or Bar Code</Text>
       </Pressable>
       <SafeAreaView style={listContainer}>
-        <View style={p15}>
+        <View style={px15}>
           {containsBooks ? (
             <List
               data={filteredList}
@@ -163,7 +289,7 @@ const styles = StyleSheet.create({
     ...borderRadius20,
     backgroundColor: white,
     paddingVertical: isIOSPlatform ? 10 : 0,
-    paddingHorizontal: 10,
+    ...px10,
   },
   searchIcon: {
     ...iconFont,
@@ -174,6 +300,18 @@ const styles = StyleSheet.create({
     ...iconFont,
     ...px10,
     ...fs20,
+  },
+  locationContainer: {
+    ...rowFlex,
+    ...spaceBetween,
+    ...p10,
+    ...mb15,
+    backgroundColor: skyBlue,
+  },
+  locationStatusText: {
+    ...bold,
+    ...fs16,
+    color: blue,
   },
   listContainer: {
     ...flex1,
@@ -202,14 +340,16 @@ const styles = StyleSheet.create({
   },
 });
 
-function mapStateToProps({library: {books}}) {
+function mapStateToProps({library: {books, currentLocation}}) {
   return {
     books,
+    currentLocation,
   };
 }
 
 const mapDispatchToProps = {
   setSelectedBook,
+  setCurrentLocation,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BooksList);

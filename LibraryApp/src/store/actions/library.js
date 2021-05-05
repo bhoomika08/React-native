@@ -1,18 +1,12 @@
 import {library} from 'constants/action-types';
 
 const {
-  setActiveTab: setActiveLibTab,
   setSelectedBook: setBookDetails,
   updateBooksList,
+  setCurrentLocation: currentLocation,
 } = library;
 
 const LibraryActions = {
-  setActiveTab: (payload) => (dispatch) =>
-    dispatch({
-      type: setActiveLibTab,
-      payload,
-    }),
-
   setSelectedBook: (payload = null) => (dispatch) =>
     dispatch({
       type: setBookDetails,
@@ -24,6 +18,13 @@ const LibraryActions = {
       type: updateBooksList,
       payload,
     }),
+
+  setCurrentLocation: (lat, long) => (dispatch) => {
+    return dispatch({
+      type: currentLocation,
+      payload: {lat, long},
+    })
+  }
 };
 
-export const {setActiveTab, setSelectedBook, updateBooks} = LibraryActions;
+export const {setSelectedBook, updateBooks, setCurrentLocation} = LibraryActions;

@@ -1,32 +1,23 @@
-import {booksList} from 'constants/navigators';
 import {library as LibraryActionType} from 'constants/action-types';
 import {books} from 'constants/data';
 
 const {
-  setBooksList,
-  setActiveTab,
   setSelectedBook,
   updateBooksList,
+  setCurrentLocation,
 } = LibraryActionType;
 
 const INITIAL_STATE = {
-  activeTab: booksList,
   books,
   selectedBook: null,
+  currentLocation: {
+    lat: '',
+    long: '',
+  },
 };
 
 const library = (state = INITIAL_STATE, {type, payload}) => {
   switch (type) {
-    case setBooksList:
-      return {
-        ...state,
-        books: payload,
-      };
-    case setActiveTab:
-      return {
-        ...state,
-        activeTab: payload,
-      };
     case setSelectedBook:
       return {
         ...state,
@@ -36,6 +27,14 @@ const library = (state = INITIAL_STATE, {type, payload}) => {
       return {
         ...state,
         books: {...state.books, ...payload},
+      };
+    case setCurrentLocation:
+      return {
+        ...state,
+        currentLocation: {
+          lat: payload.lat,
+          long: payload.long,
+        },
       };
     default:
       return state;

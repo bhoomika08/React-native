@@ -11,4 +11,5 @@ export const imageBlack = '\ue909';
 export const imageWhite = '\ue908';
 export const cameraFlipIos = '\ue90a';
 export const cameraFlipAndroid = '\ue90b';
+export const refresh = '\ue90c'
 export const htmlCaretDown = String.fromCharCode('9660');
