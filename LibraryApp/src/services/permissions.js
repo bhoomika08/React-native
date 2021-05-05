@@ -1,5 +1,5 @@
 import {Platform} from 'react-native';
-import {PERMISSIONS, request} from 'react-native-permissions';
+import {PERMISSIONS, request, openSettings} from 'react-native-permissions';
 
 const CAMERA_PERMISSION = Platform.select({
   android: PERMISSIONS.ANDROID.CAMERA,
@@ -19,6 +19,7 @@ const PermissionService = {
   requestIosPhotoLibPermission: () => {
     return request(IOS_PHOTO_LIB_PERMISSION).then((status) => status);
   },
+  openAppSettings: () => openSettings()
 };
 
 export default PermissionService;

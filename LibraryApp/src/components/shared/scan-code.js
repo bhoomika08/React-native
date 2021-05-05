@@ -12,12 +12,13 @@ const {
   flex1,
   spaceBetween,
   absolutePosition,
+  borderRadius5,
   selfCenter,
   center,
 } = Global;
 const {iconFont, fs18, fs30, bold} = Typography;
-const {p20} = Spacing;
-const {white} = Colors;
+const {p20, p15, mb20} = Spacing;
+const {white, black} = Colors;
 
 const isIOSPlatform = Platform.OS == 'ios';
 
@@ -48,10 +49,15 @@ const QRCodeBottom = ({onCameraPress, onCancel}) => {
 };
 
 const NoCameraPermissionView = () => {
-  const {noPermissionViewStyle} = styles;
+  const {textStyle, noPermissionViewStyle, settingsButton} = styles;
   return (
     <View style={noPermissionViewStyle}>
-      <Text>Please Enable Camera Permission from settings.</Text>
+      <Text style={mb20}>Please Enable Camera Permission from settings.</Text>
+      <Pressable
+        style={settingsButton}
+        onPress={() => PermissionService.openAppSettings()}>
+        <Text style={textStyle}>OPEN SETTINGS</Text>
+      </Pressable>
     </View>
   );
 };
@@ -108,7 +114,6 @@ const styles = {
   },
   textStyle: {
     ...fs18,
-    ...flex1,
     color: white,
   },
   cameraIcon: {
@@ -140,6 +145,11 @@ const styles = {
     ...center,
     zIndex: 99999,
     backgroundColor: white,
+  },
+  settingsButton: {
+    backgroundColor: black,
+    ...borderRadius5,
+    ...p15,
   },
 };
 
