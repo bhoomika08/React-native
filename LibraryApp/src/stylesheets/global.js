@@ -16,6 +16,9 @@ export const Global = StyleSheet.create({
   spaceBetween: {
     justifyContent: 'space-between',
   },
+  flexEnd: {
+    justifyContent: 'flex-end',
+  },
   verticalCenter: {
     justifyContent: 'center',
   },
@@ -31,6 +34,12 @@ export const Global = StyleSheet.create({
   center: {
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  selfCenter: {
+    alignSelf: 'center',
+  },
+  absolutePosition: {
+    position: 'absolute',
   },
   borderRadius5: {
     borderRadius: 5,

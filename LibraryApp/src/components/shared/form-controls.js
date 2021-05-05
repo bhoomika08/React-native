@@ -145,7 +145,7 @@ export const Dropdown = ({
 const styles = StyleSheet.create({
   labelText: {
     ...fs18,
-    fontWeight: isIOSPlatform ? '500' : 'bold',
+    ...bold,
     ...mb5,
   },
   placeholderText: {

@@ -130,7 +130,8 @@ android {
 
     defaultConfig {
         applicationId "com.libraryapp"
-        minSdkVersion rootProject.ext.minSdkVersion
+        minSdkVersion 21
+        missingDimensionStrategy 'react-native-camera', 'general'
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"

@@ -10,11 +10,12 @@ import {
 import {connect} from 'react-redux';
 import {setSelectedBook} from 'store/actions/library';
 import {Colors, Global, Spacing, Typography} from 'stylesheets';
-import {libraryForm, showBookDetails} from 'constants/navigators';
+import {libraryForm, showBookDetails, scanQRCode} from 'constants/navigators';
 import {FilterListBySearch} from 'helpers/library';
+import {search, qrCode} from 'constants/icons';
 import List from 'components/shared/list';
-import {search} from 'constants/icons';
 import {useHardwareBack} from 'components/custom/hardware-back';
+import {CustomImage} from 'components/shared/common';
 
 const isIOSPlatform = Platform.OS == 'ios';
 const loaderTimeout = 2000;
@@ -66,11 +67,19 @@ const BooksList = (props) => {
     navigation.navigate(libraryForm);
   };
 
+  navigateToScanner = () => {
+    const {navigation} = props;
+    navigation.navigate(scanQRCode);
+  };
+
   renderItem = ({item}) => {
-    const {name, author, publisher, price} = item;
+    const {name, author, publisher, price, image} = item;
     const {listItemContainer, listItemName, bookPrice} = styles;
     return (
       <Pressable style={listItemContainer} onPress={() => selectBook(item)}>
+        <View>
+          <CustomImage image={image} />
+        </View>
         <View style={[flex1, px15]}>
           <Text style={listItemName}>{name}</Text>
           <Text style={[gochiFont, fs20]}>{author}</Text>
@@ -84,7 +93,7 @@ const BooksList = (props) => {
   };
 
   const {books} = props;
-  const {searchContainer, searchIcon, listContainer, button} = styles;
+  const {searchContainer, searchIcon, scanIcon, listContainer, button} = styles;
   const booksArr = Object.values(books);
   const filteredList = FilterListBySearch(searchedText, booksArr);
   const containsBooks = filteredList.length > 0;
@@ -106,6 +115,12 @@ const BooksList = (props) => {
           />
         </View>
       </View>
+      <Pressable style={[rowFlex, px15]} onPress={navigateToScanner}>
+        <View style={verticalCenter}>
+          <Text style={scanIcon}>{qrCode}</Text>
+        </View>
+        <Text style={[fs18, bold]}>Scan QR or Bar Code</Text>
+      </Pressable>
       <SafeAreaView style={listContainer}>
         <View style={p15}>
           {containsBooks ? (
@@ -154,6 +169,11 @@ const styles = StyleSheet.create({
     ...iconFont,
     color: darkGrey,
     ...px10,
+  },
+  scanIcon: {
+    ...iconFont,
+    ...px10,
+    ...fs20,
   },
   listContainer: {
     ...flex1,

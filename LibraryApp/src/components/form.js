@@ -20,6 +20,7 @@ import {GetBookDetails} from 'helpers/library';
 import {isEmail, isFieldEmpty, isUrl} from 'helpers/validation';
 import {InputField, Checkbox, Dropdown} from 'components/shared/form-controls';
 import {useHardwareBack} from 'components/custom/hardware-back';
+import ImagePicker from 'components/shared/image-picker';
 
 const {rowFlex, flexPoint45, spaceBetween, horizontalCenter, center} = Global;
 const {fs20, bold} = Typography;
@@ -29,8 +30,14 @@ const {lightGreen, white} = Colors;
 const defaultObj = {};
 
 const Form = (props) => {
-  const {id: bookId, name, author, publisher, price: bookPrice} =
-    props.selectedBook || defaultObj;
+  const {
+    id: bookId,
+    name,
+    author,
+    publisher,
+    price: bookPrice,
+    image: bookImage,
+  } = props.selectedBook || defaultObj;
 
   const booksLen = Object.keys(books).length;
   const [fields, setFields] = useState({
@@ -40,6 +47,7 @@ const Form = (props) => {
     price: bookPrice,
     email: '',
     url: '',
+    image: bookImage,
     errors: {},
   });
   const [selectedPublisherValue, setSelectedPublisherValue] = useState(
@@ -106,7 +114,7 @@ const Form = (props) => {
       errors.url = invalid;
     }
     if (Object.keys(errors).length > 0) {
-      return setFields({errors});
+      return setFields({...fields, errors});
     }
     handleFormSubmit();
   };
@@ -140,7 +148,14 @@ const Form = (props) => {
     setIsDisplayChecked(true);
   };
 
-  const {bookName, authorName, price, email, url, errors} = fields;
+  const onImageSelect = (imageUri) => {
+    setFields({
+      ...fields,
+      image: imageUri,
+    });
+  };
+
+  const {bookName, authorName, price, email, url, image, errors} = fields;
   const {formContainer, inputStyle, checkboxContainer, button, label} = styles;
   const {selectedBook} = props;
   useHardwareBack();
@@ -152,6 +167,7 @@ const Form = (props) => {
             <ActivityIndicator size="large" />
           ) : (
             <>
+              <ImagePicker image={image} onImageSelect={onImageSelect} />
               <InputField
                 label="Book Name"
                 placeholder="Book Name"

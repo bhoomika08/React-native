@@ -2,19 +2,24 @@ import React from 'react';
 import {View, Text, Pressable} from 'react-native';
 import {Colors, Global, Spacing, Typography} from 'stylesheets';
 import {libraryForm} from 'constants/navigators';
+import {CustomImage} from 'components/shared/common';
 
-const {horizontalCenter} = Global;
+const {
+  flex1,
+  horizontalCenter,
+  borderWidth1,
+} = Global;
 const {gochiFont, comicFont, fs18, fs20, fs25, bold} = Typography;
 const {py20, p20, mb5, mb20, mtAuto} = Spacing;
-const {grey, darkBlue, lightGreen, white, maroon} = Colors;
+const {grey, darkBlue, lightGreen, white, maroon, darkGrey} = Colors;
 
 const ShowBook = ({route, navigation}) => {
   const {book} = route.params || {};
-  const {name, author, publisher, price} = book;
+  const {name, author, publisher, price, image} = book;
   React.useLayoutEffect(() => {
     navigation.setOptions({
       title: `${name} Details`,
-      headerBackTitle: "Back"
+      headerBackTitle: 'Back',
     });
   });
   const navigateToForm = () => navigation.navigate(libraryForm);
@@ -30,6 +35,9 @@ const ShowBook = ({route, navigation}) => {
     <View style={innerContainer}>
       <View style={p20}>
         <View style={bookDetails}>
+          <View style={mb20}>
+            <CustomImage image={image} />
+          </View>
           <View style={mb20}>
             <Text style={label}>Name: </Text>
             <Text style={listItemName}>{name}</Text>
@@ -62,14 +70,13 @@ const ShowBook = ({route, navigation}) => {
 
 const styles = {
   innerContainer: {
-    flex: 1,
+    ...flex1,
     backgroundColor: grey,
   },
   bookDetails: {
     ...p20,
     backgroundColor: white,
   },
-
   label: {
     ...mb5,
     ...fs18,
