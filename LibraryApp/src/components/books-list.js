@@ -7,13 +7,13 @@ import {
   SafeAreaView,
   Pressable,
   Platform,
-  PermissionsAndroid,
   ActivityIndicator,
 } from 'react-native';
 import {connect} from 'react-redux';
 import Geolocation from '@react-native-community/geolocation';
-import {setSelectedBook, setCurrentLocation} from 'store/actions/library';
 import {Colors, Global, Spacing, Typography} from 'stylesheets';
+import PermissionService from 'services/permissions';
+import {setSelectedBook, setCurrentLocation} from 'store/actions/library';
 import {libraryForm, showBookDetails, scanQRCode} from 'constants/navigators';
 import {FilterListBySearch} from 'helpers/library';
 import {search, qrCode, refresh} from 'constants/icons';
@@ -48,44 +48,51 @@ const {p10, py20, px10, px15, px25, p15, mtAuto, mb15} = Spacing;
 const {blue, darkGrey, purple, lightGreen, maroon, skyBlue, white} = Colors;
 const {loading, loaded, denied} = LocationStatus;
 
+const Options = {
+  currentLocation: {
+    enableHighAccuracy: false,
+    timeout: 30000,
+    maximumAge: 1000,
+  },
+  subscribeLocation: {
+    enableHighAccuracy: false,
+    maximumAge: 1000,
+    distanceFilter: 1,
+  },
+};
+
 const getItemKey = (item) => `book-${item.id}`;
 
 const BooksList = (props) => {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [searchedText, setSearchedText] = useState('');
   const [locationStatus, setLocationStatus] = useState('');
+  let watchID;
 
   useEffect(() => {
-    const requestLocationPermission = async () => {
-      if (isIOSPlatform) {
-        getOneTimeLocation();
-        subscribeLocation();
-      } else {
-        try {
-          const granted = await PermissionsAndroid.request(
-            PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-            {
-              title: 'Location Access Required',
-              message: 'This App needs to Access your location',
-            },
-          );
-          if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-            // ------ To Check, If Permission is granted ------ //
-            getOneTimeLocation();
-            subscribeLocation();
-          } else {
-            setLocationStatus(denied);
-          }
-        } catch (err) {
-          console.warn(err);
-        }
-      }
-    };
     requestLocationPermission();
     return () => {
-      Geolocation.clearWatch(watchID);
+      if (watchID) {
+        Geolocation.clearWatch(watchID);
+      }
     };
   }, []);
+
+  const requestLocationPermission = () => {
+    if (isIOSPlatform) {
+      getOneTimeLocation();
+      subscribeLocation();
+    } else {
+      PermissionService.requestAndroidLocation().then((result) => {
+        if (result == 'granted') {
+          getOneTimeLocation();
+          subscribeLocation();
+        } else {
+          setLocationStatus(denied);
+        }
+      });
+    }
+  };
 
   const getOneTimeLocation = () => {
     const {setCurrentLocation} = props;
@@ -94,20 +101,14 @@ const BooksList = (props) => {
       // ------ Will give you the current location ------ //
       (position) => {
         setLocationStatus(loaded);
-
         const currentLongitude = JSON.stringify(position.coords.longitude);
         const currentLatitude = JSON.stringify(position.coords.latitude);
-
         setCurrentLocation(currentLatitude, currentLongitude);
       },
       (error) => {
         setLocationStatus(error.message);
       },
-      {
-        enableHighAccuracy: false,
-        timeout: 30000,
-        maximumAge: 1000,
-      },
+      Options.currentLocation,
     );
   };
 
@@ -117,20 +118,14 @@ const BooksList = (props) => {
     watchID = Geolocation.watchPosition(
       (position) => {
         setLocationStatus(loaded);
-
         const currentLongitude = JSON.stringify(position.coords.longitude);
         const currentLatitude = JSON.stringify(position.coords.latitude);
-
         setCurrentLocation(currentLatitude, currentLongitude);
       },
       (error) => {
         setLocationStatus(error.message);
       },
-      {
-        enableHighAccuracy: false,
-        maximumAge: 1000,
-        distanceFilter: 1,
-      },
+      Options.subscribeLocation,
     );
   };
 

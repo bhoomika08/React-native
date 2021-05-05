@@ -8,6 +8,7 @@ const CAMERA_PERMISSION = Platform.select({
 
 const ANDROID_STORAGE_PERMISSION = PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE;
 const IOS_PHOTO_LIB_PERMISSION = PERMISSIONS.IOS.PHOTO_LIBRARY;
+const LOCATION_PERMISSION = PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION;
 
 const PermissionService = {
   requestCameraPermission: () => {
@@ -19,7 +20,10 @@ const PermissionService = {
   requestIosPhotoLibPermission: () => {
     return request(IOS_PHOTO_LIB_PERMISSION).then((status) => status);
   },
-  openAppSettings: () => openSettings()
+  requestAndroidLocation: () => {
+    return request(LOCATION_PERMISSION).then((status) => status);
+  },
+  openAppSettings: () => openSettings(),
 };
 
 export default PermissionService;

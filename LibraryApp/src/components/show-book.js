@@ -6,10 +6,10 @@ import {calculateDistance} from 'helpers/application';
 import {libraryForm} from 'constants/navigators';
 import {CustomImage} from 'components/shared/common';
 
-const {flex1, horizontalCenter, borderWidth1} = Global;
+const {flex1, horizontalCenter} = Global;
 const {gochiFont, comicFont, fs18, fs20, fs25, bold} = Typography;
 const {py20, p20, mb5, mb20, mtAuto} = Spacing;
-const {grey, darkBlue, lightGreen, white, maroon, darkGrey} = Colors;
+const {grey, darkBlue, lightGreen, white, maroon} = Colors;
 
 const defaultObj = {};
 
@@ -68,7 +68,7 @@ const ShowBook = ({route, navigation, currentLocation}) => {
                 Price: <Text style={details}>{price}</Text>
               </Text>
             </View>
-            {isValidDistance && (
+            {distance >= 0 && (
               <View>
                 <Text style={label}>Distance: </Text>
                 <Text style={details}>{distance}</Text>
