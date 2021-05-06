@@ -235,12 +235,14 @@ const BooksList = (props) => {
             returnKeyType="search"
           />
         </View>
-        <Pressable style={rowFlex} onPress={navigateToScanner}>
-          <View style={verticalCenter}>
-            <Text style={scanIcon}>{qrCode}</Text>
-          </View>
-          <Text style={[fs18, bold]}>Scan QR or Bar Code</Text>
-        </Pressable>
+        <View style={rowFlex}>
+          <Pressable style={rowFlex} onPress={navigateToScanner}>
+            <View style={verticalCenter}>
+              <Text style={scanIcon}>{qrCode}</Text>
+            </View>
+            <Text style={[fs18, bold]}>Scan QR or Bar Code</Text>
+          </Pressable>
+        </View>
       </View>
       <SafeAreaView style={listContainer}>
         <View style={px15}>
