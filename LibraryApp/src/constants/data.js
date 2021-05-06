@@ -33,8 +33,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7191193,
-      long: 77.1259124,
+      latitude: '28.7191193',
+      longitude: '77.1259124',
     },
   },
   2: {
@@ -44,8 +44,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 21.7100103,
-      long: -77.1257104,
+      latitude: '21.7100103',
+      longitude: '-77.1257104',
     },
   },
   3: {
@@ -55,8 +55,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   4: {
@@ -66,8 +66,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7103111,
-      long: 77.1257111,
+      latitude: '28.7103111',
+      longitude: '77.1257111',
     },
   },
   5: {
@@ -77,8 +77,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7111111,
-      long: 77.1111111,
+      latitude: '28.7111111',
+      longitude: '77.1111111',
     },
   },
   6: {
@@ -88,8 +88,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7222222,
-      long: 77.1111111,
+      latitude: '28.7222222',
+      longitude: '77.1111111',
     },
   },
   7: {
@@ -99,8 +99,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   8: {
@@ -110,8 +110,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   9: {
@@ -121,8 +121,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   10: {
@@ -132,8 +132,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   11: {
@@ -143,8 +143,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   12: {
@@ -154,8 +154,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   13: {
@@ -165,8 +165,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   14: {
@@ -176,8 +176,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   15: {
@@ -187,8 +187,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   16: {
@@ -198,8 +198,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   17: {
@@ -209,8 +209,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   18: {
@@ -220,8 +220,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   19: {
@@ -231,8 +231,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   20: {
@@ -242,8 +242,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   21: {
@@ -253,8 +253,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   22: {
@@ -264,8 +264,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   23: {
@@ -275,8 +275,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   24: {
@@ -286,8 +286,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   25: {
@@ -297,8 +297,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   26: {
@@ -308,8 +308,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   27: {
@@ -319,8 +319,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   28: {
@@ -330,8 +330,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   29: {
@@ -341,8 +341,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   30: {
@@ -352,8 +352,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   31: {
@@ -363,8 +363,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   32: {
@@ -374,8 +374,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   33: {
@@ -385,8 +385,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   34: {
@@ -396,8 +396,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   35: {
@@ -407,8 +407,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   36: {
@@ -418,8 +418,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   37: {
@@ -429,8 +429,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   38: {
@@ -440,8 +440,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   39: {
@@ -451,8 +451,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   40: {
@@ -462,8 +462,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   41: {
@@ -473,8 +473,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   42: {
@@ -484,8 +484,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   43: {
@@ -495,8 +495,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   44: {
@@ -506,8 +506,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   45: {
@@ -517,8 +517,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   46: {
@@ -528,8 +528,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   47: {
@@ -539,8 +539,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   48: {
@@ -550,8 +550,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   49: {
@@ -561,8 +561,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   50: {
@@ -572,8 +572,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   51: {
@@ -583,8 +583,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   52: {
@@ -594,8 +594,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   53: {
@@ -605,8 +605,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   54: {
@@ -616,8 +616,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   55: {
@@ -627,8 +627,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
   56: {
@@ -638,8 +638,8 @@ export const books = {
     publisher: 'HarperCollins Publishers India',
     price: '$20',
     location: {
-      lat: 28.7194193,
-      long: 77.1279124,
+      latitude: '28.7194193',
+      longitude: '77.1279124',
     },
   },
 };

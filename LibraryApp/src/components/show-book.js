@@ -16,7 +16,7 @@ const defaultObj = {};
 const ShowBook = ({route, navigation, currentLocation}) => {
   const {book} = route.params || defaultObj;
   const {image, name, author, publisher, price, location} = book;
-  const {lat, long} = location || defaultObj;
+  const {latitude: endLat, longitude: endLong} = location || defaultObj;
   React.useLayoutEffect(() => {
     navigation.setOptions({
       title: `${name} Details`,
@@ -34,14 +34,14 @@ const ShowBook = ({route, navigation, currentLocation}) => {
     button,
   } = styles;
 
-  const {lat: currentLatitude, long: currentLongitude} =
+  const {lat: startLat, long: startLong} =
     currentLocation || defaultObj;
   const locations = {
-    startLocation: {lat: currentLatitude, long: currentLongitude},
-    endLocation: {lat, long},
+    startLocation: {startLat, startLong},
+    endLocation: {endLat, endLong},
   };
   const isValidDistance =
-    Math.abs(currentLatitude) > 0 && Math.abs(currentLongitude) > 0;
+    Math.abs(startLat) > 0 && Math.abs(startLong) > 0;
   const distance = isValidDistance && calculateDistance(locations);
   return (
     <View style={innerContainer}>
@@ -68,7 +68,7 @@ const ShowBook = ({route, navigation, currentLocation}) => {
                 Price: <Text style={details}>{price}</Text>
               </Text>
             </View>
-            {distance >= 0 && (
+            {isValidDistance && (
               <View>
                 <Text style={label}>Distance: </Text>
                 <Text style={details}>{distance}</Text>

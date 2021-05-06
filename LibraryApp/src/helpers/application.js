@@ -23,8 +23,8 @@ export const isSearchMatching = (str1, str2) => {
 };
 
 export const calculateDistance = ({startLocation = {}, endLocation = {}}) => {
-  const {lat: startLat, long: startLong} = startLocation;
-  const {lat: endLat, long: endLong} = endLocation;
+  const {startLat, startLong} = startLocation;
+  const {endLat, endLong} = endLocation;
   let dist;
   if (startLat == endLat && startLong == endLong) {
     dist = 0;
