@@ -1,9 +1,9 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import {ScrollView, View, Text, Pressable} from 'react-native';
 import {Colors, Global, Spacing, Typography} from 'stylesheets';
-import {calculateDistance} from 'helpers/application';
 import {libraryForm} from 'constants/navigators';
+import CurrentLocation from 'components/current-location';
+import BookDistance from 'components/book-distance';
 import {CustomImage} from 'components/shared/common';
 
 const {flex1, horizontalCenter} = Global;
@@ -13,10 +13,9 @@ const {grey, darkBlue, lightGreen, white, maroon} = Colors;
 
 const defaultObj = {};
 
-const ShowBook = ({route, navigation, currentLocation}) => {
+const ShowBook = ({route, navigation}) => {
   const {book} = route.params || defaultObj;
   const {image, name, author, publisher, price, location} = book;
-  const {latitude: endLat, longitude: endLong} = location || defaultObj;
   React.useLayoutEffect(() => {
     navigation.setOptions({
       title: `${name} Details`,
@@ -34,17 +33,9 @@ const ShowBook = ({route, navigation, currentLocation}) => {
     button,
   } = styles;
 
-  const {lat: startLat, long: startLong} =
-    currentLocation || defaultObj;
-  const locations = {
-    startLocation: {startLat, startLong},
-    endLocation: {endLat, endLong},
-  };
-  const isValidDistance =
-    Math.abs(startLat) > 0 && Math.abs(startLong) > 0;
-  const distance = isValidDistance && calculateDistance(locations);
   return (
     <View style={innerContainer}>
+      <CurrentLocation />
       <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
         <View style={p20}>
           <View style={bookDetails}>
@@ -68,12 +59,11 @@ const ShowBook = ({route, navigation, currentLocation}) => {
                 Price: <Text style={details}>{price}</Text>
               </Text>
             </View>
-            {isValidDistance && (
-              <View>
-                <Text style={label}>Distance: </Text>
-                <Text style={details}>{distance}</Text>
-              </View>
-            )}
+            <BookDistance
+              labelStyle={label}
+              valueStyle={details}
+              location={location}
+            />
           </View>
         </View>
       </ScrollView>
@@ -118,10 +108,4 @@ const styles = {
   },
 };
 
-function mapStateToProps({library: {currentLocation}}) {
-  return {
-    currentLocation,
-  };
-}
-
-export default connect(mapStateToProps)(ShowBook);
+export default ShowBook;
