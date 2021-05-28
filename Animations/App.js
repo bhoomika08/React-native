@@ -5,6 +5,7 @@ import {flex1} from 'stylesheets/global';
 import TranslationAnimation from "components/translation-animation";
 import PulsatingAnimation from "components/pulsating-animation";
 import BubblingCapturing from 'components/bubbling-capturing';
+import FlippingAnimation from "components/flipping-animation";
 
 const isIOSPlatform = Platform.OS == 'ios';
 
@@ -15,6 +16,7 @@ const App = () => {
       <TranslationAnimation />
       {/* <PulsatingAnimation /> */}
       {/* <BubblingCapturing /> */}
+      {/* <FlippingAnimation /> */}
     </View>
   );
 };
