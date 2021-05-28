@@ -6,10 +6,11 @@ import {
   TextInput,
   SafeAreaView,
   Pressable,
+  Platform,
 } from 'react-native';
 import {connect} from 'react-redux';
-import {setSelectedBook} from 'store/actions/library';
 import {Colors, Global, Spacing, Typography} from 'stylesheets';
+import {setSelectedBook} from 'store/actions/library';
 import {libraryForm, showBookDetails, scanQRCode} from 'constants/navigators';
 import {FilterListBySearch} from 'helpers/library';
 import {search, qrCode} from 'constants/icons';
@@ -114,15 +115,17 @@ const BooksList = (props) => {
             returnKeyType="search"
           />
         </View>
-      </View>
-      <Pressable style={[rowFlex, px15]} onPress={navigateToScanner}>
-        <View style={verticalCenter}>
-          <Text style={scanIcon}>{qrCode}</Text>
+        <View style={rowFlex}>
+          <Pressable style={rowFlex} onPress={navigateToScanner}>
+            <View style={verticalCenter}>
+              <Text style={scanIcon}>{qrCode}</Text>
+            </View>
+            <Text style={[fs18, bold]}>Scan QR or Bar Code</Text>
+          </Pressable>
         </View>
-        <Text style={[fs18, bold]}>Scan QR or Bar Code</Text>
-      </Pressable>
+      </View>
       <SafeAreaView style={listContainer}>
-        <View style={p15}>
+        <View style={px15}>
           {containsBooks ? (
             <List
               data={filteredList}
@@ -163,7 +166,8 @@ const styles = StyleSheet.create({
     ...borderRadius20,
     backgroundColor: white,
     paddingVertical: isIOSPlatform ? 10 : 0,
-    paddingHorizontal: 10,
+    ...px10,
+    ...mb15,
   },
   searchIcon: {
     ...iconFont,

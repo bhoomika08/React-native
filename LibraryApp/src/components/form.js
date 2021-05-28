@@ -37,8 +37,10 @@ const Form = (props) => {
     publisher,
     price: bookPrice,
     image: bookImage,
+    location,
   } = props.selectedBook || defaultObj;
 
+  const {latitude: lat = '', longitude: long = ''} = location || defaultObj;
   const booksLen = Object.keys(books).length;
   const [fields, setFields] = useState({
     id: bookId ? bookId : booksLen + 1,
@@ -47,6 +49,8 @@ const Form = (props) => {
     price: bookPrice,
     email: '',
     url: '',
+    latitude: lat,
+    longitude: long,
     image: bookImage,
     errors: {},
   });
@@ -88,7 +92,15 @@ const Form = (props) => {
   };
 
   const validateForm = () => {
-    const {bookName, authorName, price, email, url} = fields;
+    const {
+      bookName,
+      authorName,
+      price,
+      latitude,
+      longitude,
+      email,
+      url,
+    } = fields;
     const {required, invalid} = validationMessages;
     let errors = {};
     Keyboard.dismiss();
@@ -101,16 +113,19 @@ const Form = (props) => {
     if (isFieldEmpty(price)) {
       errors.price = required;
     }
+    if (isFieldEmpty(latitude)) {
+      errors.latitude = required;
+    }
+    if (isFieldEmpty(longitude)) {
+      errors.longitude = required;
+    }
     if (isFieldEmpty(email)) {
       errors.email = required;
     }
     if (!isFieldEmpty(email) && !isEmail(email)) {
       errors.email = invalid;
     }
-    if (isFieldEmpty(url)) {
-      errors.url = required;
-    }
-    if (!isFieldEmpty(url) && !isUrl(url)) {
+    if (!isUrl(url)) {
       errors.url = invalid;
     }
     if (Object.keys(errors).length > 0) {
@@ -141,6 +156,8 @@ const Form = (props) => {
       price: '',
       email: '',
       url: '',
+      latitude: '',
+      longitude: '',
       errors: {},
     });
     setSelectedPublisherValue('');
@@ -155,7 +172,17 @@ const Form = (props) => {
     });
   };
 
-  const {bookName, authorName, price, email, url, image, errors} = fields;
+  const {
+    bookName,
+    authorName,
+    price,
+    email,
+    url,
+    latitude,
+    longitude,
+    image,
+    errors,
+  } = fields;
   const {formContainer, inputStyle, checkboxContainer, button, label} = styles;
   const {selectedBook} = props;
   useHardwareBack();
@@ -209,6 +236,34 @@ const Form = (props) => {
               <View style={[rowFlex, spaceBetween]}>
                 <View style={flexPoint45}>
                   <InputField
+                    label="Latitude"
+                    keyboardType="numeric"
+                    placeholder="Latitude"
+                    style={inputStyle}
+                    inputKey="latitude"
+                    value={latitude}
+                    isReq
+                    error={errors.latitude}
+                    onChangeText={updateValue}
+                  />
+                </View>
+                <View style={flexPoint45}>
+                  <InputField
+                    label="Longitude"
+                    keyboardType="numeric"
+                    placeholder="Longitude"
+                    style={inputStyle}
+                    inputKey="longitude"
+                    value={longitude}
+                    isReq
+                    error={errors.longitude}
+                    onChangeText={updateValue}
+                  />
+                </View>
+              </View>
+              <View style={[rowFlex, spaceBetween]}>
+                <View style={flexPoint45}>
+                  <InputField
                     label="Email"
                     keyboardType="email-address"
                     placeholder="Email"
@@ -228,7 +283,6 @@ const Form = (props) => {
                     style={inputStyle}
                     inputKey="url"
                     value={url}
-                    isReq
                     error={errors.url}
                     onChangeText={updateValue}
                   />

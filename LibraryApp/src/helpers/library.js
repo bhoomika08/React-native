@@ -19,7 +19,16 @@ export const FilterListBySearch = (searchedText, allOptions) => {
 
 export const GetBookDetails = (data) => {
   const booksListItem = {};
-  const {id, selectedPublisherValue, bookName, authorName, price, image} = data;
+  const {
+    id,
+    selectedPublisherValue,
+    bookName,
+    authorName,
+    price,
+    latitude,
+    longitude,
+    image,
+  } = data;
   booksListItem[id] = {
     id,
     name: bookName,
@@ -27,6 +36,10 @@ export const GetBookDetails = (data) => {
     publisher: selectedPublisherValue,
     price,
     image,
+    location: {
+      latitude,
+      longitude,
+    },
   };
   return booksListItem;
 };

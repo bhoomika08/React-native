@@ -1,8 +1,10 @@
 import React from 'react';
 import {FlatList, ActivityIndicator} from 'react-native';
+import {Colors} from 'stylesheets';
 
 const loadMoreTimeout = 2000;
-const scrollThreshold = 0;
+const scrollThreshold = 0.5;
+const {darkGrey} = Colors;
 
 class List extends React.PureComponent {
   constructor(props) {
@@ -50,7 +52,7 @@ class List extends React.PureComponent {
 
   renderFooter() {
     const {isLoading} = this.state;
-    return isLoading ? <ActivityIndicator /> : null;
+    return isLoading ? <ActivityIndicator color={darkGrey} /> : null;
   }
 
   render() {

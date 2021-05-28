@@ -33,10 +33,8 @@ export const useHardwareBack = (props = {}) => {
     switch (currentRouteName) {
       case booksList:
         return doubleTapExit;
-      case libraryForm:
-        return navigateToListing;
       default:
-        return doubleTapExit;
+        return navigateToListing;
     }
   };
 

@@ -32,6 +32,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7191193',
+      longitude: '77.1259124',
+    },
   },
   2: {
     id: '2',
@@ -39,6 +43,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '21.7100103',
+      longitude: '-77.1257104',
+    },
   },
   3: {
     id: '3',
@@ -46,6 +54,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   4: {
     id: '4',
@@ -53,6 +65,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7103111',
+      longitude: '77.1257111',
+    },
   },
   5: {
     id: '5',
@@ -60,6 +76,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7111111',
+      longitude: '77.1111111',
+    },
   },
   6: {
     id: '6',
@@ -67,6 +87,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7222222',
+      longitude: '77.1111111',
+    },
   },
   7: {
     id: '7',
@@ -74,6 +98,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   8: {
     id: '8',
@@ -81,6 +109,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   9: {
     id: '9',
@@ -88,6 +120,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   10: {
     id: '10',
@@ -95,6 +131,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   11: {
     id: '11',
@@ -102,6 +142,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   12: {
     id: '12',
@@ -109,6 +153,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   13: {
     id: '13',
@@ -116,6 +164,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   14: {
     id: '14',
@@ -123,6 +175,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   15: {
     id: '15',
@@ -130,6 +186,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   16: {
     id: '16',
@@ -137,6 +197,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   17: {
     id: '17',
@@ -144,6 +208,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   18: {
     id: '18',
@@ -151,6 +219,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   19: {
     id: '19',
@@ -158,6 +230,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   20: {
     id: '20',
@@ -165,6 +241,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   21: {
     id: '21',
@@ -172,6 +252,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   22: {
     id: '22',
@@ -179,6 +263,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   23: {
     id: '23',
@@ -186,6 +274,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   24: {
     id: '24',
@@ -193,6 +285,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   25: {
     id: '25',
@@ -200,6 +296,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   26: {
     id: '26',
@@ -207,6 +307,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   27: {
     id: '27',
@@ -214,6 +318,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   28: {
     id: '28',
@@ -221,6 +329,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   29: {
     id: '29',
@@ -228,6 +340,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   30: {
     id: '30',
@@ -235,6 +351,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   31: {
     id: '31',
@@ -242,6 +362,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   32: {
     id: '32',
@@ -249,6 +373,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   33: {
     id: '33',
@@ -256,6 +384,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   34: {
     id: '34',
@@ -263,6 +395,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   35: {
     id: '35',
@@ -270,6 +406,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   36: {
     id: '36',
@@ -277,6 +417,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   37: {
     id: '37',
@@ -284,6 +428,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   38: {
     id: '38',
@@ -291,6 +439,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   39: {
     id: '39',
@@ -298,6 +450,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   40: {
     id: '40',
@@ -305,6 +461,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   41: {
     id: '41',
@@ -312,6 +472,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   42: {
     id: '42',
@@ -319,6 +483,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   43: {
     id: '43',
@@ -326,6 +494,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   44: {
     id: '44',
@@ -333,6 +505,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   45: {
     id: '45',
@@ -340,6 +516,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   46: {
     id: '46',
@@ -347,6 +527,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   47: {
     id: '47',
@@ -354,6 +538,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   48: {
     id: '48',
@@ -361,6 +549,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   49: {
     id: '49',
@@ -368,6 +560,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   50: {
     id: '50',
@@ -375,6 +571,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   51: {
     id: '51',
@@ -382,6 +582,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   52: {
     id: '52',
@@ -389,6 +593,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   53: {
     id: '53',
@@ -396,6 +604,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   54: {
     id: '54',
@@ -403,6 +615,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   55: {
     id: '55',
@@ -410,6 +626,10 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
   56: {
     id: '56',
@@ -417,5 +637,9 @@ export const books = {
     author: 'William Faulkner',
     publisher: 'HarperCollins Publishers India',
     price: '$20',
+    location: {
+      latitude: '28.7194193',
+      longitude: '77.1279124',
+    },
   },
 };

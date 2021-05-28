@@ -10,5 +10,6 @@ export const Colors = {
   maroon: '#800000',
   purple: '#800080',
   red: '#FF0000',
+  skyBlue: "#ADD8E6",
   white: '#FFFFFF',
 };

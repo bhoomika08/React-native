@@ -187,14 +187,16 @@ PODS:
     - React-cxxreact (= 0.63.4)
     - React-jsi (= 0.63.4)
   - React-jsinspector (0.63.4)
-  - react-native-camera (3.43.5):
+  - react-native-camera (3.43.6):
     - React-Core
-    - react-native-camera/RCT (= 3.43.5)
-    - react-native-camera/RN (= 3.43.5)
-  - react-native-camera/RCT (3.43.5):
+    - react-native-camera/RCT (= 3.43.6)
+    - react-native-camera/RN (= 3.43.6)
+  - react-native-camera/RCT (3.43.6):
     - React-Core
-  - react-native-camera/RN (3.43.5):
+  - react-native-camera/RN (3.43.6):
     - React-Core
+  - react-native-geolocation (2.0.2):
+    - React
   - react-native-image-picker (3.3.2):
     - React-Core
   - react-native-safe-area-context (3.2.0):
@@ -297,6 +299,7 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-camera (from `../node_modules/react-native-camera`)
+  - "react-native-geolocation (from `../node_modules/@react-native-community/geolocation`)"
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
@@ -358,6 +361,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   react-native-camera:
     :path: "../node_modules/react-native-camera"
+  react-native-geolocation:
+    :path: "../node_modules/@react-native-community/geolocation"
   react-native-image-picker:
     :path: "../node_modules/react-native-image-picker"
   react-native-safe-area-context:
@@ -419,7 +424,8 @@ SPEC CHECKSUMS:
   React-jsi: a0418934cf48f25b485631deb27c64dc40fb4c31
   React-jsiexecutor: 93bd528844ad21dc07aab1c67cb10abae6df6949
   React-jsinspector: 58aef7155bc9a9683f5b60b35eccea8722a4f53a
-  react-native-camera: 04a9a85b63d169094db5fd13a0c786101238e925
+  react-native-camera: 9e55a09596b8c4e41eb7d4cce7c39826990c3cac
+  react-native-geolocation: c956aeb136625c23e0dce0467664af2c437888c9
   react-native-image-picker: b42940647478bf106ad3c491d6f5d9d40916d865
   react-native-safe-area-context: f0906bf8bc9835ac9a9d3f97e8bde2a997d8da79
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
