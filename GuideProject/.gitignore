@@ -40,4 +40,4 @@ yarn-error.log
 *.jsbundle
 
 # CocoaPods
-/ios/Pods/
+ios/Pods/
