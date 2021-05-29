@@ -1,7 +1,7 @@
 .DS_Store
 
 # node.js
-/node_modules
+node_modules/
 
 # CocoaPods
 /ios/Pods/
